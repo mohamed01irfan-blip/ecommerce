@@ -141,43 +141,6 @@ def checkout_direct(request, order_id):
 
 
 
-# ------------------- ADMIN ADD PRODUCT -------------------
-@login_required
-@user_passes_test(is_admin)
-def admin_add_product(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        price = request.POST.get('price')
-        stock = request.POST.get('stock')
-        category_id = request.POST.get('category')
-        new_category_name = request.POST.get('new_category')
-
-        # ✅ Handle category
-        if new_category_name:
-            category = Category.objects.create(name=new_category_name)
-        else:
-            category = Category.objects.get(id=category_id)
-
-        # ✅ Create product
-        product = Product.objects.create(
-            name=name,
-            price=price,
-            stock=stock,
-            category=category
-        )
-
-        # ✅ Handle multiple images
-        images = request.FILES.getlist('images')
-        for image in images:
-            ProductImage.objects.create(
-                product=product,
-                image=image
-            )
-
-        return redirect('shop:product_list')
-
-    categories = Category.objects.all()
-    return render(request, 'shop/admin_product_form.html', {'categories': categories})
 
 
 def admin_delete_product(request, id):
@@ -466,20 +429,55 @@ def admin_offers(request):
 @user_passes_test(is_admin)
 def admin_add_product(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        price = request.POST.get('price')
-        category_id = request.POST.get('category')
-        image = request.FILES.get('image')
+        name = request.POST.get('name', '').strip()
+        price = request.POST.get('price', '').strip()
+        stock = request.POST.get('stock', '').strip()
+        category_id = request.POST.get('category', '').strip()
+        new_category = request.POST.get('new_category', '').strip()
 
-        category = Category.objects.get(id=category_id)
+        # Support both existing category selection and new category creation
+        category = None
+        if new_category:
+            category, _ = Category.objects.get_or_create(name=new_category)
+        elif category_id:
+            try:
+                category = Category.objects.get(id=int(category_id))
+            except (Category.DoesNotExist, ValueError, TypeError):
+                messages.error(request, 'Selected category does not exist.')
+                categories = Category.objects.all()
+                return render(request, 'shop/admin_add_product.html', {'categories': categories})
+        else:
+            messages.error(request, 'Please select an existing category or enter a new category.')
+            categories = Category.objects.all()
+            return render(request, 'shop/admin_add_product.html', {'categories': categories})
 
-        Product.objects.create(
+        # Parse stock quantity
+        try:
+            stock_qty = int(stock) if stock else 0
+        except ValueError:
+            stock_qty = 0
+
+        # Handle multiple uploaded images
+        images = request.FILES.getlist('images')
+        primary_image = images[0] if images else request.FILES.get('image')
+
+        # Create product
+        product = Product.objects.create(
             name=name,
             price=price,
+            stock=stock_qty,
             category=category,
-            image=image
+            image=primary_image
         )
 
+        # Save additional gallery images
+        for img in images:
+            ProductImage.objects.create(
+                product=product,
+                image=img
+            )
+
+        messages.success(request, f'Product "{name}" added successfully!')
         return redirect('shop:admin_products')
 
     categories = Category.objects.all()

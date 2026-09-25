@@ -494,57 +494,26 @@ def admin_add_product(request):
         # =========================================================
         # GET CATEGORY DATA
         # =========================================================
-# =========================================================
-# GET CATEGORY DATA
-# =========================================================
+        category_id = request.POST.get('category', '').strip()
+        new_category = request.POST.get('new_category', '').strip()
 
-    category_id = request.POST.get('category', '').strip()
-    new_category = request.POST.get('new_category', '').strip()
+        category = None
 
-    category = None
-
-    # =========================================================
-    # SELECT EXISTING CATEGORY
-    # =========================================================
-
-    if category_id:
-
-        try:
-            category = Category.objects.get(
-                id=int(category_id)
+        if new_category:
+            category, created = Category.objects.get_or_create(
+                name=new_category
             )
-
-        except (Category.DoesNotExist, ValueError, TypeError):
-
-            messages.error(
-                request,
-                'Selected category is invalid.'
-            )
-
+        elif category_id:
+            try:
+                category = Category.objects.get(id=int(category_id))
+            except (Category.DoesNotExist, ValueError, TypeError):
+                messages.error(request, "Invalid category selected.")
+                return redirect('admin_add_product')
+        else:
+            messages.error(request, "Please select or create a category.")
             return redirect('admin_add_product')
 
-    # =========================================================
-    # CREATE NEW CATEGORY
-    # =========================================================
-
-    elif new_category:
-
-        category, created = Category.objects.get_or_create(
-            name=new_category
-        )
-
-    # =========================================================
-    # CATEGORY REQUIRED
-    # =========================================================
-
-    else:
-
-        messages.error(
-            request,
-            'Please select or enter a category.'
-        )
-
-        return redirect('admin_add_product')     # =========================================================
+        # =========================================================
         # GET IMAGE
         # =========================================================
 
