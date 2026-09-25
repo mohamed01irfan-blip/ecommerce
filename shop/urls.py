@@ -50,6 +50,8 @@ urlpatterns = [
 
     path('categories/', views.admin_categories, name='admin_categories'),
     path('categories/add/', views.admin_add_category, name='admin_add_category'),
+    path('categories/edit/<int:id>/', views.admin_edit_category, name='admin_edit_category'),
+    path('categories/delete/<int:id>/', views.admin_delete_category, name='admin_delete_category'),
 
     # ✅ FIXED OFFERS
     path('offers/admin/', views.admin_offers, name='admin_offers'),

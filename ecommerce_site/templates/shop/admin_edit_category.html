@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Add Category - Admin Dashboard{% endblock %}
+{% block title %}Edit Category - Admin Dashboard{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -65,7 +65,7 @@
             <span class="badge bg-warning bg-opacity-25 text-warning px-3 py-1 rounded-pill small mb-2">
                 <i class="bi bi-speedometer2 me-1"></i> Admin Portal
             </span>
-            <h1 class="fw-bold text-white mb-0">Create New Category</h1>
+            <h1 class="fw-bold text-white mb-0">Edit Category</h1>
         </div>
         <a href="{% url 'shop:admin_categories' %}" class="btn btn-outline-light rounded-pill px-3 py-2 small border-opacity-25">
             <i class="bi bi-arrow-left me-1"></i> Back to Categories
@@ -75,17 +75,36 @@
     <div class="card p-4 border-0 shadow-lg" data-tilt-3d style="background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(16px); border-radius: 22px; border: 1px solid rgba(255, 255, 255, 0.12);">
         <form method="POST">
             {% csrf_token %}
-            <div class="mb-4">
+            <div class="mb-3">
                 <label class="form-label text-white fw-semibold mb-2">
-                    <i class="bi bi-tag me-1 text-primary"></i> Category Name *
+                    <i class="bi bi-tag-fill me-1 text-primary"></i> Category Name *
                 </label>
-                <input type="text" name="name" class="form-control" placeholder="e.g. Smartphones & Gadgets" required
-                    style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 14px; padding: 12px 18px; color: #fff;">
+                <input type="text" 
+                       name="name" 
+                       value="{{ category.name }}" 
+                       class="form-control" 
+                       placeholder="e.g. Smartphones & Gadgets" 
+                       required
+                       style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 14px; padding: 12px 18px; color: #fff;">
             </div>
 
-            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold fs-6 d-flex align-items-center justify-content-center gap-2">
-                <i class="bi bi-check-circle-fill"></i> Save Category
-            </button>
+            <div class="p-3 mb-4 rounded-3 d-flex align-items-center justify-content-between" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08);">
+                <div class="text-white-50 small">
+                    <i class="bi bi-box-seam me-1 text-info"></i> Currently Assigned Products:
+                </div>
+                <span class="badge bg-primary bg-opacity-25 text-white border border-primary border-opacity-25 px-3 py-1 rounded-pill">
+                    {{ category.product_set.count }} Item{% if category.product_set.count != 1 %}s{% endif %}
+                </span>
+            </div>
+
+            <div class="d-flex gap-3">
+                <a href="{% url 'shop:admin_categories' %}" class="btn btn-outline-light rounded-pill py-3 px-4 flex-grow-1 text-center border-opacity-25">
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-primary rounded-pill py-3 px-4 flex-grow-1 fw-bold fs-6 d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-check-circle-fill"></i> Update Category
+                </button>
+            </div>
         </form>
     </div>
 </div>

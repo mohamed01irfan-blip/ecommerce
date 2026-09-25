@@ -187,13 +187,18 @@
 <div class="admin-nav">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'shop:admin_dashboard' %}">
+            <a class="nav-link active" href="{% url 'shop:admin_dashboard' %}">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'shop:admin_products' %}">
                 <i class="bi bi-box-seam"></i> Products
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'shop:admin_categories' %}">
+                <i class="bi bi-folder2-open"></i> Categories
             </a>
         </li>
         <li class="nav-item">

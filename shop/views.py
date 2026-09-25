@@ -384,8 +384,17 @@ def admin_products(request):
 @user_passes_test(is_admin)
 def admin_add_category(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
+        name = request.POST.get('name', '').strip()
+        if not name:
+            messages.error(request, 'Category name cannot be empty.')
+            return render(request, 'shop/admin_add_category.html')
+
+        if Category.objects.filter(name__iexact=name).exists():
+            messages.error(request, f'Category "{name}" already exists.')
+            return render(request, 'shop/admin_add_category.html', {'name': name})
+
         Category.objects.create(name=name)
+        messages.success(request, f'Category "{name}" created successfully!')
         return redirect('shop:admin_categories')
 
     return render(request, 'shop/admin_add_category.html')
@@ -396,6 +405,51 @@ def admin_add_category(request):
 def admin_categories(request):
     categories = Category.objects.all()
     return render(request, 'shop/admin_categories.html', {'categories': categories})
+
+
+@login_required
+@user_passes_test(is_admin)
+def admin_edit_category(request, id):
+    category = get_object_or_404(Category, id=id)
+
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        if not name:
+            messages.error(request, 'Category name cannot be empty.')
+            return render(request, 'shop/admin_edit_category.html', {'category': category})
+
+        if Category.objects.filter(name__iexact=name).exclude(id=category.id).exists():
+            messages.error(request, f'Another category with the name "{name}" already exists.')
+            return render(request, 'shop/admin_edit_category.html', {'category': category})
+
+        old_name = category.name
+        category.name = name
+        category.save()
+        messages.success(request, f'Category "{old_name}" updated to "{name}" successfully!')
+        return redirect('shop:admin_categories')
+
+    return render(request, 'shop/admin_edit_category.html', {'category': category})
+
+
+@login_required
+@user_passes_test(is_admin)
+def admin_delete_category(request, id):
+    category = get_object_or_404(Category, id=id)
+
+    # Prevent deletion if category has products assigned to it
+    product_count = category.product_set.count()
+    if product_count > 0:
+        messages.error(
+            request,
+            f'Cannot delete category "{category.name}" because it has {product_count} product(s) assigned to it. '
+            'Please reassign or delete these products first.'
+        )
+        return redirect('shop:admin_categories')
+
+    category_name = category.name
+    category.delete()
+    messages.success(request, f'Category "{category_name}" was deleted successfully!')
+    return redirect('shop:admin_categories')
 
 
 @login_required
