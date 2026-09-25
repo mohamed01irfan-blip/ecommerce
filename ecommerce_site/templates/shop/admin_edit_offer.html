@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Offer{% endblock %}
+
+{% block extra_css %}
+<style>
+    .offer-container {
+        background: rgba(255,255,255,0.06);
+        backdrop-filter: blur(12px);
+        padding: 2rem;
+        border-radius: 20px;
+        color: white;
+        max-width: 700px;
+        margin: auto;
+    }
+
+    .form-control,
+    .form-check-input {
+        background: rgba(255,255,255,0.08);
+        border: none;
+        color: white;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255,255,255,0.6);
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border: 1px solid var(--primary-color);
+    }
+
+    .preview-img {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 10px;
+    }
+
+    .btn-custom {
+        border-radius: 10px;
+        padding: 8px 16px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="offer-container">
+
+    <!-- HEADER -->
+    <h3 class="fw-bold mb-4">
+        <i class="bi bi-pencil-square"></i> Edit Offer
+    </h3>
+
+    <!-- FORM -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- TITLE -->
+        <div class="mb-3">
+            <label class="form-label">Offer Title</label>
+            <input type="text" 
+                   name="title" 
+                   value="{{ offer.title }}" 
+                   class="form-control" 
+                   required>
+        </div>
+
+        <!-- CURRENT IMAGE -->
+        <div class="mb-3">
+            <label class="form-label">Current Image</label><br>
+            <img src="{{ offer.image.url }}" class="preview-img">
+        </div>
+
+        <!-- CHANGE IMAGE -->
+        <div class="mb-3">
+            <label class="form-label">Change Image</label>
+            <input type="file" name="image" class="form-control">
+        </div>
+
+        <!-- ACTIVE TOGGLE -->
+        <div class="form-check form-switch mb-4">
+            <input class="form-check-input" 
+                   type="checkbox" 
+                   name="is_active" 
+                   id="activeSwitch"
+                   {% if offer.is_active %}checked{% endif %}>
+            <label class="form-check-label" for="activeSwitch">
+                Active Offer
+            </label>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'shop:admin_offers' %}" 
+               class="btn btn-secondary btn-custom">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+
+            <button type="submit" 
+                    class="btn btn-success btn-custom">
+                <i class="bi bi-check-circle"></i> Update Offer
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

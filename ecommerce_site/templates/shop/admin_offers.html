@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Offers{% endblock %}
+
+{% block extra_css %}
+<style>
+    .offer-container {
+        background: rgba(255,255,255,0.06);
+        backdrop-filter: blur(12px);
+        padding: 2rem;
+        border-radius: 20px;
+        color: white;
+    }
+
+    .offer-card {
+        background: rgba(255,255,255,0.05);
+        border-radius: 15px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.3s;
+    }
+
+    .offer-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .offer-img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    .btn-custom {
+        border-radius: 10px;
+        padding: 6px 12px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="offer-container">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">
+            <i class="bi bi-tag"></i> Offers
+        </h3>
+
+        <a href="{% url 'shop:admin_add_offer' %}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Add Offer
+        </a>
+    </div>
+
+    <!-- OFFER LIST -->
+    {% for offer in offers %}
+    <div class="offer-card">
+
+        <div class="d-flex align-items-center gap-3">
+            <img src="{{ offer.image.url }}" class="offer-img">
+            <h5 class="mb-0">{{ offer.title }}</h5>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div>
+            <!-- EDIT -->
+            <a href="{% url 'shop:admin_edit_offer' offer.id %}" 
+               class="btn btn-warning btn-sm btn-custom">
+                <i class="bi bi-pencil"></i>
+            </a>
+
+            <!-- DELETE (SAFE POST) -->
+            <form action="{% url 'shop:admin_delete_offer' offer.id %}" 
+                  method="POST" 
+                  style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" 
+                        class="btn btn-danger btn-sm btn-custom"
+                        onclick="return confirm('Delete this offer?')">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    {% empty %}
+        <p class="text-center text-muted">No offers available.</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

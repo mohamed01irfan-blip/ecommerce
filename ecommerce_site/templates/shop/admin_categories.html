@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ {% extends 'base.html' %}
+
+{% block content %}
+<h2>Categories</h2>
+
+<a href="{% url 'shop:admin_add_category' %}" class="btn btn-success mb-3">
+    Add Category
+</a>
+
+<div class="card p-3">
+    <ul class="list-group">
+        {% for category in categories %}
+            <li class="list-group-item">
+                {{ category.name }}
+            </li>
+        {% empty %}
+            <li class="list-group-item text-muted">
+                No categories yet
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+</body>
+</html>

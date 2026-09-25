@@ -1,214 +1,425 @@
 {% extends 'base.html' %}
 
-{% block title %}Checkout - ShopEase{% endblock %}
+{% block title %}Secure Checkout - ShopEase 3D{% endblock %}
 
 {% block extra_css %}
 <style>
-    .checkout-container {
-        max-width: 900px;
-        margin: 0 auto;
-    }
+/* =========================================================
+   CHECKOUT - 3D GLASSMORPHIC PURCHASE EXPERIENCE
+   ========================================================= */
 
-    .checkout-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        margin-bottom: 2rem;
-    }
+.checkout-wrapper {
+    max-width: 1140px;
+    margin: 1.5rem auto 4.5rem;
+}
 
-    .section-title {
-        font-weight: 700;
-        color: var(--dark);
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 3px solid var(--primary-color);
-    }
+.checkout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-    .payment-qr {
-        max-width: 300px;
-        margin: 2rem auto;
-        padding: 1.5rem;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
+.checkout-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-    .payment-qr img {
-        width: 100%;
-        border-radius: 15px;
-    }
+.checkout-glass-card {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 24px;
+    padding: 2.2rem;
+    margin-bottom: 2rem;
+    color: #ffffff;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+}
 
-    .order-summary-item {
-        padding: 1rem;
-        background: #f8f9fa;
-        border-radius: 15px;
-        margin-bottom: 1rem;
-    }
+.checkout-section-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-    .form-control, .form-select {
-        border-radius: 15px;
-        padding: 0.75rem 1rem;
-        border: 2px solid #e0e0e0;
-    }
+/* Form Controls */
+.form-label-custom {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
 
-    .form-control:focus, .form-select:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
-    }
+.input-glass {
+    background: rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 14px !important;
+    padding: 12px 18px !important;
+    color: #ffffff !important;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
 
-    .upload-area {
-        border: 2px dashed var(--primary-color);
-        border-radius: 15px;
-        padding: 2rem;
-        text-align: center;
-        background: #fff5f2;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+.input-glass:focus {
+    background: rgba(0, 0, 0, 0.35) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.35) !important;
+    color: #ffffff !important;
+}
 
-    .upload-area:hover {
-        background: #ffe5dc;
-        border-color: var(--accent-color);
-    }
+.input-glass::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
 
-    .upload-area i {
-        font-size: 3rem;
-        color: var(--primary-color);
-    }
+/* Upload Dropzone */
+.dropzone-glass {
+    border: 2px dashed rgba(255, 107, 53, 0.45);
+    border-radius: 18px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    background: rgba(255, 107, 53, 0.04);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.dropzone-glass:hover, .dropzone-glass.dragover {
+    border-color: #ff8c42;
+    background: rgba(255, 107, 53, 0.09);
+    box-shadow: 0 0 25px rgba(255, 107, 53, 0.2);
+}
+
+.dropzone-icon {
+    font-size: 2.8rem;
+    color: #ff8c42;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+}
+
+.dropzone-input-file {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+.preview-container {
+    display: none;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.preview-img {
+    max-height: 160px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* QR Code & Payment Card */
+.qr-payment-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(13, 202, 240, 0.08) 100%);
+    border: 1px solid rgba(13, 202, 240, 0.3);
+    border-radius: 20px;
+    padding: 1.8rem;
+    text-align: center;
+    margin-bottom: 1.8rem;
+}
+
+.qr-box {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 14px;
+    display: inline-block;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    margin-bottom: 1rem;
+}
+
+.qr-box svg, .qr-box img {
+    display: block;
+    width: 160px;
+    height: 160px;
+}
+
+.upi-id-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-family: monospace;
+    color: #ffaa6b;
+}
+
+/* Summary Details */
+.summary-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.summary-item-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.summary-item-price {
+    font-weight: 700;
+    color: #ffaa6b;
+}
+
+.total-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="checkout-container">
-    <h2 class="mb-4 fw-bold text-center">
-        <i class="bi bi-credit-card"></i> Checkout
-    </h2>
+<div class="checkout-wrapper">
 
-    <div class="row">
-        <div class="col-lg-7">
-            <div class="checkout-card animate-fade-in">
-                <h4 class="section-title">
-                    <i class="bi bi-person-circle"></i> Customer Details
-                </h4>
-                
-                <form method="post" enctype="multipart/form-data" id="checkoutForm">
-                    {% csrf_token %}
-                    
-                    <div class="mb-3">
-                        <label for="id_customer_name" class="form-label fw-bold">Full Name *</label>
-                        {{ form.customer_name }}
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="id_email" class="form-label fw-bold">Email Address *</label>
-                        {{ form.email }}
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="id_phone" class="form-label fw-bold">Phone Number *</label>
-                        {{ form.phone }}
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="id_address" class="form-label fw-bold">Delivery Address *</label>
-                        {{ form.address }}
-                    </div>
-
-                    <h4 class="section-title mt-4">
-                        <i class="bi bi-qr-code-scan"></i> Payment Information
-                    </h4>
-
-                    <div class="alert alert-info">
-                        <i class="bi bi-info-circle"></i> 
-                        <strong>Payment Instructions:</strong>
-                        <ol class="mb-0 mt-2">
-                            <li>Scan the QR code below or use the payment details</li>
-                            <li>Pay the total amount: <strong>₹{{ total }}</strong></li>
-                            <li>Take a screenshot of the payment confirmation</li>
-                            <li>Upload the screenshot below</li>
-                        </ol>
-                    </div>
-
-                    <div class="payment-qr">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%23fff' width='200' height='200'/%3E%3Cg fill='%23000'%3E%3Crect x='10' y='10' width='15' height='15'/%3E%3Crect x='30' y='10' width='15' height='15'/%3E%3Crect x='50' y='10' width='15' height='15'/%3E%3Crect x='70' y='10' width='15' height='15'/%3E%3Crect x='90' y='10' width='15' height='15'/%3E%3Crect x='130' y='10' width='15' height='15'/%3E%3Crect x='150' y='10' width='15' height='15'/%3E%3Crect x='170' y='10' width='15' height='15'/%3E%3Crect x='10' y='30' width='15' height='15'/%3E%3Crect x='90' y='30' width='15' height='15'/%3E%3Crect x='130' y='30' width='15' height='15'/%3E%3Crect x='170' y='30' width='15' height='15'/%3E%3Crect x='10' y='50' width='15' height='15'/%3E%3Crect x='30' y='50' width='15' height='15'/%3E%3Crect x='50' y='50' width='15' height='15'/%3E%3Crect x='70' y='50' width='15' height='15'/%3E%3Crect x='90' y='50' width='15' height='15'/%3E%3Crect x='130' y='50' width='15' height='15'/%3E%3Crect x='150' y='50' width='15' height='15'/%3E%3Crect x='170' y='50' width='15' height='15'/%3E%3Crect x='10' y='70' width='15' height='15'/%3E%3Crect x='90' y='70' width='15' height='15'/%3E%3Crect x='130' y='70' width='15' height='15'/%3E%3Crect x='170' y='70' width='15' height='15'/%3E%3Crect x='10' y='90' width='15' height='15'/%3E%3Crect x='30' y='90' width='15' height='15'/%3E%3Crect x='50' y='90' width='15' height='15'/%3E%3Crect x='70' y='90' width='15' height='15'/%3E%3Crect x='90' y='90' width='15' height='15'/%3E%3Crect x='130' y='90' width='15' height='15'/%3E%3Crect x='150' y='90' width='15' height='15'/%3E%3Crect x='170' y='90' width='15' height='15'/%3E%3C/g%3E%3C/svg%3E" alt="Payment QR Code">
-                        <div class="mt-3">
-                            <p class="mb-1"><strong>UPI ID:</strong> shopease@upi</p>
-                            <p class="mb-0"><strong>Amount:</strong> ₹{{ total }}</p>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-bold">Upload Payment Screenshot *</label>
-                        <div class="upload-area" onclick="document.getElementById('id_payment_screenshot').click();">
-                            <i class="bi bi-cloud-upload"></i>
-                            <p class="mt-2 mb-0 fw-bold">Click to upload payment proof</p>
-                            <p class="text-muted small">Supports: JPG, PNG (Max 5MB)</p>
-                        </div>
-                        {{ form.payment_screenshot }}
-                        <div id="fileName" class="mt-2 text-success fw-bold"></div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100 btn-lg">
-                        <i class="bi bi-check-circle"></i> Place Order
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="col-lg-5">
-            <div class="checkout-card animate-fade-in" style="animation-delay: 200ms;">
-                <h4 class="section-title">
-                    <i class="bi bi-bag-check"></i> Order Summary
-                </h4>
-
-                {% for item in cart_items %}
-                    <div class="order-summary-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="mb-1 fw-bold">{{ item.product.name }}</h6>
-                                <p class="text-muted mb-0 small">Qty: {{ item.quantity }} × ₹{{ item.product.price }}</p>
-                            </div>
-                            <span class="fw-bold" style="color: var(--primary-color);">₹{{ item.get_total }}</span>
-                        </div>
-                    </div>
-                {% endfor %}
-
-                <hr>
-
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Subtotal:</span>
-                    <span class="fw-bold">₹{{ total }}</span>
-                </div>
-
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Shipping:</span>
-                    <span class="text-success fw-bold">FREE</span>
-                </div>
-
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Tax:</span>
-                    <span class="fw-bold">₹0</span>
-                </div>
-
-                <hr>
-
-                <div class="d-flex justify-content-between">
-                    <span class="fw-bold" style="font-size: 1.2rem;">Total:</span>
-                    <span class="fw-bold" style="font-size: 1.5rem; color: var(--primary-color); font-family: 'Space Mono', monospace;">₹{{ total }}</span>
-                </div>
-            </div>
+    <div class="checkout-header">
+        <h1 class="checkout-title">
+            <i class="bi bi-shield-lock-fill text-primary"></i>
+            {% if direct_buy %}Instant Buy Checkout{% else %}Secure Order Checkout{% endif %}
+        </h1>
+        <div class="text-white-50 small d-flex align-items-center gap-2">
+            <i class="bi bi-patch-check-fill text-success"></i> 256-Bit SSL Encrypted
         </div>
     </div>
-</div>
 
+    {% if error %}
+    <div class="alert alert-danger border-0 text-white shadow-lg mb-4" style="background: rgba(255, 51, 102, 0.85); backdrop-filter: blur(10px); border-radius: 14px;">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row g-4">
+            <!-- LEFT COLUMN: SHIPPING & CUSTOMER DETAILS -->
+            <div class="col-lg-7">
+                <div class="checkout-glass-card" data-tilt-3d>
+                    <div class="checkout-section-title">
+                        <i class="bi bi-person-lines-fill text-warning"></i> 1. Shipping & Customer Details
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label-custom"><i class="bi bi-person"></i> Full Name *</label>
+                        <input type="text" name="customer_name" class="form-control input-glass" value="{% if user.is_authenticated %}{{ user.get_full_name|default:user.username }}{% endif %}" placeholder="Enter your full legal name" required>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label-custom"><i class="bi bi-envelope"></i> Email Address *</label>
+                            <input type="email" name="email" class="form-control input-glass" value="{% if user.is_authenticated %}{{ user.email }}{% endif %}" placeholder="name@example.com" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label-custom"><i class="bi bi-telephone"></i> Phone Number *</label>
+                            <input type="tel" name="phone" class="form-control input-glass" placeholder="+91 9876543210" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label-custom"><i class="bi bi-geo-alt"></i> Complete Delivery Address *</label>
+                        <textarea name="address" class="form-control input-glass" rows="3" placeholder="House/Flat No., Street, Landmark, City, State, Pincode" required></textarea>
+                    </div>
+
+                    <div class="checkout-section-title mt-4">
+                        <i class="bi bi-cloud-arrow-up-fill text-info"></i> 2. Upload Payment Proof *
+                    </div>
+
+                    <p class="text-white-50 small mb-3">
+                        Scan the UPI QR code on the right, complete payment for the exact order total, and attach your transaction screenshot below.
+                    </p>
+
+                    <div class="dropzone-glass" id="dropzoneBox">
+                        <input type="file" name="payment_screenshot" id="paymentScreenshotInput" class="dropzone-input-file" accept="image/*" required>
+                        <i class="bi bi-file-earmark-arrow-up dropzone-icon"></i>
+                        <h6 class="text-white fw-bold mb-1" id="dropzonePrompt">Click or Drag & Drop Payment Screenshot</h6>
+                        <p class="text-white-50 extra-small mb-0" id="dropzoneSub">Supports JPG, PNG, WEBP (Max 10MB)</p>
+
+                        <div class="preview-container" id="previewContainer">
+                            <img src="" alt="Screenshot Preview" class="preview-img" id="screenshotPreview">
+                            <div class="mt-2 text-success small fw-semibold" id="previewFileName"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-3 mt-4 fs-5 fw-bold d-flex align-items-center justify-content-center gap-2">
+                        <i class="bi bi-check-circle-fill"></i> Submit & Place Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: QR PAYMENT & ORDER SUMMARY -->
+            <div class="col-lg-5">
+                <!-- QR Payment Card -->
+                <div class="qr-payment-card" data-tilt-3d>
+                    <span class="badge bg-info bg-opacity-25 text-info border border-info border-opacity-25 px-3 py-1 rounded-pill small mb-2">
+                        <i class="bi bi-upc-scan me-1"></i> Scan & Pay
+                    </span>
+                    <h5 class="fw-bold text-white mb-2">UPI Direct Payment</h5>
+                    <p class="text-white-50 extra-small mb-3">
+                        Scan with Google Pay, PhonePe, Paytm, or any UPI banking app
+                    </p>
+
+                    <div class="qr-box">
+                        <!-- Standard UPI QR Code Representation -->
+                        <svg viewBox="0 0 100 100" fill="#111827">
+                            <path d="M0,0 h30 v30 h-30 z M6,6 h18 v18 h-18 z M10,10 h10 v10 h-10 z" />
+                            <path d="M70,0 h30 v30 h-30 z M76,6 h18 v18 h-18 z M80,10 h10 v10 h-10 z" />
+                            <path d="M0,70 h30 v30 h-30 z M6,76 h18 v18 h-18 z M10,80 h10 v10 h-10 z" />
+                            <rect x="40" y="8" width="6" height="14" />
+                            <rect x="52" y="8" width="8" height="6" />
+                            <rect x="40" y="24" width="20" height="6" />
+                            <rect x="8" y="40" width="14" height="6" />
+                            <rect x="24" y="40" width="6" height="20" />
+                            <rect x="8" y="52" width="6" height="8" />
+                            <rect x="38" y="38" width="24" height="24" fill="#ff6b35" />
+                            <rect x="70" y="40" width="10" height="6" />
+                            <rect x="84" y="40" width="10" height="12" />
+                            <rect x="70" y="52" width="12" height="8" />
+                            <rect x="40" y="70" width="6" height="22" />
+                            <rect x="50" y="76" width="16" height="6" />
+                            <rect x="70" y="70" width="12" height="12" />
+                            <rect x="86" y="80" width="8" height="12" />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <div class="upi-id-badge">
+                            <span id="upiIdText">pay-shopease@okaxis</span>
+                            <button type="button" class="btn btn-sm text-white p-0" onclick="copyUpiId()" title="Copy UPI ID">
+                                <i class="bi bi-clipboard"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary Card -->
+                <div class="checkout-glass-card" data-tilt-3d>
+                    <div class="checkout-section-title">
+                        <i class="bi bi-bag-check text-success"></i> Order Summary
+                    </div>
+
+                    <!-- Items List -->
+                    {% if direct_buy and order %}
+                        {% for item in order.items.all %}
+                        <div class="summary-item-row">
+                            <div>
+                                <div class="summary-item-name">{{ item.product.name }}</div>
+                                <div class="text-white-50 extra-small">Qty: {{ item.quantity }} × ₹{{ item.price }}</div>
+                            </div>
+                            <div class="summary-item-price">₹{{ item.get_total }}</div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        {% for item in cart_items %}
+                        <div class="summary-item-row">
+                            <div>
+                                <div class="summary-item-name">{{ item.product.name }}</div>
+                                <div class="text-white-50 extra-small">Qty: {{ item.quantity }} × ₹{{ item.product.price }}</div>
+                            </div>
+                            <div class="summary-item-price">₹{{ item.get_total }}</div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- Pricing Math -->
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between text-white-50 small mb-2">
+                            <span>Subtotal</span>
+                            <span class="text-white fw-bold">₹{% if direct_buy and order %}{{ order.total_amount }}{% else %}{{ total }}{% endif %}</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-white-50 small mb-2">
+                            <span>Shipping</span>
+                            <span class="text-success fw-bold">FREE</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-white-50 small">
+                            <span>Estimated Tax</span>
+                            <span class="text-white fw-bold">₹0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="total-summary-row">
+                        <span class="fw-bold fs-5 text-white">Amount Due:</span>
+                        <span class="fw-bold fs-3 text-warning">
+                            ₹{% if direct_buy and order %}{{ order.total_amount }}{% else %}{{ total }}{% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
 <script>
-    document.getElementById('id_payment_screenshot').addEventListener('change', function(e) {
-        const fileName = e.target.files[0]?.name;
-        if (fileName) {
-            document.getElementById('fileName').innerHTML = '<i class="bi bi-check-circle-fill"></i> ' + fileName;
+function copyUpiId() {
+    const upi = document.getElementById('upiIdText').innerText;
+    navigator.clipboard.writeText(upi).then(() => {
+        alert("UPI ID (" + upi + ") copied to clipboard!");
+    });
+}
+
+// Screenshot preview handler
+const fileInput = document.getElementById('paymentScreenshotInput');
+const previewContainer = document.getElementById('previewContainer');
+const screenshotPreview = document.getElementById('screenshotPreview');
+const previewFileName = document.getElementById('previewFileName');
+const dropzonePrompt = document.getElementById('dropzonePrompt');
+const dropzoneSub = document.getElementById('dropzoneSub');
+
+if (fileInput) {
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                screenshotPreview.src = evt.target.result;
+                previewContainer.style.display = 'block';
+                previewFileName.innerHTML = '<i class="bi bi-check-circle-fill"></i> ' + file.name;
+                dropzonePrompt.innerText = 'File Selected: ' + file.name;
+                dropzoneSub.innerText = 'Click again to replace file';
+            };
+            reader.readAsDataURL(file);
         }
     });
+}
 </script>
 {% endblock %}

@@ -3,23 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}ShopEase - Modern E-Commerce{% endblock %}</title>
-    
-    <!-- Bootstrap CSS -->
+    <title>{% block title %}ShopEase - Modern UI{% endblock %}</title>
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary-color: #FF6B35;
-            --secondary-color: #004E89;
-            --accent-color: #F77F00;
-            --dark: #1A1A2E;
-            --light: #F8F9FA;
-            --success: #06D6A0;
+            --primary: #ff6b35;
+            --primary-hover: #ff521a;
+            --primary-color: #ff6b35;
+            --accent: #ff8c42;
+            --accent-hover: #ffa166;
+            --accent-color: #ff8c42;
+            --dark: #0b0f19;
+            --dark-card: rgba(15, 23, 42, 0.65);
+            --success: #00d26a;
+            --success-glow: rgba(0, 210, 106, 0.35);
+            --warning: #ffb800;
+            --danger: #ff4757;
+            --info: #0dcaf0;
+            --info-glow: rgba(13, 202, 240, 0.35);
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-card: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-border-focus: rgba(255, 107, 53, 0.5);
+            --glass-blur: blur(16px);
+            --neon-glow: 0 0 25px rgba(255, 107, 53, 0.35);
         }
 
         * {
@@ -28,276 +45,803 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            color: var(--dark);
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* Navbar Styles */
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0b0f19 0%, #152238 45%, #1a1630 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+            animation: fadePage 0.6s ease;
+        }
+
+        @keyframes fadePage {
+            from {opacity: 0; transform: translateY(8px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        /* NAVBAR */
         .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 1rem 0;
+            background: rgba(11, 15, 25, 0.82) !important;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+            z-index: 1030;
         }
 
         .navbar-brand {
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            font-weight: 800;
+            font-size: 1.55rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ff6b35 0%, #ffaa6b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.03);
+        }
+
+        .navbar-brand i {
+            -webkit-text-fill-color: initial;
+            color: #ff6b35;
+            filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.6));
         }
 
         .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
             font-weight: 500;
-            color: var(--dark) !important;
-            margin: 0 0.5rem;
-            transition: all 0.3s ease;
-            position: relative;
+            padding: 0.5rem 1rem !important;
+            border-radius: 12px;
+            transition: all 0.25s ease;
         }
 
         .nav-link:hover {
-            color: var(--primary-color) !important;
+            color: #ff8c42 !important;
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-1px);
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
+        /* SEARCH BAR */
+        .search-bar {
+            width: 38%;
+            position: relative;
         }
 
-        .nav-link:hover::after {
+        .search-bar input {
             width: 100%;
+            padding: 10px 48px 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            backdrop-filter: blur(12px);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.14);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-bar button:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 12px rgba(255, 107, 53, 0.6);
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--glass-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            color: #ffffff;
+            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 107, 53, 0.35);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 0 25px rgba(255, 107, 53, 0.15);
+        }
+
+        /* BUTTONS */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 50px;
+            padding: 0.65rem 1.6rem;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-hover), var(--accent-hover));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+            color: #ffffff;
         }
 
         .btn-cart {
-            position: relative;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             border: none;
-            color: white;
-            padding: 0.5rem 1.5rem;
             border-radius: 50px;
+            color: white;
+            padding: 8px 18px;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-weight: 600;
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.35);
+            transition: all 0.25s ease;
         }
 
         .btn-cart:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 8px 22px rgba(255, 107, 53, 0.5);
+            color: white;
         }
 
         .cart-badge {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--secondary-color);
+            top: -6px;
+            right: -6px;
+            background: #ff3366;
             color: white;
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
+            padding: 2px 7px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            box-shadow: 0 0 10px rgba(255, 51, 102, 0.7);
+            animation: pulseBadge 2s infinite;
+        }
+
+        @keyframes pulseBadge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* DROPDOWNS */
+        .dropdown-menu {
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 0.6rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .dropdown-item {
+            color: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 107, 53, 0.15);
+            color: #ff8c42;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: rgba(9, 13, 22, 0.85);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 80px;
+            padding: 60px 0 30px;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .footer-brand {
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .footer-heading {
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .footer-heading::after {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            margin-top: 6px;
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.65rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: white;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        /* Card Styles */
-        .card {
-            border: none;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Button Styles */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
+            margin-right: 8px;
+            text-decoration: none;
             transition: all 0.3s ease;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
-        }
-
-        .btn-outline-primary {
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            background: transparent;
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline-primary:hover {
-            background: var(--primary-color);
+        .social-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
         }
 
-        /* Alert Styles */
-        .alert {
-            border-radius: 15px;
-            border: none;
-            padding: 1rem 1.5rem;
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.9rem;
         }
 
-        /* Footer */
-        .footer {
-            background: var(--dark);
-            color: white;
-            padding: 2rem 0;
-            margin-top: 4rem;
+        /* ANIMATION */
+        .animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+        .animate.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media(max-width: 991px) {
+            .search-bar {
+                width: 100%;
+                margin: 12px 0;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            .navbar-collapse {
+                background: rgba(11, 15, 25, 0.95);
+                padding: 1.2rem;
+                border-radius: 18px;
+                border: 1px solid var(--glass-border);
+                margin-top: 10px;
             }
         }
 
-        .animate-fade-in {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .navbar-brand {
-                font-size: 1.2rem;
-            }
+        /* 3D Canvas Background */
+        #webgl-3d-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.75;
         }
     </style>
 
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <i class="bi bi-bag-heart-fill"></i> ShopEase
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
+<canvas id="webgl-3d-bg"></canvas>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'shop:home' %}">
+            <i class="bi bi-box-seam-fill"></i>
+            <span>ShopEase</span>
+        </a>
+
+        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Toggle navigation">
+            <i class="bi bi-list fs-2 text-white"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+            <!-- SEARCH -->
+            <form method="GET" action="{% url 'shop:search' %}" class="search-bar mx-lg-auto">
+                <input type="text" name="q" placeholder="Search curated products..." autocomplete="off">
+                <button type="submit" aria-label="Search"><i class="fa fa-search"></i></button>
+            </form>
+
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'shop:home' %}">
+                        <i class="bi bi-house-door me-1"></i> Home
+                    </a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">
-                            <i class="bi bi-house-fill"></i> Home
+                        <a class="nav-link text-warning fw-bold" href="{% url 'shop:admin_dashboard' %}">
+                            <i class="bi bi-speedometer2 me-1"></i> Dashboard
                         </a>
                     </li>
-                    
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'my_orders' %}">
-                                <i class="bi bi-box-seam"></i> My Orders
-                            </a>
-                        </li>
-                        
-                        {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'admin_dashboard' %}">
-                                    <i class="bi bi-speedometer2"></i> Admin
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shop:my_orders' %}">
+                            <i class="bi bi-clock-history me-1"></i> My Orders
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'shop:cart' %}" class="nav-link p-0">
+                            <button class="btn btn-cart">
+                                <i class="bi bi-bag"></i>
+                                <span>Cart</span>
+                                {% if cart_count > 0 %}
+                                <span class="cart-badge">{{ cart_count }}</span>
+                                {% endif %}
+                            </button>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-inline-flex align-items-center gap-2" href="#" data-bs-toggle="dropdown">
+                            <span class="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle text-white" style="width: 28px; height: 28px; font-size: 0.8rem; font-weight: 700;">
+                                {{ user.username|first|upper }}
+                            </span>
+                            <span>{{ user.username }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <div class="px-3 py-1 text-muted small">Signed in as <strong>{{ user.username }}</strong></div>
+                            </li>
+                            <li><hr class="dropdown-divider border-secondary opacity-25"></li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'shop:my_orders' %}">
+                                    <i class="bi bi-box2 me-2"></i> All Orders
                                 </a>
                             </li>
-                        {% endif %}
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'cart' %}">
-                                <button class="btn btn-cart">
-                                    <i class="bi bi-cart3"></i> Cart
-                                    {% if cart_count > 0 %}
-                                        <span class="cart-badge">{{ cart_count }}</span>
-                                    {% endif %}
-                                </button>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="bi bi-person-circle"></i> {{ user.username }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'logout' %}">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
-                                </a></li>
-                            </ul>
-                        </li>
+                            <li><hr class="dropdown-divider border-secondary opacity-25"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="{% url 'shop:logout' %}">
+                                    <i class="bi bi-box-arrow-right me-2"></i> Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shop:login' %}">
+                            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-lg-2" href="{% url 'shop:signup' %}">
+                            <i class="bi bi-stars me-1"></i> Get Started
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- MESSAGES -->
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show border-0 shadow-lg text-white" style="background: rgba(255, 107, 53, 0.85); backdrop-filter: blur(10px); border-radius: 14px;">
+        <i class="bi bi-info-circle-fill me-2"></i> {{ message }}
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- CONTENT -->
+<main class="container my-5 animate">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="row g-4 justify-content-between">
+            <div class="col-lg-4 col-md-6">
+                <a class="footer-brand" href="{% url 'shop:home' %}">
+                    <i class="bi bi-box-seam-fill me-2"></i>ShopEase
+                </a>
+                <p class="mt-2 text-white-50">
+                    Next-generation 3D shopping experience. Premium curated technology, accessories, and lifestyle essentials delivered straight to your door with bank-grade security.
+                </p>
+                <div class="d-flex gap-2 mt-3">
+                    <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                    <a href="#" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-3 col-6">
+                <h6 class="footer-heading">Shop</h6>
+                <ul class="footer-links">
+                    <li><a href="{% url 'shop:home' %}"><i class="bi bi-chevron-right small"></i> All Products</a></li>
+                    <li><a href="{% url 'shop:home' %}#categories"><i class="bi bi-chevron-right small"></i> Categories</a></li>
+                    <li><a href="{% url 'shop:home' %}#deals"><i class="bi bi-chevron-right small"></i> Hot Deals</a></li>
+                    <li><a href="{% url 'shop:cart' %}"><i class="bi bi-chevron-right small"></i> My Cart</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2 col-md-3 col-6">
+                <h6 class="footer-heading">Account</h6>
+                <ul class="footer-links">
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'shop:my_orders' %}"><i class="bi bi-chevron-right small"></i> Track Orders</a></li>
+                    <li><a href="{% url 'shop:logout' %}"><i class="bi bi-chevron-right small"></i> Sign Out</a></li>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">
-                                <i class="bi bi-box-arrow-in-right"></i> Login
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'signup' %}">
-                                <i class="bi bi-person-plus-fill"></i> Sign Up
-                            </a>
-                        </li>
+                    <li><a href="{% url 'shop:login' %}"><i class="bi bi-chevron-right small"></i> Sign In</a></li>
+                    <li><a href="{% url 'shop:signup' %}"><i class="bi bi-chevron-right small"></i> Create Account</a></li>
                     {% endif %}
                 </ul>
             </div>
-        </div>
-    </nav>
 
-    <!-- Messages -->
-    {% if messages %}
-        <div class="container mt-3">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <div class="col-lg-3 col-md-6">
+                <h6 class="footer-heading">Buyer Guarantee</h6>
+                <div class="p-3 rounded-4" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        <i class="bi bi-shield-check text-success fs-3"></i>
+                        <div>
+                            <div class="text-white fw-semibold small">100% Buyer Protection</div>
+                            <div class="text-white-50 extra-small" style="font-size: 0.75rem;">Verified manual payments & instant confirmation</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="bi bi-truck text-warning fs-3"></i>
+                        <div>
+                            <div class="text-white fw-semibold small">Lightning Express Shipping</div>
+                            <div class="text-white-50 extra-small" style="font-size: 0.75rem;">Real-time tracking to your doorstep</div>
+                        </div>
+                    </div>
                 </div>
-            {% endfor %}
+            </div>
         </div>
-    {% endif %}
 
-    <!-- Main Content -->
-    <main class="container my-5">
-        {% block content %}{% endblock %}
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer text-center">
-        <div class="container">
-            <p class="mb-0">&copy; 2024 ShopEase. Built with Django & Bootstrap.</p>
-            <p class="mt-2">
-                <i class="bi bi-heart-fill text-danger"></i> Made with love
-            </p>
+        <div class="footer-bottom d-flex flex-wrap justify-content-between align-items-center text-white-50">
+            <div>
+                © 2026 ShopEase. Crafted with Django, Three.js & Modern 3D WebGL. All rights reserved.
+            </div>
+            <div class="d-flex gap-4 mt-2 mt-md-0">
+                <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-shield-lock-fill text-success"></i> 256-Bit SSL Encrypted</span>
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    {% block extra_js %}{% endblock %}
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('show');
+        }
+    });
+});
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// =========================================================
+// THREE.JS 3D AMBIENT BACKGROUND & MOUSE PARALLAX
+// =========================================================
+(function initThreeBackground() {
+    const canvas = document.getElementById('webgl-3d-bg');
+    if (!canvas || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 28;
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    scene.add(ambientLight);
+
+    const dirLight1 = new THREE.DirectionalLight(0xff6b35, 2.2);
+    dirLight1.position.set(25, 20, 15);
+    scene.add(dirLight1);
+
+    const dirLight2 = new THREE.DirectionalLight(0x0dcaf0, 1.8);
+    dirLight2.position.set(-25, -15, 10);
+    scene.add(dirLight2);
+
+    // Floating Geometric 3D Polyhedra
+    const meshes = [];
+    const geometries = [
+        new THREE.IcosahedronGeometry(3.5, 0),
+        new THREE.DodecahedronGeometry(2.8, 0),
+        new THREE.OctahedronGeometry(2.4, 0),
+        new THREE.TorusGeometry(3.2, 0.65, 16, 45),
+        new THREE.TetrahedronGeometry(2.2, 0)
+    ];
+
+    const materials = [
+        new THREE.MeshStandardMaterial({
+            color: 0xff6b35,
+            wireframe: true,
+            roughness: 0.2,
+            metalness: 0.8,
+            transparent: true,
+            opacity: 0.45
+        }),
+        new THREE.MeshStandardMaterial({
+            color: 0x3671a0,
+            wireframe: true,
+            roughness: 0.2,
+            metalness: 0.8,
+            transparent: true,
+            opacity: 0.45
+        }),
+        new THREE.MeshStandardMaterial({
+            color: 0xff8c42,
+            wireframe: true,
+            roughness: 0.3,
+            metalness: 0.6,
+            transparent: true,
+            opacity: 0.4
+        })
+    ];
+
+    const positions = [
+        [-20, 12, -6],
+        [22, -10, -10],
+        [-16, -14, -4],
+        [20, 14, -8],
+        [0, -18, -16]
+    ];
+
+    geometries.forEach((geom, idx) => {
+        const mat = materials[idx % materials.length];
+        const mesh = new THREE.Mesh(geom, mat);
+        const [x, y, z] = positions[idx % positions.length];
+        mesh.position.set(x, y, z);
+        mesh.rotation.x = Math.random() * Math.PI;
+        mesh.rotation.y = Math.random() * Math.PI;
+        mesh.userData = {
+            rotSpeedX: (Math.random() - 0.5) * 0.008,
+            rotSpeedY: (Math.random() - 0.5) * 0.01,
+            baseY: y
+        };
+        scene.add(mesh);
+        meshes.push(mesh);
+    });
+
+    // 3D Starfield & Floating Particle Constellation
+    const particleCount = 260;
+    const particleGeometry = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
+    const particleColors = new Float32Array(particleCount * 3);
+
+    const c1 = new THREE.Color(0xff6b35);
+    const c2 = new THREE.Color(0x3671a0);
+
+    for (let i = 0; i < particleCount; i++) {
+        particlePositions[i * 3] = (Math.random() - 0.5) * 85;
+        particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 85;
+        particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 50;
+
+        const mixed = c1.clone().lerp(c2, Math.random());
+        particleColors[i * 3] = mixed.r;
+        particleColors[i * 3 + 1] = mixed.g;
+        particleColors[i * 3 + 2] = mixed.b;
+    }
+
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    particleGeometry.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
+
+    const particleMaterial = new THREE.PointsMaterial({
+        size: 0.5,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.75
+    });
+
+    const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+    scene.add(particleSystem);
+
+    // Mouse Parallax Lerping
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    let clock = new THREE.Clock();
+    function animate() {
+        requestAnimationFrame(animate);
+
+        const elapsedTime = clock.getElapsedTime();
+
+        targetX += (mouseX * 4 - targetX) * 0.05;
+        targetY += (-mouseY * 4 - targetY) * 0.05;
+        camera.position.x = targetX;
+        camera.position.y = targetY;
+        camera.lookAt(0, 0, 0);
+
+        meshes.forEach((mesh) => {
+            mesh.rotation.x += mesh.userData.rotSpeedX;
+            mesh.rotation.y += mesh.userData.rotSpeedY;
+            mesh.position.y = mesh.userData.baseY + Math.sin(elapsedTime * 1.6 + mesh.position.x) * 0.9;
+        });
+
+        particleSystem.rotation.y = elapsedTime * 0.025;
+        particleSystem.rotation.x = elapsedTime * 0.015;
+
+        renderer.render(scene, camera);
+    }
+    animate();
+})();
+
+// =========================================================
+// INTERACTIVE 3D CARD TILT WITH GLOSS SHEEN
+// =========================================================
+(function init3DCardTilt() {
+    const selector = '.order-card-3d, .order-detail-glass, .checkout-card, .product-card, .offer-card, .category-box, [data-tilt-3d]';
+
+    function attachTilt(el) {
+        if (el.dataset.tiltAttached) return;
+        el.dataset.tiltAttached = 'true';
+
+        el.style.transformStyle = 'preserve-3d';
+        el.style.transition = 'transform 0.15s ease-out, box-shadow 0.25s ease';
+
+        let sheen = el.querySelector('.tilt-sheen');
+        if (!sheen) {
+            sheen = document.createElement('div');
+            sheen.className = 'tilt-sheen';
+            sheen.style.position = 'absolute';
+            sheen.style.top = '0';
+            sheen.style.left = '0';
+            sheen.style.right = '0';
+            sheen.style.bottom = '0';
+            sheen.style.borderRadius = 'inherit';
+            sheen.style.pointerEvents = 'none';
+            sheen.style.opacity = '0';
+            sheen.style.transition = 'opacity 0.3s ease';
+            sheen.style.zIndex = '5';
+            el.appendChild(sheen);
+        }
+
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+
+            el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.015, 1.015, 1.015)`;
+
+            sheen.style.opacity = '1';
+            sheen.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.18), transparent 60%)`;
+        });
+
+        el.addEventListener('mouseleave', () => {
+            el.style.transition = 'transform 0.5s ease-out, box-shadow 0.3s ease';
+            el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            sheen.style.opacity = '0';
+        });
+
+        el.addEventListener('mouseenter', () => {
+            el.style.transition = 'transform 0.1s ease-out, box-shadow 0.2s ease';
+        });
+    }
+
+    function scan() {
+        document.querySelectorAll(selector).forEach(attachTilt);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', scan);
+    } else {
+        scan();
+    }
+
+    const observer = new MutationObserver(scan);
+    if (document.body) {
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+})();
+</script>
+
+{% block extra_js %}{% endblock %}
+
 </body>
 </html>

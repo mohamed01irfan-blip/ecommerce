@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .edit-container {
+        max-width: 650px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        color: #222222;
+    }
+
+    .edit-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #222222 !important;
+        font-size: 28px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: 600;
+        color: #222222 !important;
+    }
+
+    /* INPUTS */
+    .edit-container input[type="text"],
+    .edit-container input[type="number"],
+    .edit-container input[type="file"],
+    .edit-container select,
+    .edit-container textarea {
+        width: 100%;
+        padding: 11px 12px;
+        border: 1px solid #cfcfcf !important;
+        border-radius: 7px;
+        background-color: #ffffff !important;
+        color: #222222 !important;
+        font-size: 15px;
+        box-sizing: border-box;
+        outline: none;
+    }
+
+    /* INPUT FOCUS */
+    .edit-container input:focus,
+    .edit-container select:focus,
+    .edit-container textarea:focus {
+        border-color: #007bff !important;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.12);
+    }
+
+    /* TEXTAREA */
+    .edit-container textarea {
+        resize: vertical;
+        min-height: 120px;
+        line-height: 1.5;
+    }
+
+    /* PLACEHOLDER */
+    .edit-container input::placeholder,
+    .edit-container textarea::placeholder {
+        color: #777777 !important;
+        opacity: 1;
+    }
+
+    /* SELECT */
+    .edit-container select {
+        cursor: pointer;
+        appearance: auto;
+    }
+
+    .edit-container select option {
+        background: #ffffff !important;
+        color: #222222 !important;
+    }
+
+    /* FILE INPUT */
+    .edit-container input[type="file"] {
+        padding: 9px;
+        cursor: pointer;
+    }
+
+    /* CURRENT IMAGE */
+    .product-image {
+        text-align: center;
+        margin: 20px 0;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+    }
+
+    .product-image p {
+        margin-bottom: 12px;
+        font-weight: 600;
+        color: #333333 !important;
+    }
+
+    .product-image img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid #dddddd;
+        background: #ffffff;
+    }
+
+    /* BUTTON */
+    .edit-container .btn {
+        width: 100%;
+        padding: 13px;
+        margin-top: 8px;
+        background: #007bff !important;
+        color: #ffffff !important;
+        border: none;
+        border-radius: 7px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .edit-container .btn:hover {
+        background: #0056b3 !important;
+        transform: translateY(-1px);
+    }
+
+    /* REMOVE BROWSER DARK MODE ISSUES */
+    .edit-container input,
+    .edit-container textarea,
+    .edit-container select {
+        color-scheme: light;
+    }
+
+    /* MOBILE */
+    @media (max-width: 700px) {
+        .edit-container {
+            margin: 20px 15px;
+            padding: 20px;
+        }
+
+        .edit-container h2 {
+            font-size: 24px;
+        }
+    }
+</style>
+
+<div class="edit-container">
+
+
+<h2>Edit Product</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- PRODUCT NAME -->
+    <div class="form-group">
+        <label for="product-name">Product Name</label>
+
+        <input
+            type="text"
+            id="product-name"
+            name="name"
+            value="{{ product.name }}"
+            placeholder="Enter product name"
+            required
+        >
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="form-group">
+        <label for="product-description">Description</label>
+
+        <textarea
+            id="product-description"
+            name="description"
+            placeholder="Enter product description"
+        >{{ product.description }}</textarea>
+    </div>
+
+    <!-- PRICE -->
+    <div class="form-group">
+        <label for="product-price">Price</label>
+
+        <input
+            type="number"
+            id="product-price"
+            name="price"
+            value="{{ product.price }}"
+            min="0"
+            step="0.01"
+            required
+        >
+    </div>
+
+    <!-- STOCK -->
+    <div class="form-group">
+        <label for="product-stock">Stock</label>
+
+        <input
+            type="number"
+            id="product-stock"
+            name="stock"
+            value="{{ product.stock }}"
+            min="0"
+            required
+        >
+    </div>
+
+    <!-- CURRENT IMAGE -->
+    <div class="product-image">
+
+        <p>Current Image</p>
+
+        {% if product.image %}
+            <img
+                src="{{ product.image.url }}"
+                alt="{{ product.name }}"
+            >
+        {% else %}
+            <img
+                src="/static/images/default.png"
+                alt="Default Product Image"
+            >
+        {% endif %}
+
+    </div>
+
+    <!-- CHANGE IMAGE -->
+    <div class="form-group">
+        <label for="product-image">Change Image</label>
+
+        <input
+            type="file"
+            id="product-image"
+            name="image"
+            accept="image/*"
+        >
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="form-group">
+        <label for="product-category">Select Category</label>
+
+        <select
+            name="category"
+            id="product-category"
+        >
+
+            <option value="">
+                -- Select Category --
+            </option>
+
+            {% for cat in categories %}
+
+                <option
+                    value="{{ cat.id }}"
+                    {% if product.category and product.category.id == cat.id %}
+                        selected
+                    {% endif %}
+                >
+                    {{ cat.name }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+    </div>
+
+    <!-- NEW CATEGORY -->
+    <div class="form-group">
+
+        <label for="new-category">
+            Or Add New Category
+        </label>
+
+        <input
+            type="text"
+            id="new-category"
+            name="new_category"
+            placeholder="Enter new category"
+        >
+
+    </div>
+
+    <!-- MORE IMAGES -->
+    <div class="form-group">
+
+        <label for="product-images">
+            Add More Images
+        </label>
+
+        <input
+            type="file"
+            id="product-images"
+            name="images"
+            multiple
+            accept="image/*"
+        >
+
+    </div>
+
+    <!-- UPDATE BUTTON -->
+    <button
+        type="submit"
+        class="btn"
+    >
+        Update Product
+    </button>
+
+</form>
+
+
+</div>
+
+{% endblock %}

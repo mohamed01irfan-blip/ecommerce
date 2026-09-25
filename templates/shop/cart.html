@@ -1,175 +1,393 @@
 {% extends 'base.html' %}
 
-{% block title %}Shopping Cart - ShopEase{% endblock %}
+{% block title %}Shopping Cart - ShopEase 3D{% endblock %}
 
 {% block extra_css %}
 <style>
-    /* ===== Cart Item ===== */
-    .cart-item {
-        background: white;
-        border-radius: 20px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeUp 0.5s forwards;
-    }
+/* =========================================================
+   CART - 3D GLASSMORPHIC SHOPPING CART
+   ========================================================= */
 
-    .cart-item:hover {
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    }
+.cart-page-wrapper {
+    max-width: 1100px;
+    margin: 1.5rem auto 4rem;
+}
 
-    @keyframes fadeUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+/* Page Header */
+.cart-header-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-    /* Animation delay classes */
-    .delay-0 { animation-delay: 0ms; }
-    .delay-1 { animation-delay: 100ms; }
-    .delay-2 { animation-delay: 200ms; }
-    .delay-3 { animation-delay: 300ms; }
-    .delay-4 { animation-delay: 400ms; }
-    .delay-5 { animation-delay: 500ms; }
+.cart-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-    .cart-item-image {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 15px;
-    }
+/* Free Shipping Pill */
+.free-shipping-card {
+    background: linear-gradient(135deg, rgba(0, 210, 106, 0.12), rgba(13, 202, 240, 0.1));
+    border: 1px solid rgba(0, 210, 106, 0.3);
+    border-radius: 16px;
+    padding: 1rem 1.4rem;
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-    .quantity-input {
-        width: 80px;
-        border-radius: 10px;
-        text-align: center;
-        border: 2px solid #e0e0e0;
-    }
+.free-shipping-card i {
+    font-size: 1.6rem;
+    color: #00d26a;
+}
 
-    .cart-summary {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        position: sticky;
-        top: 100px;
-    }
+/* Cart Item Card */
+.cart-item-glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.2rem;
+    color: #ffffff;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
 
-    .total-amount {
-        font-size: 2rem;
-        font-weight: 700;
-        color: var(--primary-color);
-        font-family: 'Space Mono', monospace;
-    }
+.cart-item-glass:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 107, 53, 0.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cart-thumb {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cart-prod-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.cart-prod-unit {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* Quantity Controls */
+.qty-stepper-wrap {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    padding: 4px 8px;
+    gap: 6px;
+}
+
+.qty-step-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.qty-step-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.qty-number-input {
+    width: 44px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.qty-number-input:focus {
+    outline: none;
+}
+
+.cart-item-total {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.btn-trash-action {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: rgba(255, 51, 102, 0.12);
+    border: 1px solid rgba(255, 51, 102, 0.3);
+    color: #ff3366;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.btn-trash-action:hover {
+    background: #ff3366;
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+    transform: scale(1.08);
+}
+
+/* Summary Card */
+.summary-glass-card {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 24px;
+    padding: 2rem;
+    color: #ffffff;
+    position: sticky;
+    top: 100px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+}
+
+.summary-heading {
+    font-size: 1.3rem;
+    font-weight: 800;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.95rem;
+}
+
+.summary-line.total-line {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.summary-total-val {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #ffaa6b;
+    text-shadow: 0 0 15px rgba(255, 107, 53, 0.35);
+}
+
+/* Empty State */
+.empty-cart-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(14px);
+    border-radius: 26px;
+    padding: 4.5rem 2rem;
+    text-align: center;
+}
+
+.empty-icon-orb {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    background: rgba(255, 107, 53, 0.12);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff8c42;
+    font-size: 3rem;
+    box-shadow: 0 0 25px rgba(255, 107, 53, 0.2);
+}
 </style>
 {% endblock %}
 
 {% block content %}
-<h2 class="mb-4 fw-bold">
-    <i class="bi bi-cart3"></i> Shopping Cart
-</h2>
+<div class="cart-page-wrapper">
 
-{% if cart_items %}
-    <div class="row" style="color: black;">
+    <div class="cart-header-banner">
+        <h1 class="cart-title">
+            <i class="bi bi-bag-check-fill text-primary"></i> Shopping Cart
+        </h1>
+        {% if cart_items %}
+        <span class="badge bg-primary bg-opacity-25 text-white border border-primary border-opacity-25 px-3 py-2 rounded-pill">
+            {{ cart_items|length }} Unique Item{% if cart_items|length != 1 %}s{% endif %}
+        </span>
+        {% endif %}
+    </div>
+
+    {% if cart_items %}
+    <!-- FREE SHIPPING BANNER -->
+    <div class="free-shipping-card">
+        <i class="bi bi-truck"></i>
+        <div>
+            <div class="fw-bold text-white">Eligible for FREE Express Delivery</div>
+            <div class="text-white-50 small">All orders in your cart qualify for free insured doorstep shipping.</div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- CART ITEMS LIST -->
         <div class="col-lg-8">
             {% for item in cart_items %}
-                <div class="cart-item delay-{{ forloop.counter0 }}">
-                    <div class="row align-items-center">
-
-                        <!-- Image -->
-                        <div class="col-md-2">
-                            {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" class="cart-item-image" alt="{{ item.product.name }}">
-                            {% else %}
-                                <div class="cart-item-image bg-secondary d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-image text-white"></i>
-                                </div>
-                            {% endif %}
+            <div class="cart-item-glass" data-tilt-3d>
+                <div class="row align-items-center g-3">
+                    <!-- Thumbnail -->
+                    <div class="col-auto">
+                        {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-thumb">
+                        {% else %}
+                        <div class="cart-thumb d-flex align-items-center justify-content-center text-white-50">
+                            <i class="bi bi-image fs-4"></i>
                         </div>
+                        {% endif %}
+                    </div>
 
-                        <!-- Product Info -->
-                        <div class="col-md-4">
-                            <h5 class="fw-bold mb-1">{{ item.product.name }}</h5>
-                            <p class="text-muted mb-0">₹{{ item.product.price }} each</p>
-                        </div>
+                    <!-- Info -->
+                    <div class="col">
+                        <div class="cart-prod-name">{{ item.product.name }}</div>
+                        <div class="cart-prod-unit">₹{{ item.product.price }} / unit</div>
+                    </div>
 
-                        <!-- Quantity -->
-                        <div class="col-md-3">
-                            <form method="post" action="{% url 'shop:update_cart' item.id %}" class="d-flex align-items-center">
-                                {% csrf_token %}
-                                <label class="me-2 fw-bold">Qty:</label>
-                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1"
-                                    class="form-control quantity-input"
-                                    onchange="this.form.submit()">
-                            </form>
-                        </div>
+                    <!-- Quantity Stepper Form -->
+                    <div class="col-sm-auto">
+                        <form method="post" action="{% url 'shop:update_cart' item.id %}" class="m-0" id="form-qty-{{ item.id }}">
+                            {% csrf_token %}
+                            <div class="qty-stepper-wrap">
+                                <button type="button" class="qty-step-btn" onclick="stepQty('{{ item.id }}', -1)">-</button>
+                                <input type="number" id="input-qty-{{ item.id }}" name="quantity" value="{{ item.quantity }}" min="1" class="qty-number-input" onchange="this.form.submit()">
+                                <button type="button" class="qty-step-btn" onclick="stepQty('{{ item.id }}', 1)">+</button>
+                            </div>
+                        </form>
+                    </div>
 
-                        <!-- Price -->
-                        <div class="col-md-2">
-                            <p class="fw-bold mb-0 text-primary" style="font-size: 1.2rem;">
-                                ₹{{ item.get_total }}
-                            </p>
-                        </div>
+                    <!-- Line Total -->
+                    <div class="col-sm-auto text-sm-end">
+                        <div class="cart-item-total">₹{{ item.get_total }}</div>
+                    </div>
 
-                        <!-- Delete -->
-                        <div class="col-md-1">
-                            <a href="{% url 'shop:remove_from_cart' item.id %}" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash"></i>
-                            </a>
-                        </div>
-
+                    <!-- Remove -->
+                    <div class="col-auto">
+                        <a href="{% url 'shop:remove_from_cart' item.id %}" class="btn-trash-action" title="Remove Item" onclick="return confirm('Remove {{ item.product.name }} from your cart?')">
+                            <i class="bi bi-trash3"></i>
+                        </a>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
 
-        <!-- Summary -->
+        <!-- STICKY SUMMARY -->
         <div class="col-lg-4">
-            <div class="cart-summary">
-                <h4 class="fw-bold mb-4">Order Summary</h4>
-
-                <div class="d-flex justify-content-between mb-3">
-                    <span>Subtotal:</span>
-                    <span class="fw-bold">₹{{ total }}</span>
+            <div class="summary-glass-card" data-tilt-3d>
+                <div class="summary-heading">
+                    <i class="bi bi-receipt me-2 text-warning"></i> Order Summary
                 </div>
 
-                <div class="d-flex justify-content-between mb-3">
-                    <span>Shipping:</span>
-                    <span class="fw-bold text-success">FREE</span>
+                <div class="summary-line">
+                    <span>Items Subtotal</span>
+                    <span class="text-white fw-bold">₹{{ total }}</span>
                 </div>
 
-                <hr>
-
-                <div class="d-flex justify-content-between mb-4">
-                    <span class="fw-bold">Total:</span>
-                    <span class="total-amount">₹{{ total }}</span>
+                <div class="summary-line">
+                    <span>Express Shipping</span>
+                    <span class="text-success fw-bold">FREE</span>
                 </div>
 
-                <a href="{% url 'shop:checkout' %}" class="btn btn-primary w-100 btn-lg">
-                    <i class="bi bi-credit-card"></i> Proceed to Checkout
-                </a>
+                <div class="summary-line">
+                    <span>Buyer Protection</span>
+                    <span class="text-info fw-bold"><i class="bi bi-shield-check"></i> Included</span>
+                </div>
 
-                <a href="{% url 'shop:home' %}" class="btn btn-outline-primary w-100 mt-2">
-                    <i class="bi bi-arrow-left"></i> Continue Shopping
-                </a>
+                <div class="summary-line total-line">
+                    <span>Total Amount</span>
+                    <span class="summary-total-val">₹{{ total }}</span>
+                </div>
+
+                <div class="mt-4">
+                    <a href="{% url 'shop:checkout' %}" class="btn btn-primary w-100 py-3 d-flex align-items-center justify-content-center gap-2 mb-3">
+                        <i class="bi bi-lock-fill"></i> Proceed to Checkout
+                    </a>
+                    <a href="{% url 'shop:home' %}" class="btn btn-outline-light w-100 py-2 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
+                        <i class="bi bi-arrow-left me-1"></i> Continue Shopping
+                    </a>
+                </div>
+
+                <div class="text-center text-white-50 extra-small mt-3" style="font-size: 0.78rem;">
+                    <i class="bi bi-shield-lock me-1 text-success"></i> 256-bit encrypted checkout
+                </div>
             </div>
         </div>
     </div>
 
-{% else %}
-    <!-- Empty Cart -->
-    <div class="text-center py-5">
-        <i class="bi bi-cart-x" style="font-size: 6rem; color: #ccc;"></i>
-        <h3 class="mt-4">Your Cart is Empty</h3>
-        <p class="text-muted mb-4">Add some amazing products to get started!</p>
-        <a href="{% url 'shop:home' %}" class="btn btn-primary btn-lg">
-            <i class="bi bi-bag-plus"></i> Start Shopping
+    {% else %}
+    <!-- EMPTY CART STATE -->
+    <div class="empty-cart-glass" data-tilt-3d>
+        <div class="empty-icon-orb">
+            <i class="bi bi-bag-x"></i>
+        </div>
+        <h2 class="text-white fw-bold mb-2">Your Shopping Cart is Empty</h2>
+        <p class="text-white-50 mb-4" style="max-width: 480px; margin-left: auto; margin-right: auto;">
+            Looks like you haven't added anything to your cart yet. Explore our curated catalog of tech and gear to find your next favorite item!
+        </p>
+        <a href="{% url 'shop:home' %}" class="btn btn-primary px-5 py-3">
+            <i class="bi bi-grid-fill me-2"></i> Browse Featured Catalog
         </a>
     </div>
-{% endif %}
+    {% endif %}
 
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function stepQty(itemId, delta) {
+    const input = document.getElementById('input-qty-' + itemId);
+    if (!input) return;
+    let val = parseInt(input.value) || 1;
+    val += delta;
+    if (val < 1) val = 1;
+    input.value = val;
+    document.getElementById('form-qty-' + itemId).submit();
+}
+</script>
 {% endblock %}

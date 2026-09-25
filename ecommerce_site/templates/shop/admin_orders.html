@@ -4,34 +4,63 @@
 
 {% block extra_css %}
 <style>
-    .admin-nav {
-        background: white;
-        border-radius: 20px;
-        padding: 1rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        margin-bottom: 2rem;
-    }
+/* NAV - GLASS STYLE */
+.admin-nav {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
 
-    .admin-nav .nav-link {
-        color: var(--dark);
-        font-weight: 600;
-        padding: 0.75rem 1.5rem;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
+.admin-nav .nav-link {
+    color: white;
+    font-weight: 600;
+}
 
-    .admin-nav .nav-link:hover,
-    .admin-nav .nav-link.active {
-        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-        color: white;
-    }
+.admin-nav .nav-link:hover,
+.admin-nav .nav-link.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+}
 
-    .orders-container {
-        background: white;
-        border-radius: 20px;
-        padding: 1.5rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    }
+/* CONTAINER */
+.orders-container {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    color: white;
+}
+
+/* 🔥 REMOVE WHITE TABLE BACKGROUND */
+.table,
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+}
+
+/* HEADER */
+.table thead th {
+    background: rgba(255,255,255,0.12) !important;
+    color: white !important;
+}
+
+/* TEXT */
+.table td,
+.table th {
+    color: white !important;
+    border-color: rgba(255,255,255,0.1);
+}
+
+/* HOVER EFFECT */
+.table-hover tbody tr:hover {
+    background: rgba(255,255,255,0.08) !important;
+}
+
+/* EMPTY STATE TEXT */
+.text-muted {
+    color: rgba(255,255,255,0.6) !important;
+}
 </style>
 {% endblock %}
 
@@ -39,18 +68,23 @@
 <div class="admin-nav">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'admin_dashboard' %}">
+            <a class="nav-link" href="{% url 'shop:admin_dashboard' %}">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'admin_products' %}">
+            <a class="nav-link" href="{% url 'shop:admin_products' %}">
                 <i class="bi bi-box-seam"></i> Products
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="{% url 'admin_orders' %}">
+            <a class="nav-link active" href="{% url 'shop:admin_orders' %}">
                 <i class="bi bi-receipt"></i> Orders
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'shop:admin_offers' %}">
+                <i class="bi bi-tag"></i> Offers
             </a>
         </li>
     </ul>
@@ -101,7 +135,7 @@
                             </td>
                             <td>{{ order.created_at|date:"M d, Y" }}</td>
                             <td>
-                                <a href="{% url 'admin_order_detail' order.id %}" class="btn btn-sm btn-primary">
+                                <a href="{% url 'shop:admin_order_detail' order.id %}" class="btn btn-sm btn-primary">
                                     <i class="bi bi-eye"></i> View
                                 </a>
                             </td>

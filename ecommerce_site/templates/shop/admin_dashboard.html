@@ -4,77 +4,178 @@
 
 {% block extra_css %}
 <style>
-    .admin-header {
-        background: linear-gradient(135deg, var(--secondary-color), #003d6b);
-        color: white;
-        padding: 2rem;
-        border-radius: 20px;
-        margin-bottom: 2rem;
-    }
 
-    .stat-card {
-        background: white;
-        border-radius: 20px;
-        padding: 1.5rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        height: 100%;
-    }
+:root {
+    --primary-color: #ff6b35;
+    --accent-color: #ff8c42;
+    --glass: rgba(255,255,255,0.08);
+}
 
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-    }
+/* HEADER */
+.admin-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    padding: 2rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    color: white;
+    animation: fadeDown 0.6s ease;
+}
 
-    .stat-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
+/* NAV */
+.admin-nav {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
 
-    .stat-value {
-        font-size: 2rem;
-        font-weight: 700;
-        font-family: 'Space Mono', monospace;
-    }
+.admin-nav {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    color: white;
+}
 
-    .recent-orders {
-        background: white;
-        border-radius: 20px;
-        padding: 1.5rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    }
+.admin-nav .nav-link {
+    color: white;
+}
 
-    .admin-nav {
-        background: white;
-        border-radius: 20px;
-        padding: 1rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        margin-bottom: 2rem;
-    }
+/* STAT CARDS */
+.stat-card {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    color: white;
+    transition: 0.4s;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeUp 0.6s ease forwards;
+}
 
-    .admin-nav .nav-link {
-        color: var(--dark);
-        font-weight: 600;
-        padding: 0.75rem 1.5rem;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
+.stat-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
 
-    .admin-nav .nav-link:hover,
-    .admin-nav .nav-link.active {
-        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-        color: white;
-    }
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* RECENT ORDERS FIX */
+.recent-orders {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    color: white;
+}
+
+/* REMOVE WHITE TABLE BACKGROUND */
+.table {
+    background: transparent !important;
+    color: white;
+    border-color: rgba(255,255,255,0.1);
+}
+
+/* HEADER */
+.table thead {
+    background: rgba(255,255,255,0.12);
+    color: white;
+}
+
+/* ROWS */
+.table tbody tr {
+    background: transparent;
+    transition: 0.3s;
+}
+
+/* HOVER EFFECT */
+.table-hover tbody tr:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* CELLS */
+.table td, .table th {
+    border-color: rgba(255,255,255,0.1);
+}
+
+/* FIX TEXT MUTED */
+.text-muted {
+    color: rgba(255,255,255,0.6) !important;
+}
+
+/* TABLE */
+.table {
+    color: white;
+    background: transparent;
+    border-color: rgba(255,255,255,0.1);
+}
+
+.table thead {
+    background: rgba(255,255,255,0.1);
+}
+
+.table-hover tbody tr:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+    from {opacity:0; transform:translateY(40px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeDown {
+    from {opacity:0; transform:translateY(-30px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+/* FORCE REMOVE WHITE TABLE BACKGROUND */
+.table,
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+}
+
+/* REMOVE STRIPED / DEFAULT BOOTSTRAP COLORS */
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: transparent !important;
+}
+
+/* OPTIONAL: HOVER NICE EFFECT */
+.table-hover tbody tr:hover {
+    background-color: rgba(255,255,255,0.08) !important;
+}
+
+/* FIX HEADER */
+.table thead th {
+    background-color: rgba(255,255,255,0.12) !important;
+    color: white !important;
+}
+
+/* FIX TEXT */
+.table td,
+.table th {
+    color: white !important;
+}
 </style>
 {% endblock %}
 
 {% block content %}
+
+<!-- HEADER -->
 <div class="admin-header">
     <h1 class="fw-bold mb-2">
         <i class="bi bi-speedometer2"></i> Admin Dashboard
@@ -82,122 +183,134 @@
     <p class="mb-0">Manage your e-commerce store</p>
 </div>
 
+<!-- NAV -->
 <div class="admin-nav">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link active" href="{% url 'admin_dashboard' %}">
+            <a class="nav-link" href="{% url 'shop:admin_dashboard' %}">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'admin_products' %}">
+            <a class="nav-link" href="{% url 'shop:admin_products' %}">
                 <i class="bi bi-box-seam"></i> Products
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'admin_orders' %}">
+            <a class="nav-link" href="{% url 'shop:admin_orders' %}">
                 <i class="bi bi-receipt"></i> Orders
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'shop:admin_offers' %}">
+                <i class="bi bi-tag"></i> Offers
             </a>
         </li>
     </ul>
 </div>
 
+<!-- STATS -->
 <div class="row g-4 mb-4">
+
     <div class="col-md-3">
-        <div class="stat-card animate-fade-in">
-            <div class="stat-icon" style="background: #e3f2fd; color: #1976d2;">
-                <i class="bi bi-box-seam"></i>
+        <div class="stat-card" style="animation-delay: 0ms;">
+            <div class="stat-icon" style="background:#1976d2;">
+                <i class="bi bi-box-seam text-white"></i>
             </div>
-            <div class="stat-value text-primary">{{ total_products }}</div>
-            <p class="text-muted mb-0">Total Products</p>
+            <div class="stat-value">{{ total_products }}</div>
+            <p class="text-light mb-0">Total Products</p>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="stat-card animate-fade-in" style="animation-delay: 100ms;">
-            <div class="stat-icon" style="background: #f3e5f5; color: #7b1fa2;">
-                <i class="bi bi-receipt"></i>
+        <div class="stat-card" style="animation-delay: 100ms;">
+            <div class="stat-icon" style="background:#7b1fa2;">
+                <i class="bi bi-receipt text-white"></i>
             </div>
-            <div class="stat-value" style="color: #7b1fa2;">{{ total_orders }}</div>
-            <p class="text-muted mb-0">Total Orders</p>
+            <div class="stat-value">{{ total_orders }}</div>
+            <p class="text-light mb-0">Total Orders</p>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="stat-card animate-fade-in" style="animation-delay: 200ms;">
-            <div class="stat-icon" style="background: #fff3e0; color: #f57c00;">
-                <i class="bi bi-clock-history"></i>
+        <div class="stat-card" style="animation-delay: 200ms;">
+            <div class="stat-icon" style="background:#f57c00;">
+                <i class="bi bi-clock-history text-white"></i>
             </div>
-            <div class="stat-value" style="color: #f57c00;">{{ pending_orders }}</div>
-            <p class="text-muted mb-0">Pending Orders</p>
+            <div class="stat-value">{{ pending_orders }}</div>
+            <p class="text-light mb-0">Pending Orders</p>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="stat-card animate-fade-in" style="animation-delay: 300ms;">
-            <div class="stat-icon" style="background: #e8f5e9; color: #388e3c;">
-                <i class="bi bi-cash-stack"></i>
+        <div class="stat-card" style="animation-delay: 300ms;">
+            <div class="stat-icon" style="background:#388e3c;">
+                <i class="bi bi-cash-stack text-white"></i>
             </div>
-            <div class="stat-value" style="color: #388e3c;">₹{{ total_revenue }}</div>
-            <p class="text-muted mb-0">Total Revenue</p>
+            <div class="stat-value">₹{{ total_revenue }}</div>
+            <p class="text-light mb-0">Revenue</p>
         </div>
     </div>
+
 </div>
 
+<!-- RECENT ORDERS -->
 <div class="recent-orders">
     <h4 class="fw-bold mb-3">
         <i class="bi bi-clock-history"></i> Recent Orders
     </h4>
 
     {% if recent_orders %}
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for order in recent_orders %}
-                        <tr>
-                            <td class="fw-bold">#{{ order.id }}</td>
-                            <td>{{ order.customer_name }}</td>
-                            <td>{{ order.email }}</td>
-                            <td>{{ order.phone }}</td>
-                            <td class="fw-bold" style="color: var(--primary-color);">₹{{ order.total_amount }}</td>
-                            <td>
-                                {% if order.status == 'pending' %}
-                                    <span class="badge bg-warning">Pending</span>
-                                {% elif order.status == 'confirmed' %}
-                                    <span class="badge bg-info">Confirmed</span>
-                                {% elif order.status == 'shipped' %}
-                                    <span class="badge bg-primary">Shipped</span>
-                                {% elif order.status == 'delivered' %}
-                                    <span class="badge bg-success">Delivered</span>
-                                {% else %}
-                                    <span class="badge bg-danger">Cancelled</span>
-                                {% endif %}
-                            </td>
-                            <td>{{ order.created_at|date:"M d, Y" }}</td>
-                            <td>
-                                <a href="{% url 'admin_order_detail' order.id %}" class="btn btn-sm btn-primary">
-                                    <i class="bi bi-eye"></i> View
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for order in recent_orders %}
+                <tr>
+                    <td class="fw-bold">#{{ order.id }}</td>
+                    <td>{{ order.customer_name }}</td>
+                    <td>₹{{ order.total_amount }}</td>
+
+                    <td>
+                        {% if order.status == 'pending' %}
+                            <span class="badge bg-warning">Pending</span>
+                        {% elif order.status == 'confirmed' %}
+                            <span class="badge bg-info">Confirmed</span>
+                        {% elif order.status == 'shipped' %}
+                            <span class="badge bg-primary">Shipped</span>
+                        {% elif order.status == 'delivered' %}
+                            <span class="badge bg-success">Delivered</span>
+                        {% else %}
+                            <span class="badge bg-danger">Cancelled</span>
+                        {% endif %}
+                    </td>
+
+                    <td>{{ order.created_at|date:"M d, Y" }}</td>
+
+                    <td>
+                        <a href="{% url 'shop:admin_order_detail' order.id %}" class="btn btn-sm btn-primary">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
     {% else %}
-        <p class="text-muted text-center py-4">No orders yet.</p>
+        <p class="text-center text-muted">No orders yet.</p>
     {% endif %}
 </div>
+
 {% endblock %}

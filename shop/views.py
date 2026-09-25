@@ -31,43 +31,6 @@ def orders(request):
     return HttpResponse("Orders Page Working ✅")
 
 
-@staff_member_required
-def admin_orders(request):
-    orders = Order.objects.all()
-    return render(request, 'dashboard/orders.html', {'orders': orders})
-def checkout_direct(request, order_id):
-    order = Order.objects.get(id=order_id)
-
-    if request.method == "POST":
-        full_name = request.POST.get('full_name')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        address = request.POST.get('address')
-        payment_method = request.POST.get('payment_method')
-        screenshot = request.FILES.get('payment_screenshot')
-
-        if not all([full_name, email, phone, address, payment_method, screenshot]):
-            return render(request, 'shop/checkout.html', {
-                'order': order,
-                'error': 'All fields are required!'
-            })
-
-        order.full_name = full_name
-        order.email = email
-        order.phone = phone
-        order.address = address
-        order.payment_method = payment_method
-        order.payment_screenshot = screenshot
-        order.save()
-
-        return redirect('shop:home')
-
-    return render(request, 'shop/checkout.html', {'order': order})
-
-def remove_from_cart(request, cart_id):
-    cart = get_object_or_404(Cart, id=cart_id, user=request.user)
-    cart.delete()
-    return redirect('shop:cart')
 
 
 def admin_order_detail(request, id):
@@ -123,9 +86,6 @@ def admin_edit_product(request, id):
     })
 
 
-def admin_orders(request):
-    orders = Order.objects.all()
-    return render(request, 'shop/admin_orders.html', {'orders': orders})
 # ------------------- ADMIN CHECK -------------------
 def is_admin(user):
     return user.is_superuser
@@ -134,28 +94,54 @@ def is_admin(user):
 def checkout_direct(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
 
+    if request.method == "POST":
+        customer_name = (request.POST.get('customer_name') or request.POST.get('full_name') or '').strip()
+        email = request.POST.get('email', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        address = request.POST.get('address', '').strip()
+        screenshot = request.FILES.get('payment_screenshot')
+
+        if not all([customer_name, email, phone, address, screenshot]):
+            return render(request, 'shop/checkout.html', {
+                'order': order,
+                'direct_buy': True,
+                'error': 'All fields and payment screenshot are required!'
+            })
+
+        order.customer_name = customer_name
+        order.email = email
+        order.phone = phone
+        order.address = address
+        order.payment_screenshot = screenshot
+        order.status = 'confirmed'
+        order.save()
+
+        messages.success(request, f'Order #{order.id} placed successfully!')
+        return redirect('shop:order_success', order_id=order.id)
+
     return render(request, 'shop/checkout.html', {
         'order': order,
         'direct_buy': True
     })
 
 
-
-
-
 def admin_delete_product(request, id):
     product = Product.objects.get(id=id)
     product.delete()
     return redirect('shop:admin_products')
+
+
 # ------------------- ORDER DETAIL -------------------
+@login_required
 def order_detail(request, id):
-    order = get_object_or_404(Order, id=id)
+    if request.user.is_superuser:
+        order = get_object_or_404(Order, id=id)
+    else:
+        order = get_object_or_404(Order, id=id, user=request.user)
+
     return render(request, 'shop/order_detail.html', {
         'order': order
     })
-def admin_orders(request):
-    orders = Order.objects.all()
-    return render(request, 'shop/admin_orders.html', {'orders': orders})
 # ------------------- BUY NOW (FIXED) -------------------
 @login_required
 def buy_now(request, id):
@@ -317,34 +303,43 @@ def checkout(request):
     total = sum(item.get_total() for item in cart_items)
 
     if request.method == 'POST':
-        form = CheckoutForm(request.POST, request.FILES)
+        customer_name = (request.POST.get('customer_name') or request.POST.get('full_name') or '').strip()
+        email = request.POST.get('email', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        address = request.POST.get('address', '').strip()
+        screenshot = request.FILES.get('payment_screenshot')
 
-        if form.is_valid():
-            order = Order.objects.create(
-                user=request.user,
-                customer_name=form.cleaned_data['customer_name'],
-                email=form.cleaned_data['email'],
-                phone=form.cleaned_data['phone'],
-                address=form.cleaned_data['address'],
-                total_amount=total,
-                payment_screenshot=form.cleaned_data['payment_screenshot']
+        if not all([customer_name, email, phone, address, screenshot]):
+            return render(request, 'shop/checkout.html', {
+                'cart_items': cart_items,
+                'total': total,
+                'error': 'All fields and payment screenshot are required!'
+            })
+
+        order = Order.objects.create(
+            user=request.user,
+            customer_name=customer_name,
+            email=email,
+            phone=phone,
+            address=address,
+            total_amount=total,
+            payment_screenshot=screenshot,
+            status='confirmed'
+        )
+
+        for item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price
             )
 
-            for item in cart_items:
-                OrderItem.objects.create(
-                    order=order,
-                    product=item.product,
-                    quantity=item.quantity,
-                    price=item.product.price
-                )
-
-            cart_items.delete()
-            return redirect('shop:order_success', order_id=order.id)
-    else:
-        form = CheckoutForm()
+        cart_items.delete()
+        messages.success(request, f'Order #{order.id} placed successfully!')
+        return redirect('shop:order_success', order_id=order.id)
 
     return render(request, 'shop/checkout.html', {
-        'form': form,
         'cart_items': cart_items,
         'total': total
     })
@@ -358,7 +353,7 @@ def order_success(request, order_id):
 
 @login_required
 def my_orders(request):
-    orders = Order.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'shop/my_orders.html', {'orders': orders})
 
 

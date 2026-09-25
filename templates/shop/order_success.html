@@ -1,117 +1,519 @@
 {% extends 'base.html' %}
 
-{% block title %}Order Confirmed - ShopEase{% endblock %}
+{% block title %}Order #{{ order.id }} Confirmed - ShopEase 3D{% endblock %}
 
 {% block extra_css %}
 <style>
-    .success-container {
-        max-width: 600px;
-        margin: 3rem auto;
-        text-align: center;
-    }
+/* =========================================================
+   ORDER SUCCESS - 3D CELEBRATORY CONFIRMATION EXPERIENCE
+   ========================================================= */
 
-    .success-icon {
-        width: 120px;
-        height: 120px;
-        background: linear-gradient(135deg, var(--success), #00b894);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 2rem;
-        animation: scaleIn 0.5s ease-out;
-    }
+.success-canvas-confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+}
 
-    .success-icon i {
-        font-size: 4rem;
-        color: white;
-    }
+.success-wrapper {
+    max-width: 820px;
+    margin: 2rem auto 5rem;
+    position: relative;
+    perspective: 1200px;
+}
 
-    @keyframes scaleIn {
-        from {
-            transform: scale(0);
-        }
-        to {
-            transform: scale(1);
-        }
-    }
+/* 3D Checkmark Orb */
+.celebrate-orb-container {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
 
-    .order-details {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        margin-top: 2rem;
-    }
+.celebrate-orb {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00d26a, #00a854);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 3.5rem;
+    box-shadow:
+        0 0 0 12px rgba(0, 210, 106, 0.15),
+        0 0 0 24px rgba(0, 210, 106, 0.08),
+        0 15px 35px rgba(0, 210, 106, 0.4);
+    animation: orbPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
 
-    .order-detail-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 1rem 0;
-        border-bottom: 1px solid #e0e0e0;
-    }
+@keyframes orbPop {
+    0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+    70% { transform: scale(1.15) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
 
-    .order-detail-row:last-child {
-        border-bottom: none;
+.success-heading {
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.success-sub {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+/* 3D Glass Receipt */
+.receipt-glass-card {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 26px;
+    padding: 2.5rem;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35), 0 0 35px rgba(0, 210, 106, 0.12);
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.receipt-header-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+}
+
+.order-code-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffaa6b;
+}
+
+.btn-copy-id {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 2px 6px;
+    transition: color 0.2s ease;
+}
+
+.btn-copy-id:hover {
+    color: #ffffff;
+}
+
+/* Status Timeline */
+.timeline-stepper {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 1.6rem 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.stepper-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.stepper-steps::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.12);
+    z-index: 1;
+}
+
+.step-node {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+}
+
+.step-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #1e293b;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.step-node.active .step-circle {
+    background: #00d26a;
+    border-color: #00d26a;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 210, 106, 0.6);
+}
+
+.step-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.step-node.active .step-label {
+    color: #00d26a;
+}
+
+/* Itemized Table */
+.items-list-box {
+    margin-bottom: 2rem;
+}
+
+.item-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.item-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-name {
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: #ffffff;
+}
+
+.item-meta {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.item-price {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #ffffff;
+}
+
+/* Info Grid */
+.info-glass-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.2rem;
+}
+
+.info-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.info-val {
+    font-size: 0.95rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Total Bar */
+.total-highlight-bar {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(0, 210, 106, 0.15));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 18px;
+    padding: 1.4rem 1.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.2rem;
+}
+
+.total-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.total-amount {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #00d26a;
+    text-shadow: 0 0 15px rgba(0, 210, 106, 0.4);
+}
+
+/* Actions */
+.success-actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+@media print {
+    #webgl-3d-bg, .navbar, .footer, .success-actions-row, .success-canvas-confetti {
+        display: none !important;
     }
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    .receipt-glass-card {
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        color: black !important;
+    }
+}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="success-container animate-fade-in">
-    <div class="success-icon">
-        <i class="bi bi-check-lg"></i>
+<canvas id="confettiCanvas" class="success-canvas-confetti"></canvas>
+
+<div class="success-wrapper">
+
+    <!-- CELEBRATE ICON & HEADLINE -->
+    <div class="celebrate-orb-container">
+        <div class="celebrate-orb">
+            <i class="bi bi-check-lg"></i>
+        </div>
+        <h1 class="success-heading">Order Placed Successfully!</h1>
+        <p class="success-sub">
+            Thank you, <strong class="text-white">{{ order.customer_name }}</strong>! Your payment screenshot and order details have been securely received.
+        </p>
     </div>
 
-    <h1 class="fw-bold mb-3">Order Placed Successfully!</h1>
-    <p class="lead text-muted mb-4">Thank you for your purchase. Your order has been received and is being processed.</p>
+    <!-- 3D GLASS RECEIPT -->
+    <div class="receipt-glass-card" data-tilt-3d>
+        <div class="receipt-header-strip">
+            <div>
+                <span class="order-code-chip">
+                    <i class="bi bi-receipt"></i> Order #{{ order.id }}
+                </span>
+                <button class="btn-copy-id ms-2" onclick="copyOrderId('{{ order.id }}')" title="Copy Order ID">
+                    <i class="bi bi-clipboard"></i> Copy
+                </button>
+            </div>
+            <div class="text-white-50 small">
+                <i class="bi bi-calendar3 me-1"></i> {{ order.created_at|date:"M d, Y - h:i A" }}
+            </div>
+        </div>
 
-    <div class="order-details text-start">
-        <h4 class="fw-bold mb-3">Order Details</h4>
-        
-        <div class="order-detail-row">
-            <span class="text-muted">Order ID:</span>
-            <span class="fw-bold">#{{ order.id }}</span>
+        <!-- TIMELINE STEPPER -->
+        <div class="timeline-stepper">
+            <div class="stepper-steps">
+                <div class="step-node active">
+                    <div class="step-circle"><i class="bi bi-bag-check-fill"></i></div>
+                    <div class="step-label">Placed</div>
+                </div>
+                <div class="step-node {% if order.status in 'confirmed,shipped,delivered' %}active{% endif %}">
+                    <div class="step-circle"><i class="bi bi-patch-check-fill"></i></div>
+                    <div class="step-label">Confirmed</div>
+                </div>
+                <div class="step-node {% if order.status in 'shipped,delivered' %}active{% endif %}">
+                    <div class="step-circle"><i class="bi bi-truck"></i></div>
+                    <div class="step-label">Shipped</div>
+                </div>
+                <div class="step-node {% if order.status == 'delivered' %}active{% endif %}">
+                    <div class="step-circle"><i class="bi bi-house-door-fill"></i></div>
+                    <div class="step-label">Delivered</div>
+                </div>
+            </div>
         </div>
-        
-        <div class="order-detail-row">
-            <span class="text-muted">Customer Name:</span>
-            <span class="fw-bold">{{ order.customer_name }}</span>
-        </div>
-        
-        <div class="order-detail-row">
-            <span class="text-muted">Email:</span>
-            <span class="fw-bold">{{ order.email }}</span>
-        </div>
-        
-        <div class="order-detail-row">
-            <span class="text-muted">Phone:</span>
-            <span class="fw-bold">{{ order.phone }}</span>
-        </div>
-        
-        <div class="order-detail-row">
-            <span class="text-muted">Total Amount:</span>
-            <span class="fw-bold" style="color: var(--primary-color); font-size: 1.3rem;">₹{{ order.total_amount }}</span>
-        </div>
-        
-        <div class="order-detail-row">
-            <span class="text-muted">Status:</span>
-            <span class="badge bg-warning">{{ order.get_status_display }}</span>
-        </div>
-    </div>
 
-    <div class="mt-4">
-        <a href="{% url 'my_orders' %}" class="btn btn-primary btn-lg me-2">
-            <i class="bi bi-box-seam"></i> View My Orders
-        </a>
-        <a href="{% url 'home' %}" class="btn btn-outline-primary btn-lg">
-            <i class="bi bi-house"></i> Continue Shopping
-        </a>
-    </div>
+        <!-- ITEMS ORDERED -->
+        {% if order.items.all %}
+        <div class="items-list-box">
+            <h5 class="fw-bold mb-3 text-white"><i class="bi bi-boxes text-warning me-2"></i> Items Summary</h5>
+            {% for item in order.items.all %}
+            <div class="item-row">
+                {% if item.product.image %}
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="item-thumb">
+                {% else %}
+                <div class="item-thumb d-flex align-items-center justify-content-center text-white-50">
+                    <i class="bi bi-image"></i>
+                </div>
+                {% endif %}
+                <div class="item-details">
+                    <div class="item-name">{{ item.product.name }}</div>
+                    <div class="item-meta">Qty: {{ item.quantity }} × ₹{{ item.price }}</div>
+                </div>
+                <div class="item-price">₹{{ item.get_total }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
 
-    <div class="alert alert-info mt-4">
-        <i class="bi bi-info-circle"></i> 
-        You will receive a confirmation email shortly at <strong>{{ order.email }}</strong>
+        <!-- DESTINATION & CONTACT INFO -->
+        <div class="info-glass-grid">
+            <div class="info-card">
+                <div class="info-label"><i class="bi bi-geo-alt me-1"></i> Delivery Address</div>
+                <div class="info-val">{{ order.address }}</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label"><i class="bi bi-person me-1"></i> Contact</div>
+                <div class="info-val">{{ order.phone }}</div>
+                <div class="text-white-50 small mt-1">{{ order.email }}</div>
+            </div>
+            <div class="info-card">
+                <div class="info-label"><i class="bi bi-shield-check me-1"></i> Payment Proof</div>
+                <div class="info-val text-success">
+                    <i class="bi bi-check-circle-fill me-1"></i> Screenshot Uploaded
+                </div>
+                <div class="text-white-50 small mt-1">Status: {{ order.get_status_display }}</div>
+            </div>
+        </div>
+
+        <!-- TOTAL HIGHLIGHT BAR -->
+        <div class="total-highlight-bar">
+            <div>
+                <div class="total-label">Total Paid</div>
+                <div class="text-white-50 small">Includes all applicable taxes & shipping</div>
+            </div>
+            <div class="total-amount">₹{{ order.total_amount }}</div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="success-actions-row">
+            <a href="{% url 'shop:order_detail' order.id %}" class="btn btn-primary px-4 py-2">
+                <i class="bi bi-geo-fill me-2"></i> Track Order Live
+            </a>
+            <a href="{% url 'shop:my_orders' %}" class="btn btn-outline-light px-4 py-2 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
+                <i class="bi bi-clock-history me-2"></i> My Orders
+            </a>
+            <button onclick="window.print()" class="btn btn-outline-light px-4 py-2 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
+                <i class="bi bi-printer me-2"></i> Print Receipt
+            </button>
+            <a href="{% url 'shop:home' %}" class="btn btn-outline-light px-4 py-2 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
+                <i class="bi bi-arrow-left me-2"></i> Continue Shopping
+            </a>
+        </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Copy Order ID Toast
+function copyOrderId(id) {
+    navigator.clipboard.writeText(id).then(() => {
+        alert("Order #" + id + " copied to clipboard!");
+    }).catch(err => {
+        console.error("Failed to copy", err);
+    });
+}
+
+// 3D Canvas Confetti Burst
+(function initConfetti() {
+    const canvas = document.getElementById('confettiCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const pieces = [];
+    const numberOfPieces = 90;
+    const colors = ['#ff6b35', '#00d26a', '#0dcaf0', '#ffb800', '#ffffff', '#ff3366'];
+
+    for (let i = 0; i < numberOfPieces; i++) {
+        pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            size: Math.random() * 8 + 4,
+            speedY: Math.random() * 3 + 2,
+            speedX: (Math.random() - 0.5) * 3,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 360,
+            rotationSpeed: (Math.random() - 0.5) * 8
+        });
+    }
+
+    let animationFrame;
+    let startTime = Date.now();
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Stop after 6 seconds to preserve resources
+        if (Date.now() - startTime > 6500) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
+        pieces.forEach(p => {
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+            ctx.restore();
+
+            p.y += p.speedY;
+            p.x += p.speedX;
+            p.rotation += p.rotationSpeed;
+
+            if (p.y > canvas.height) {
+                p.y = -20;
+                p.x = Math.random() * canvas.width;
+            }
+        });
+
+        animationFrame = requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+})();
+</script>
 {% endblock %}

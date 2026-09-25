@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Offers{% endblock %}
+
+{% block extra_css %}
+<style>
+    .offer-container {
+        background: rgba(255,255,255,0.06);
+        backdrop-filter: blur(12px);
+        padding: 2rem;
+        border-radius: 20px;
+        color: white;
+    }
+
+    .offer-card {
+        background: rgba(255,255,255,0.05);
+        border-radius: 15px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .offer-img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .btn-custom {
+        border-radius: 10px;
+        padding: 5px 12px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="offer-container">
+
+    <!-- TITLE -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">
+            <i class="bi bi-tag"></i> Manage Offers
+        </h3>
+    </div>
+
+    <!-- ADD FORM -->
+    <form method="POST" enctype="multipart/form-data" class="mb-4">
+        {% csrf_token %}
+        
+        <input type="text" name="title" placeholder="Offer Title" class="form-control mb-3" required>
+        
+        <input type="file" name="image" class="form-control mb-3" required>
+        
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Add Offer
+        </button>
+    </form>
+
+    <!-- OFFER LIST -->
+    {% for offer in offers %}
+    <div class="offer-card">
+
+        <div class="d-flex align-items-center gap-3">
+            <img src="{{ offer.image.url }}" class="offer-img">
+            <div>
+                <h6 class="mb-0">{{ offer.title }}</h6>
+            </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div>
+            <!-- EDIT BUTTON -->
+            <a href="{% url 'shop:admin_edit_offer' offer.id %}" 
+               class="btn btn-warning btn-sm btn-custom">
+                <i class="bi bi-pencil"></i>
+            </a>
+
+            <!-- DELETE BUTTON (POST FORM - SAFE) -->
+            <form action="{% url 'shop:admin_delete_offer' offer.id %}" 
+                  method="POST" 
+                  style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" 
+                        class="btn btn-danger btn-sm btn-custom"
+                        onclick="return confirm('Delete this offer?')">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </form>
+        </div>
+
+    </div>
+    {% empty %}
+        <p class="text-muted text-center">No offers added yet.</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

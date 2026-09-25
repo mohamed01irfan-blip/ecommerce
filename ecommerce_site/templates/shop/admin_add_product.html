@@ -1,0 +1,594 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   SHOP EASE - ADD PRODUCT
+   ========================================================= */
+
+/* Remove base.html container restrictions for this page */
+.container:has(.shop-add-product-page) {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
+/* MAIN PAGE */
+
+.shop-add-product-page {
+    width: 100%;
+    min-height: calc(100vh - 215px);
+    padding: 45px 20px 60px;
+    box-sizing: border-box;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 126, 51, 0.08),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(54, 113, 160, 0.15),
+            transparent 40%
+        );
+}
+
+
+/* FORM CARD */
+
+.shop-add-product-card {
+    width: 100%;
+    max-width: 680px;
+
+    margin: 0 auto;
+
+    padding: 36px 42px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(255,255,255,0.8);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.18),
+        0 4px 15px rgba(0,0,0,0.08);
+}
+
+
+/* HEADER */
+
+.shop-add-product-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.shop-add-product-title {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #17213b !important;
+
+    font-size: 30px !important;
+    line-height: 1.2 !important;
+
+    font-weight: 700 !important;
+}
+
+.shop-add-product-subtitle {
+    margin: 9px 0 0 !important;
+
+    color: #718096 !important;
+
+    font-size: 14px !important;
+}
+
+
+/* FORM */
+
+.shop-add-product-form {
+    width: 100%;
+}
+
+
+/* FIELD */
+
+.shop-product-field {
+    margin-bottom: 20px;
+}
+
+
+/* LABEL */
+
+.shop-product-label {
+    display: block !important;
+
+    margin: 0 0 8px !important;
+
+    color: #17213b !important;
+
+    font-size: 14px !important;
+
+    font-weight: 600 !important;
+}
+
+
+/* TEXT / NUMBER INPUT */
+
+.shop-product-input,
+.shop-product-select {
+    display: block !important;
+
+    width: 100% !important;
+
+    height: 48px !important;
+
+    box-sizing: border-box !important;
+
+    padding: 0 14px !important;
+
+    margin: 0 !important;
+
+    background: #ffffff !important;
+
+    color: #17213b !important;
+
+    border: 1px solid #d5dce5 !important;
+
+    border-radius: 9px !important;
+
+    outline: none !important;
+
+    font-family: inherit !important;
+
+    font-size: 14px !important;
+
+    box-shadow: none !important;
+
+    transition: 0.2s ease;
+}
+
+
+/* PLACEHOLDER */
+
+.shop-product-input::placeholder {
+    color: #9aa4b2 !important;
+
+    opacity: 1 !important;
+}
+
+
+/* FOCUS */
+
+.shop-product-input:focus,
+.shop-product-select:focus {
+
+    border-color: #ff7833 !important;
+
+    background: #ffffff !important;
+
+    color: #17213b !important;
+
+    box-shadow:
+        0 0 0 3px rgba(255,120,51,0.12) !important;
+}
+
+
+/* SELECT */
+
+.shop-product-select {
+
+    cursor: pointer !important;
+
+    appearance: auto !important;
+}
+
+
+.shop-product-select option {
+
+    background: #ffffff !important;
+
+    color: #17213b !important;
+}
+
+
+/* NUMBER INPUT */
+
+.shop-product-input[type="number"] {
+
+    appearance: textfield !important;
+
+    -moz-appearance: textfield !important;
+}
+
+
+/* FILE INPUT */
+
+.shop-product-file {
+
+    display: block !important;
+
+    width: 100% !important;
+
+    min-height: 48px;
+
+    box-sizing: border-box;
+
+    padding: 6px !important;
+
+    background: #ffffff !important;
+
+    color: #17213b !important;
+
+    border: 1px solid #d5dce5 !important;
+
+    border-radius: 9px !important;
+
+    font-size: 13px !important;
+
+    cursor: pointer;
+}
+
+
+.shop-product-file::file-selector-button {
+
+    height: 34px;
+
+    padding: 0 14px;
+
+    margin-right: 10px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #ff7833;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.shop-product-file::file-selector-button:hover {
+
+    background: #e96828;
+}
+
+
+/* HELP TEXT */
+
+.shop-product-help {
+
+    display: block;
+
+    margin-top: 6px;
+
+    color: #8a94a3 !important;
+
+    font-size: 12px !important;
+}
+
+
+/* SUBMIT BUTTON */
+
+.shop-add-product-button {
+
+    display: block !important;
+
+    width: 100% !important;
+
+    height: 50px !important;
+
+    margin-top: 28px !important;
+
+    padding: 0 !important;
+
+    border: none !important;
+
+    border-radius: 9px !important;
+
+    background: linear-gradient(
+        135deg,
+        #ff7833,
+        #ff6426
+    ) !important;
+
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+
+    font-size: 15px !important;
+
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 7px 18px rgba(255,120,51,0.25) !important;
+
+    transition: 0.2s ease;
+}
+
+
+.shop-add-product-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(255,120,51,0.32) !important;
+}
+
+
+.shop-add-product-button:active {
+
+    transform: translateY(0);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .shop-add-product-page {
+
+        padding: 25px 12px 40px;
+
+    }
+
+    .shop-add-product-card {
+
+        padding: 28px 20px;
+
+        border-radius: 15px;
+
+    }
+
+    .shop-add-product-title {
+
+        font-size: 25px !important;
+
+    }
+
+}
+
+
+/* SMALL MOBILE */
+
+@media (max-width: 400px) {
+
+    .shop-add-product-page {
+
+        padding: 18px 8px 30px;
+
+    }
+
+    .shop-add-product-card {
+
+        padding: 24px 16px;
+
+    }
+
+}
+
+</style>
+
+
+<div class="shop-add-product-page">
+
+    <div class="shop-add-product-card">
+
+
+        <!-- HEADER -->
+
+        <div class="shop-add-product-header">
+
+            <h2 class="shop-add-product-title">
+                Add Product
+            </h2>
+
+            <p class="shop-add-product-subtitle">
+                Add a new product to your store
+            </p>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form
+            class="shop-add-product-form"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            {% csrf_token %}
+
+
+            <!-- PRODUCT NAME -->
+
+            <div class="shop-product-field">
+
+                <label
+                    class="shop-product-label"
+                    for="shop-product-name"
+                >
+                    Product Name
+                </label>
+
+                <input
+                    class="shop-product-input"
+                    type="text"
+                    id="shop-product-name"
+                    name="name"
+                    placeholder="Enter product name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PRICE -->
+
+            <div class="shop-product-field">
+
+                <label
+                    class="shop-product-label"
+                    for="shop-product-price"
+                >
+                    Price
+                </label>
+
+                <input
+                    class="shop-product-input"
+                    type="number"
+                    id="shop-product-price"
+                    name="price"
+                    placeholder="Enter product price"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+            <!-- STOCK -->
+
+            <div class="shop-product-field">
+
+                <label
+                    class="shop-product-label"
+                    for="shop-product-stock"
+                >
+                    Stock Quantity
+                </label>
+
+                <input
+                    class="shop-product-input"
+                    type="number"
+                    id="shop-product-stock"
+                    name="stock"
+                    placeholder="Enter stock quantity"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CATEGORY -->
+
+            <div class="shop-product-field">
+
+                <label
+                    class="shop-product-label"
+                    for="shop-product-category"
+                >
+                    Category
+                </label>
+
+                <select
+                    class="shop-product-select"
+                    id="shop-product-category"
+                    name="category"
+                >
+
+                    <option value="">
+                        Select a category
+                    </option>
+
+                    {% for category in categories %}
+
+                        <option value="{{ category.id }}">
+                            {{ category.name }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- NEW CATEGORY -->
+
+            <div class="shop-product-field">
+
+                <label
+                    class="shop-product-label"
+                    for="shop-new-category"
+                >
+                    Add New Category
+                </label>
+
+                <input
+                    class="shop-product-input"
+                    type="text"
+                    id="shop-new-category"
+                    name="new_category"
+                    placeholder="Enter new category"
+                >
+
+                <span class="shop-product-help">
+                    Leave empty if you are using an existing category.
+                </span>
+
+            </div>
+
+
+            <!-- IMAGES -->
+
+            <div class="shop-product-field">
+
+                <label
+                    class="shop-product-label"
+                    for="shop-product-images"
+                >
+                    Product Images
+                </label>
+
+                <input
+                    class="shop-product-file"
+                    type="file"
+                    id="shop-product-images"
+                    name="images"
+                    multiple
+                    accept="image/*"
+                >
+
+                <span class="shop-product-help">
+                    You can select multiple images.
+                </span>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="shop-add-product-button"
+            >
+                Add Product
+            </button>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

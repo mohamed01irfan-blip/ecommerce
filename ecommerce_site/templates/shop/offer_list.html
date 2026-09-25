@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Offers Dashboard</h2>
+
+{% for offer in offers %}
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <h3>{{ offer.title }}</h3>
+        <p>{{ offer.description }}</p>
+        <p>Status: {{ offer.is_active }}</p>
+    </div>
+{% endfor %}
+</body>
+</html>

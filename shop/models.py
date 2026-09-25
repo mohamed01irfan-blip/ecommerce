@@ -10,19 +10,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Order(models.Model):
-    full_name = models.CharField(max_length=200)
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
-    address = models.TextField()
-    payment_method = models.CharField(max_length=50)
-    payment_screenshot = models.ImageField(upload_to='payments/')
-
-class Category(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
 
 
 class Offer(models.Model):
