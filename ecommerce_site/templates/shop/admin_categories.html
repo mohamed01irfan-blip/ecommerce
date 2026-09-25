@@ -1,33 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
- {% extends 'base.html' %}
+{% extends 'base.html' %}
+
+{% block title %}Manage Categories - Admin Dashboard{% endblock %}
 
 {% block content %}
-<h2>Categories</h2>
+<div class="container my-4" style="max-width: 900px;">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4 pb-3 border-bottom border-white border-opacity-10">
+        <div>
+            <span class="badge bg-warning bg-opacity-25 text-warning px-3 py-1 rounded-pill small mb-2">
+                <i class="bi bi-speedometer2 me-1"></i> Admin Portal
+            </span>
+            <h1 class="fw-bold text-white mb-0">Product Categories</h1>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{% url 'shop:admin_dashboard' %}" class="btn btn-outline-light rounded-pill px-3 py-2 small border-opacity-25">
+                <i class="bi bi-arrow-left me-1"></i> Dashboard
+            </a>
+            <a href="{% url 'shop:admin_add_category' %}" class="btn btn-primary px-4 py-2">
+                <i class="bi bi-plus-circle me-1"></i> Add New Category
+            </a>
+        </div>
+    </div>
 
-<a href="{% url 'shop:admin_add_category' %}" class="btn btn-success mb-3">
-    Add Category
-</a>
-
-<div class="card p-3">
-    <ul class="list-group">
-        {% for category in categories %}
-            <li class="list-group-item">
-                {{ category.name }}
-            </li>
-        {% empty %}
-            <li class="list-group-item text-muted">
-                No categories yet
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="card p-4 border-0 shadow-lg" data-tilt-3d style="background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(16px); border-radius: 22px; border: 1px solid rgba(255, 255, 255, 0.12);">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0" style="background: transparent;">
+                <thead>
+                    <tr class="text-white-50 border-bottom border-white border-opacity-10">
+                        <th class="py-3">#</th>
+                        <th class="py-3">Category Name</th>
+                        <th class="py-3 text-center">Products Count</th>
+                        <th class="py-3 text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr class="align-middle border-bottom border-white border-opacity-10">
+                        <td class="text-white-50">{{ forloop.counter }}</td>
+                        <td class="fw-bold text-white fs-6">
+                            <i class="bi bi-folder2-open text-warning me-2"></i>{{ category.name }}
+                        </td>
+                        <td class="text-center">
+                            <span class="badge bg-primary bg-opacity-25 text-white border border-primary border-opacity-25 px-3 py-1 rounded-pill">
+                                {{ category.product_set.count }} Item{% if category.product_set.count != 1 %}s{% endif %}
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <a href="{% url 'shop:category_products' category.id %}" class="btn btn-sm btn-outline-light rounded-pill px-3 border-opacity-25">
+                                <i class="bi bi-eye me-1"></i> View
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-white-50">
+                            No categories created yet. Click "Add New Category" above to create one.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}
-</body>
-</html>

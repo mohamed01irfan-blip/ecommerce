@@ -666,21 +666,21 @@
     </div>
 </div>
 
-<!-- SPECIAL OFFERS SLIDER 
+<!-- SPECIAL OFFERS SLIDER -->
 {% if offers %}
 <div id="special-offers" class="offer-slider-frame" data-tilt-3d>
     {% for offer in offers %}
     <div class="offer-slide {% if forloop.first %}active{% endif %}" data-slide-index="{{ forloop.counter0 }}">
-        {% if offer.image %} -->
-        <!-- Ambient blurred backdrop for rich atmosphere
-        <div class="offer-slide-bg" style="background-image: url('{{ offer.image.url }}');"></div> -->
-        <!-- Main high-res offer image 
+        {% if offer.image %}
+        <!-- Ambient blurred backdrop for rich atmosphere -->
+        <div class="offer-slide-bg" style="background-image: url('{{ offer.image.url }}');"></div>
+        <!-- Main high-res offer image -->
         <img src="{{ offer.image.url }}" alt="{{ offer.title }}" class="offer-main-img">
         {% else %}
         <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark text-white-50">
             <i class="bi bi-tag fs-1"></i>
         </div>
-        {% endif %} 
+        {% endif %}
 
         <div class="offer-slide-overlay">
             <div>
@@ -692,16 +692,16 @@
             </div>
         </div>
     </div>
-    {% endfor %} -->
+    {% endfor %}
 
-    <!-- Controls
+    <!-- Controls -->
     {% if offers|length > 1 %}
     <div class="slider-controls">
         <button class="slider-btn" id="prevSlide" aria-label="Previous Offer"><i class="bi bi-chevron-left"></i></button>
         <button class="slider-btn" id="nextSlide" aria-label="Next Offer"><i class="bi bi-chevron-right"></i></button>
-    </div>  -->
+    </div>
 
-    <!-- Dots 
+    <!-- Dots -->
     <div class="slider-dots-container">
         {% for offer in offers %}
         <button class="slider-dot {% if forloop.first %}active{% endif %}" data-target-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
@@ -709,7 +709,7 @@
     </div>
     {% endif %}
 </div>
-{% endif %} --> 
+{% endif %} 
 
 <!-- SHOP BY CATEGORY -->
 {% if categories %}
