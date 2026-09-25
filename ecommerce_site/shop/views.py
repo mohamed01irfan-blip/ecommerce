@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.db.models import Sum
 from django.http import HttpResponse
 
-from .models import Product, Cart, Order, OrderItem
+from .models import Product, Category, Cart, Order, OrderItem
 from .forms import ProductForm, CheckoutForm
 
 
@@ -477,74 +477,191 @@ def admin_dashboard(request):
 # =========================================================
 
 @login_required
-@user_passes_test(is_admin)
-def admin_products(request):
-
-    products = Product.objects.all()
-
-    return render(
-        request,
-        'shop/admin_products.html',
-        {
-            'products': products
-        }
-    )
-
-
-# =========================================================
-# ADD PRODUCT
-# =========================================================
-
-@login_required
-@user_passes_test(is_admin)
+@user_passes_test(lambda u: u.is_staff)
 def admin_add_product(request):
 
     if request.method == 'POST':
 
-        form = ProductForm(
-            request.POST,
-            request.FILES
-        )
+        # =========================================================
+        # GET PRODUCT DATA
+        # =========================================================
 
-        # Django Form handles all field validation
-        if form.is_valid():
+        name = request.POST.get('name', '').strip()
+        description = request.POST.get('description', '').strip()
+        price = request.POST.get('price', '').strip()
+        stock = request.POST.get('stock', '').strip()
+
+        # =========================================================
+        # GET CATEGORY DATA
+        # =========================================================
+
+        category_id = request.POST.get('category', '').strip()
+        new_category = request.POST.get('new_category', '').strip()
+
+        category = None
+
+        # =========================================================
+        # EXISTING CATEGORY
+        # =========================================================
+
+        if category_id:
 
             try:
-                product = form.save()
-
-                messages.success(
-                    request,
-                    f'{product.name} added successfully!'
+                category = Category.objects.get(
+                    pk=int(category_id)
                 )
 
-                return redirect(
-                    'admin_products'
-                )
-
-            except (ValueError, TypeError):
+            except (Category.DoesNotExist, ValueError, TypeError):
 
                 messages.error(
                     request,
-                    'Invalid product information. Please check all fields.'
+                    'Selected category is invalid.'
                 )
 
-        else:
+                return redirect('admin_add_product')
+
+        # =========================================================
+        # NEW CATEGORY
+        # =========================================================
+
+        elif new_category:
+
+            category, created = Category.objects.get_or_create(
+                name=new_category
+            )
+
+        # =========================================================
+        # GET IMAGE
+        # =========================================================
+
+        image = request.FILES.get('images')
+
+        # =========================================================
+        # VALIDATION
+        # =========================================================
+
+        if not name:
 
             messages.error(
                 request,
-                'Please correct the errors below.'
+                'Product name is required.'
             )
 
-    else:
+            return redirect('admin_add_product')
 
-        form = ProductForm()
+        if not description:
+
+            messages.error(
+                request,
+                'Product description is required.'
+            )
+
+            return redirect('admin_add_product')
+
+        if not price:
+
+            messages.error(
+                request,
+                'Product price is required.'
+            )
+
+            return redirect('admin_add_product')
+
+        if not stock:
+
+            messages.error(
+                request,
+                'Stock quantity is required.'
+            )
+
+            return redirect('admin_add_product')
+
+        if not image:
+
+            messages.error(
+                request,
+                'Product image is required.'
+            )
+
+            return redirect('admin_add_product')
+
+        # =========================================================
+        # CONVERT PRICE
+        # =========================================================
+
+        try:
+
+            price_value = float(price)
+
+        except (ValueError, TypeError):
+
+            messages.error(
+                request,
+                'Please enter a valid price.'
+            )
+
+            return redirect('admin_add_product')
+
+        # =========================================================
+        # CONVERT STOCK
+        # =========================================================
+
+        try:
+
+            stock_value = int(stock)
+
+        except (ValueError, TypeError):
+
+            messages.error(
+                request,
+                'Please enter a valid stock quantity.'
+            )
+
+            return redirect('admin_add_product')
+
+        # =========================================================
+        # CREATE PRODUCT
+        # =========================================================
+
+        product = Product.objects.create(
+
+            name=name,
+
+            description=description,
+
+            price=price_value,
+
+            stock=stock_value,
+
+            category=category,
+
+            image=image
+
+        )
+
+        # =========================================================
+        # SUCCESS
+        # =========================================================
+
+        messages.success(
+            request,
+            f'Product "{product.name}" added successfully!'
+        )
+
+        return redirect('admin_products')
+
+    # =============================================================
+    # GET REQUEST
+    # =============================================================
+
+    form = ProductForm()
 
     return render(
         request,
-        'shop/admin_product_form.html',
+        'shop/admin_add_product.html',
         {
             'form': form,
-            'title': 'Add Product'
+            'categories': Category.objects.all()
         }
     )
 

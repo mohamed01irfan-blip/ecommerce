@@ -81,22 +81,37 @@
             </div>
         </div>
 
-        <div class="mb-4">
-            <label for="{{ form.image.id_for_label }}" class="form-label">Product Image</label>
-            {{ form.image }}
-            {% if form.image.errors %}
-                <div class="text-danger small mt-1">{{ form.image.errors }}</div>
-            {% endif %}
-        </div>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
-        <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary btn-lg">
-                <i class="bi bi-check-circle"></i> Save Product
-            </button>
-            <a href="{% url 'admin_products' %}" class="btn btn-outline-secondary">
-                Cancel
-            </a>
-        </div>
+    <!-- Product fields -->
+
+    <div class="mb-4">
+        <label for="{{ form.image.id_for_label }}" class="form-label">
+            Product Image
+        </label>
+
+        {{ form.image }}
+
+        {% if form.image.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.image.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-lg">
+            <i class="bi bi-check-circle"></i> Save Product
+        </button>
+
+        <a href="{% url 'admin_products' %}"
+           class="btn btn-outline-secondary">
+            Cancel
+        </a>
+    </div>
+</form>
+
     </form>
 </div>
 {% endblock %}
