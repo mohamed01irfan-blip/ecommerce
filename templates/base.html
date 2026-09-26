@@ -3,46 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}ShopEase - Modern UI{% endblock %}</title>
+    <title>{% block title %}ShopEase — Futuristic 3D Commerce{% endblock %}</title>
 
-    <!-- Bootstrap -->
+    <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         :root {
-            --primary: #ff6b35;
-            --primary-hover: #ff521a;
-            --primary-color: #ff6b35;
-            --accent: #ff8c42;
-            --accent-hover: #ffa166;
-            --accent-color: #ff8c42;
-            --dark: #0b0f19;
-            --dark-card: rgba(15, 23, 42, 0.65);
-            --success: #00d26a;
-            --success-glow: rgba(0, 210, 106, 0.35);
-            --warning: #ffb800;
-            --danger: #ff4757;
-            --info: #0dcaf0;
-            --info-glow: rgba(13, 202, 240, 0.35);
-            --glass-bg: rgba(255, 255, 255, 0.07);
-            --glass-card: rgba(255, 255, 255, 0.08);
+            /* Futuristic Clean Minimal Design Tokens */
+            --bg-void: #06090f;
+            --bg-surface: #0a0f1d;
+            --bg-elevated: #10172a;
+            
+            /* Frosted Glass Layers */
+            --glass-base: rgba(255, 255, 255, 0.035);
+            --glass-card: rgba(255, 255, 255, 0.055);
+            --glass-card-hover: rgba(255, 255, 255, 0.09);
             --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-border-focus: rgba(255, 107, 53, 0.5);
-            --glass-blur: blur(16px);
-            --neon-glow: 0 0 25px rgba(255, 107, 53, 0.35);
+            --glass-border-focus: rgba(165, 180, 252, 0.45);
+            --glass-blur: blur(24px);
+
+            /* Iridescent Prism & Pearl Lighting */
+            --pearl-light: #f8fafc;
+            --pearl-muted: #94a3b8;
+            --pearl-dim: #64748b;
+            --prism-1: #6366f1; /* Indigo */
+            --prism-2: #8b5cf6; /* Violet */
+            --prism-3: #d946ef; /* Fuchsia */
+            --prism-4: #38bdf8; /* Sky */
+            --prism-emerald: #10b981;
+            --prism-coral: #f43f5e;
+
+            /* Gradients */
+            --gradient-prism: linear-gradient(135deg, #6366f1 0%, #8b5cf6 45%, #d946ef 100%);
+            --gradient-pearl: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            --gradient-iridescent-border: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(165,180,252,0.4) 30%, rgba(217,70,239,0.3) 70%, rgba(56,189,248,0.3) 100%);
+            --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+
+            /* Shadows & Luminescence */
+            --pearl-glow: 0 0 30px rgba(165, 180, 252, 0.25);
+            --prism-glow: 0 10px 30px -5px rgba(99, 102, 241, 0.4);
+            --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            --card-shadow-hover: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(165, 180, 252, 0.35), 0 0 35px rgba(99, 102, 241, 0.25);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         html {
@@ -50,245 +69,423 @@
         }
 
         body {
-            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0b0f19 0%, #152238 45%, #1a1630 100%);
-            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-void);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 55%),
+                radial-gradient(at 100% 0%, rgba(217, 70, 239, 0.09) 0px, transparent 50%),
+                radial-gradient(at 50% 60%, rgba(56, 189, 248, 0.06) 0px, transparent 60%);
+            background-attachment: fixed;
+            color: var(--pearl-light);
             min-height: 100vh;
             overflow-x: hidden;
-            animation: fadePage 0.6s ease;
+            position: relative;
         }
 
-        @keyframes fadePage {
-            from {opacity: 0; transform: translateY(8px);}
-            to {opacity: 1; transform: translateY(0);}
+        /* 3D WebGL Background Canvas */
+        #webgl-ambient-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        /* Iridescent Typography */
+        .text-iridescent {
+            background: linear-gradient(135deg, #ffffff 20%, #a5b4fc 50%, #f472b6 85%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .text-pearl {
+            color: var(--pearl-light);
+        }
+
+        .text-pearl-muted {
+            color: var(--pearl-muted);
+        }
+
+        /* Top Notification Bar */
+        .promo-bar {
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(217, 70, 239, 0.15), rgba(56, 189, 248, 0.15));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.82rem;
+            letter-spacing: 0.3px;
+            padding: 7px 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .promo-bar span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+        }
+
+        .promo-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         /* NAVBAR */
         .navbar {
-            background: rgba(11, 15, 25, 0.82) !important;
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 0.75rem 0;
-            transition: all 0.3s ease;
-            z-index: 1030;
+            background: rgba(6, 9, 15, 0.75) !important;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.85rem 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1040;
+        }
+
+        .navbar.scrolled {
+            background: rgba(6, 9, 15, 0.92) !important;
+            border-bottom-color: rgba(165, 180, 252, 0.18);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .navbar-brand {
             font-weight: 800;
             font-size: 1.55rem;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #ff6b35 0%, #ffaa6b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.6px;
+            color: #ffffff;
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
             transition: transform 0.3s ease;
         }
 
         .navbar-brand:hover {
-            transform: scale(1.03);
+            transform: translateY(-1px);
         }
 
-        .navbar-brand i {
-            -webkit-text-fill-color: initial;
-            color: #ff6b35;
-            filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.6));
+        .brand-prism-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: var(--gradient-prism);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
+        .navbar-brand:hover .brand-prism-icon {
+            transform: rotate(12deg) scale(1.08);
+        }
+
+        .brand-text {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .brand-subtag {
+            font-size: 0.65rem;
+            font-family: 'Space Grotesk', sans-serif;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 6px;
+            color: #94a3b8;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-left: 2px;
+        }
+
+        /* Search Pill */
+        .search-bar-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 9px 46px 9px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            font-size: 0.9rem;
+            backdrop-filter: blur(14px);
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 400;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(165, 180, 252, 0.5);
+            box-shadow: 0 0 25px rgba(165, 180, 252, 0.25), inset 0 0 10px rgba(255, 255, 255, 0.05);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: var(--gradient-prism);
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.35);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.6);
+        }
+
+        /* Nav Links */
         .nav-link {
-            color: rgba(255, 255, 255, 0.85) !important;
+            color: rgba(255, 255, 255, 0.82) !important;
             font-weight: 500;
+            font-size: 0.92rem;
             padding: 0.5rem 1rem !important;
             border-radius: 12px;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-link:hover {
-            color: #ff8c42 !important;
+            color: #ffffff !important;
             background: rgba(255, 255, 255, 0.06);
             transform: translateY(-1px);
         }
 
-        /* SEARCH BAR */
-        .search-bar {
-            width: 38%;
-            position: relative;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 10px 48px 10px 20px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            background: rgba(255, 255, 255, 0.08);
-            color: #ffffff;
-            backdrop-filter: blur(12px);
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .search-bar input::placeholder {
-            color: rgba(255, 255, 255, 0.55);
-        }
-
-        .search-bar input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.14);
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
-        }
-
-        .search-bar button {
-            position: absolute;
-            right: 6px;
-            top: 50%;
-            transform: translateY(-50%);
-            border: none;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            border-radius: 50%;
-            width: 34px;
-            height: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .search-bar button:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0 12px rgba(255, 107, 53, 0.6);
-        }
-
-        /* CARDS */
-        .card {
-            background: var(--glass-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            color: #ffffff;
-            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 107, 53, 0.35);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 0 25px rgba(255, 107, 53, 0.15);
-        }
-
-        /* BUTTONS */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border: none;
-            color: #ffffff;
-            font-weight: 600;
+        /* Cart Button Pill */
+        .btn-cart-pill {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 50px;
-            padding: 0.65rem 1.6rem;
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--primary-hover), var(--accent-hover));
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
             color: #ffffff;
-        }
-
-        .btn-cart {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border: none;
-            border-radius: 50px;
-            color: white;
             padding: 8px 18px;
-            position: relative;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.35);
+            font-size: 0.9rem;
+            text-decoration: none;
+            position: relative;
+            backdrop-filter: blur(12px);
             transition: all 0.25s ease;
         }
 
-        .btn-cart:hover {
+        .btn-cart-pill:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(165, 180, 252, 0.45);
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(255, 107, 53, 0.5);
-            color: white;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.25);
         }
 
-        .cart-badge {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: #ff3366;
+        .cart-pill-badge {
+            background: var(--gradient-prism);
             color: white;
-            border-radius: 50%;
-            padding: 2px 7px;
+            border-radius: 50px;
+            padding: 1px 7px;
             font-size: 0.72rem;
             font-weight: 700;
-            box-shadow: 0 0 10px rgba(255, 51, 102, 0.7);
-            animation: pulseBadge 2s infinite;
+            box-shadow: 0 0 12px rgba(217, 70, 239, 0.6);
+            animation: cartPulse 2.4s infinite;
         }
 
-        @keyframes pulseBadge {
+        @keyframes cartPulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.15); }
         }
 
-        /* DROPDOWNS */
-        .dropdown-menu {
-            background: rgba(17, 24, 39, 0.95);
-            backdrop-filter: blur(20px);
+        /* Buttons & Actions */
+        .btn-prism {
+            background: var(--gradient-prism);
+            border: none;
+            color: #ffffff !important;
+            font-weight: 600;
+            font-size: 0.92rem;
+            border-radius: 50px;
+            padding: 0.65rem 1.6rem;
+            box-shadow: var(--prism-glow);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-prism:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 35px -5px rgba(139, 92, 246, 0.6);
+            color: #ffffff !important;
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff !important;
+            font-weight: 600;
+            font-size: 0.92rem;
+            border-radius: 50px;
+            padding: 0.65rem 1.6rem;
+            backdrop-filter: blur(14px);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Generic Glass Card */
+        .glass-card {
+            background: var(--glass-card);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(165, 180, 252, 0.3);
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-4px);
+        }
+
+        /* Dropdowns */
+        .dropdown-menu {
+            background: rgba(10, 15, 29, 0.95);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 18px;
             padding: 0.6rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.15);
+            min-width: 210px;
         }
 
         .dropdown-item {
             color: rgba(255, 255, 255, 0.85);
             border-radius: 10px;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .dropdown-item:hover {
-            background: rgba(255, 107, 53, 0.15);
-            color: #ff8c42;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+
+        .dropdown-item.text-danger:hover {
+            background: rgba(244, 63, 94, 0.15);
+            color: #fb7185;
+        }
+
+        /* Alerts */
+        .alert-futuristic {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(165, 180, 252, 0.3);
+            backdrop-filter: blur(16px);
+            border-radius: 16px;
+            color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        /* 3D Tilt Sheen Container */
+        [data-tilt-3d] {
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.15s ease-out, box-shadow 0.25s ease;
+            position: relative;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* FOOTER */
-        .footer {
-            background: rgba(9, 13, 22, 0.85);
+        .footer-futuristic {
+            background: linear-gradient(180deg, transparent 0%, rgba(6, 9, 15, 0.85) 30%, #04060a 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 100px;
+            padding: 70px 0 35px;
+            position: relative;
             backdrop-filter: blur(20px);
-            border-top: 1px solid var(--glass-border);
-            margin-top: 80px;
-            padding: 60px 0 30px;
-            color: rgba(255, 255, 255, 0.75);
         }
 
-        .footer-brand {
-            font-weight: 800;
-            font-size: 1.6rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            display: inline-block;
+        .footer-futuristic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 15%;
+            right: 15%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(165, 180, 252, 0.4), transparent);
         }
 
         .footer-heading {
             color: #ffffff;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
             margin-bottom: 1.2rem;
             position: relative;
         }
@@ -296,9 +493,9 @@
         .footer-heading::after {
             content: '';
             display: block;
-            width: 32px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), transparent);
+            width: 24px;
+            height: 2px;
+            background: var(--gradient-prism);
             margin-top: 6px;
             border-radius: 2px;
         }
@@ -314,8 +511,9 @@
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.65);
+            color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
+            font-size: 0.9rem;
             transition: all 0.25s ease;
             display: inline-flex;
             align-items: center;
@@ -323,17 +521,17 @@
         }
 
         .footer-links a:hover {
-            color: var(--accent);
+            color: #ffffff;
             transform: translateX(4px);
         }
 
-        .social-btn {
+        .social-circle-btn {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            color: white;
+            color: #ffffff;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -342,56 +540,42 @@
             transition: all 0.3s ease;
         }
 
-        .social-btn:hover {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
+        .social-circle-btn:hover {
+            background: var(--gradient-prism);
+            color: #ffffff;
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
         }
 
-        .footer-bottom {
-            margin-top: 40px;
+        .footer-badge-card {
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 1.2rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .footer-bottom-row {
+            margin-top: 50px;
             padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            font-size: 0.9rem;
-        }
-
-        /* ANIMATION */
-        .animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .animate.show {
-            opacity: 1;
-            transform: translateY(0);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.45);
         }
 
         @media(max-width: 991px) {
-            .search-bar {
-                width: 100%;
+            .search-bar-wrap {
+                max-width: 100%;
                 margin: 12px 0;
             }
             .navbar-collapse {
-                background: rgba(11, 15, 25, 0.95);
-                padding: 1.2rem;
-                border-radius: 18px;
-                border: 1px solid var(--glass-border);
-                margin-top: 10px;
+                background: rgba(8, 12, 22, 0.97);
+                padding: 1.4rem;
+                border-radius: 20px;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                margin-top: 12px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             }
-        }
-
-        /* 3D Canvas Background */
-        #webgl-3d-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.75;
         }
     </style>
 
@@ -399,82 +583,98 @@
 </head>
 
 <body>
-<canvas id="webgl-3d-bg"></canvas>
+<!-- 3D WebGL Background Canvas (Ambient Pearl Constellation) -->
+<canvas id="webgl-ambient-canvas"></canvas>
+
+<!-- Top Announcement Ribbon -->
+<div class="promo-bar">
+    <div class="container">
+        <span>
+            <span class="promo-badge"><i class="bi bi-stars"></i> Next-Gen 3D</span>
+            Experience Futuristic Clean Minimal Commerce — Real-Time 3D WebGL Showcase & Instant Express Checkout
+        </span>
+    </div>
+</div>
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg sticky-top">
+<nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
     <div class="container">
         <a class="navbar-brand" href="{% url 'shop:home' %}">
-            <i class="bi bi-box-seam-fill"></i>
-            <span>ShopEase</span>
+            <div class="brand-prism-icon">
+                <i class="bi bi-gem"></i>
+            </div>
+            <div>
+                <span class="brand-text">ShopEase</span>
+                <span class="brand-subtag">3D LUXE</span>
+            </div>
         </a>
 
-        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Toggle navigation">
+        <button class="navbar-toggler border-0 text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-label="Toggle navigation">
             <i class="bi bi-list fs-2 text-white"></i>
         </button>
 
-        <div class="collapse navbar-collapse" id="nav">
-            <!-- SEARCH -->
-            <form method="GET" action="{% url 'shop:search' %}" class="search-bar mx-lg-auto">
-                <input type="text" name="q" placeholder="Search curated products..." autocomplete="off">
-                <button type="submit" aria-label="Search"><i class="fa fa-search"></i></button>
+        <div class="collapse navbar-collapse" id="navCollapse">
+            <!-- Search Input -->
+            <form method="GET" action="{% url 'shop:search' %}" class="search-bar-wrap mx-lg-auto">
+                <input type="text" name="q" class="search-input" placeholder="Search curated tech & luxury items..." autocomplete="off">
+                <button type="submit" class="search-btn" aria-label="Search"><i class="fa fa-search"></i></button>
             </form>
 
             <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'shop:home' %}">
-                        <i class="bi bi-house-door me-1"></i> Home
+                        <i class="bi bi-house-door"></i> Home
                     </a>
                 </li>
 
                 {% if user.is_authenticated %}
                     {% if user.is_superuser %}
                     <li class="nav-item">
-                        <a class="nav-link text-warning fw-bold" href="{% url 'shop:admin_dashboard' %}">
-                            <i class="bi bi-speedometer2 me-1"></i> Dashboard
+                        <a class="nav-link text-warning fw-semibold" href="{% url 'shop:admin_dashboard' %}">
+                            <i class="bi bi-speedometer2"></i> Dashboard
                         </a>
                     </li>
                     {% endif %}
 
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'shop:my_orders' %}">
-                            <i class="bi bi-clock-history me-1"></i> My Orders
+                            <i class="bi bi-clock-history"></i> Orders
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{% url 'shop:cart' %}" class="nav-link p-0">
-                            <button class="btn btn-cart">
-                                <i class="bi bi-bag"></i>
-                                <span>Cart</span>
-                                {% if cart_count > 0 %}
-                                <span class="cart-badge">{{ cart_count }}</span>
-                                {% endif %}
-                            </button>
+                        <a href="{% url 'shop:cart' %}" class="btn-cart-pill">
+                            <i class="bi bi-bag"></i>
+                            <span>Cart</span>
+                            {% if cart_count > 0 %}
+                            <span class="cart-pill-badge">{{ cart_count }}</span>
+                            {% endif %}
                         </a>
                     </li>
 
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown ms-lg-2">
                         <a class="nav-link dropdown-toggle d-inline-flex align-items-center gap-2" href="#" data-bs-toggle="dropdown">
-                            <span class="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle text-white" style="width: 28px; height: 28px; font-size: 0.8rem; font-weight: 700;">
+                            <span class="d-inline-flex align-items-center justify-content-center rounded-circle text-white fw-bold" style="width: 32px; height: 32px; background: var(--gradient-prism); font-size: 0.85rem;">
                                 {{ user.username|first|upper }}
                             </span>
                             <span>{{ user.username }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
-                                <div class="px-3 py-1 text-muted small">Signed in as <strong>{{ user.username }}</strong></div>
+                                <div class="px-3 py-2 text-white-50 small">
+                                    Signed in as <strong class="text-white">{{ user.username }}</strong>
+                                </div>
                             </li>
                             <li><hr class="dropdown-divider border-secondary opacity-25"></li>
                             <li>
                                 <a class="dropdown-item" href="{% url 'shop:my_orders' %}">
-                                    <i class="bi bi-box2 me-2"></i> All Orders
+                                    <i class="bi bi-box2 text-info"></i> All Orders
                                 </a>
                             </li>
                             <li><hr class="dropdown-divider border-secondary opacity-25"></li>
                             <li>
                                 <a class="dropdown-item text-danger" href="{% url 'shop:logout' %}">
-                                    <i class="bi bi-box-arrow-right me-2"></i> Log Out
+                                    <i class="bi bi-box-arrow-right"></i> Sign Out
                                 </a>
                             </li>
                         </ul>
@@ -483,12 +683,12 @@
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'shop:login' %}">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                            <i class="bi bi-box-arrow-in-right"></i> Sign In
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary ms-lg-2" href="{% url 'shop:signup' %}">
-                            <i class="bi bi-stars me-1"></i> Get Started
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn-prism" href="{% url 'shop:signup' %}">
+                            <i class="bi bi-stars"></i> Get Started
                         </a>
                     </li>
                 {% endif %}
@@ -501,45 +701,52 @@
 {% if messages %}
 <div class="container mt-3">
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show border-0 shadow-lg text-white" style="background: rgba(255, 107, 53, 0.85); backdrop-filter: blur(10px); border-radius: 14px;">
-        <i class="bi bi-info-circle-fill me-2"></i> {{ message }}
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert alert-futuristic alert-dismissible fade show d-flex align-items-center gap-3">
+        <i class="bi bi-info-circle-fill fs-5 text-info"></i>
+        <div>{{ message }}</div>
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %}
 </div>
 {% endif %}
 
-<!-- CONTENT -->
-<main class="container my-5 animate">
+<!-- MAIN CONTENT -->
+<main class="container my-5">
     {% block content %}{% endblock %}
 </main>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer-futuristic">
     <div class="container">
         <div class="row g-4 justify-content-between">
             <div class="col-lg-4 col-md-6">
-                <a class="footer-brand" href="{% url 'shop:home' %}">
-                    <i class="bi bi-box-seam-fill me-2"></i>ShopEase
+                <a class="navbar-brand mb-3 d-inline-flex" href="{% url 'shop:home' %}">
+                    <div class="brand-prism-icon">
+                        <i class="bi bi-gem"></i>
+                    </div>
+                    <div>
+                        <span class="brand-text">ShopEase</span>
+                        <span class="brand-subtag">3D LUXE</span>
+                    </div>
                 </a>
-                <p class="mt-2 text-white-50">
-                    Next-generation 3D shopping experience. Premium curated technology, accessories, and lifestyle essentials delivered straight to your door with bank-grade security.
+                <p class="text-pearl-muted small mt-2" style="line-height: 1.7; max-width: 360px;">
+                    Next-generation 3D shopping platform combining clean futuristic aesthetics, real-time WebGL interactivity, and bank-grade payment security.
                 </p>
                 <div class="d-flex gap-2 mt-3">
-                    <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="social-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
-                    <a href="#" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-circle-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="social-circle-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-circle-btn" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                    <a href="#" class="social-circle-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
                 </div>
             </div>
 
             <div class="col-lg-2 col-md-3 col-6">
-                <h6 class="footer-heading">Shop</h6>
+                <h6 class="footer-heading">Showcase</h6>
                 <ul class="footer-links">
-                    <li><a href="{% url 'shop:home' %}"><i class="bi bi-chevron-right small"></i> All Products</a></li>
-                    <li><a href="{% url 'shop:home' %}#categories"><i class="bi bi-chevron-right small"></i> Categories</a></li>
-                    <li><a href="{% url 'shop:home' %}#deals"><i class="bi bi-chevron-right small"></i> Hot Deals</a></li>
-                    <li><a href="{% url 'shop:cart' %}"><i class="bi bi-chevron-right small"></i> My Cart</a></li>
+                    <li><a href="{% url 'shop:home' %}"><i class="bi bi-chevron-right small text-info"></i> All Products</a></li>
+                    <li><a href="{% url 'shop:home' %}#categories"><i class="bi bi-chevron-right small text-info"></i> Collections</a></li>
+                    <li><a href="{% url 'shop:home' %}#deals"><i class="bi bi-chevron-right small text-info"></i> Flash Deals</a></li>
+                    <li><a href="{% url 'shop:cart' %}"><i class="bi bi-chevron-right small text-info"></i> My Bag</a></li>
                 </ul>
             </div>
 
@@ -547,183 +754,199 @@
                 <h6 class="footer-heading">Account</h6>
                 <ul class="footer-links">
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'shop:my_orders' %}"><i class="bi bi-chevron-right small"></i> Track Orders</a></li>
-                    <li><a href="{% url 'shop:logout' %}"><i class="bi bi-chevron-right small"></i> Sign Out</a></li>
+                    <li><a href="{% url 'shop:my_orders' %}"><i class="bi bi-chevron-right small text-info"></i> Track Orders</a></li>
+                    <li><a href="{% url 'shop:logout' %}"><i class="bi bi-chevron-right small text-info"></i> Sign Out</a></li>
                     {% else %}
-                    <li><a href="{% url 'shop:login' %}"><i class="bi bi-chevron-right small"></i> Sign In</a></li>
-                    <li><a href="{% url 'shop:signup' %}"><i class="bi bi-chevron-right small"></i> Create Account</a></li>
+                    <li><a href="{% url 'shop:login' %}"><i class="bi bi-chevron-right small text-info"></i> Sign In</a></li>
+                    <li><a href="{% url 'shop:signup' %}"><i class="bi bi-chevron-right small text-info"></i> Register</a></li>
                     {% endif %}
                 </ul>
             </div>
 
             <div class="col-lg-3 col-md-6">
-                <h6 class="footer-heading">Buyer Guarantee</h6>
-                <div class="p-3 rounded-4" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
-                    <div class="d-flex align-items-center gap-3 mb-2">
+                <h6 class="footer-heading">Security & Trust</h6>
+                <div class="footer-badge-card">
+                    <div class="d-flex align-items-center gap-3 mb-3">
                         <i class="bi bi-shield-check text-success fs-3"></i>
                         <div>
-                            <div class="text-white fw-semibold small">100% Buyer Protection</div>
-                            <div class="text-white-50 extra-small" style="font-size: 0.75rem;">Verified manual payments & instant confirmation</div>
+                            <div class="text-white fw-semibold small">Verified Protection</div>
+                            <div class="text-pearl-muted" style="font-size: 0.75rem;">Manual payment proof verification</div>
                         </div>
                     </div>
                     <div class="d-flex align-items-center gap-3">
-                        <i class="bi bi-truck text-warning fs-3"></i>
+                        <i class="bi bi-lightning-charge-fill text-warning fs-3"></i>
                         <div>
-                            <div class="text-white fw-semibold small">Lightning Express Shipping</div>
-                            <div class="text-white-50 extra-small" style="font-size: 0.75rem;">Real-time tracking to your doorstep</div>
+                            <div class="text-white fw-semibold small">Lightning Express</div>
+                            <div class="text-pearl-muted" style="font-size: 0.75rem;">Real-time dispatch tracking</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="footer-bottom d-flex flex-wrap justify-content-between align-items-center text-white-50">
+        <div class="footer-bottom-row d-flex flex-wrap justify-content-between align-items-center">
             <div>
-                © 2026 ShopEase. Crafted with Django, Three.js & Modern 3D WebGL. All rights reserved.
+                © 2026 ShopEase 3D. Crafted with Django & Three.js WebGL. All rights reserved.
             </div>
             <div class="d-flex gap-4 mt-2 mt-md-0">
-                <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-shield-lock-fill text-success"></i> 256-Bit SSL Encrypted</span>
+                <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-shield-lock-fill text-info"></i> 256-Bit SSL Secured</span>
+                <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-cpu text-primary"></i> 60FPS WebGL</span>
             </div>
         </div>
     </div>
 </footer>
 
-<!-- JS -->
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Three.js CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-        if (e.isIntersecting) {
-            e.target.classList.add('show');
+// Navbar background morph on scroll
+window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNavbar');
+    if (nav) {
+        if (window.scrollY > 40) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
         }
-    });
+    }
 });
-document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// Scroll Reveal Intersection Observer
+(function initScrollReveal() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+})();
 
 // =========================================================
-// THREE.JS 3D AMBIENT BACKGROUND & MOUSE PARALLAX
+// 1. THREE.JS AMBIENT PEARL BACKGROUND CONSTELLATION
 // =========================================================
-(function initThreeBackground() {
-    const canvas = document.getElementById('webgl-3d-bg');
+(function initAmbientBackground() {
+    const canvas = document.getElementById('webgl-ambient-canvas');
     if (!canvas || typeof THREE === 'undefined') return;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 28;
+    camera.position.z = 32;
 
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    // Ambient Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xff6b35, 2.2);
-    dirLight1.position.set(25, 20, 15);
-    scene.add(dirLight1);
+    const dirLight = new THREE.DirectionalLight(0xa5b4fc, 1.5);
+    dirLight.position.set(20, 20, 15);
+    scene.add(dirLight);
 
-    const dirLight2 = new THREE.DirectionalLight(0x0dcaf0, 1.8);
-    dirLight2.position.set(-25, -15, 10);
-    scene.add(dirLight2);
-
-    // Floating Geometric 3D Polyhedra
-    const meshes = [];
-    const geometries = [
-        new THREE.IcosahedronGeometry(3.5, 0),
-        new THREE.DodecahedronGeometry(2.8, 0),
+    // Floating Geometric Crystal Shards (Deep Background)
+    const shards = [];
+    const shardGeometries = [
         new THREE.OctahedronGeometry(2.4, 0),
-        new THREE.TorusGeometry(3.2, 0.65, 16, 45),
-        new THREE.TetrahedronGeometry(2.2, 0)
+        new THREE.IcosahedronGeometry(2.8, 0),
+        new THREE.TetrahedronGeometry(2.2, 0),
+        new THREE.DodecahedronGeometry(2.6, 0)
     ];
 
-    const materials = [
+    const shardMaterials = [
         new THREE.MeshStandardMaterial({
-            color: 0xff6b35,
+            color: 0x818cf8,
             wireframe: true,
-            roughness: 0.2,
-            metalness: 0.8,
             transparent: true,
-            opacity: 0.45
+            opacity: 0.28,
+            roughness: 0.2,
+            metalness: 0.8
         }),
         new THREE.MeshStandardMaterial({
-            color: 0x3671a0,
+            color: 0xc084fc,
             wireframe: true,
-            roughness: 0.2,
-            metalness: 0.8,
             transparent: true,
-            opacity: 0.45
+            opacity: 0.24,
+            roughness: 0.2,
+            metalness: 0.7
         }),
         new THREE.MeshStandardMaterial({
-            color: 0xff8c42,
+            color: 0x38bdf8,
             wireframe: true,
+            transparent: true,
+            opacity: 0.22,
             roughness: 0.3,
-            metalness: 0.6,
-            transparent: true,
-            opacity: 0.4
+            metalness: 0.9
         })
     ];
 
-    const positions = [
-        [-20, 12, -6],
-        [22, -10, -10],
-        [-16, -14, -4],
-        [20, 14, -8],
-        [0, -18, -16]
+    const shardPositions = [
+        [-24, 14, -12],
+        [26, -12, -14],
+        [-20, -16, -10],
+        [22, 16, -16],
+        [0, -22, -18]
     ];
 
-    geometries.forEach((geom, idx) => {
-        const mat = materials[idx % materials.length];
+    shardGeometries.forEach((geom, idx) => {
+        const mat = shardMaterials[idx % shardMaterials.length];
         const mesh = new THREE.Mesh(geom, mat);
-        const [x, y, z] = positions[idx % positions.length];
+        const [x, y, z] = shardPositions[idx % shardPositions.length];
         mesh.position.set(x, y, z);
-        mesh.rotation.x = Math.random() * Math.PI;
-        mesh.rotation.y = Math.random() * Math.PI;
         mesh.userData = {
-            rotSpeedX: (Math.random() - 0.5) * 0.008,
-            rotSpeedY: (Math.random() - 0.5) * 0.01,
+            rotSpeedX: (Math.random() - 0.5) * 0.006,
+            rotSpeedY: (Math.random() - 0.5) * 0.008,
             baseY: y
         };
         scene.add(mesh);
-        meshes.push(mesh);
+        shards.push(mesh);
     });
 
-    // 3D Starfield & Floating Particle Constellation
-    const particleCount = 260;
+    // Pearl Particles Constellation
+    const particleCount = 200;
     const particleGeometry = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
     const particleColors = new Float32Array(particleCount * 3);
 
-    const c1 = new THREE.Color(0xff6b35);
-    const c2 = new THREE.Color(0x3671a0);
+    const cPearl = new THREE.Color(0xf1f5f9);
+    const cViolet = new THREE.Color(0x818cf8);
+    const cSky = new THREE.Color(0x38bdf8);
 
     for (let i = 0; i < particleCount; i++) {
-        particlePositions[i * 3] = (Math.random() - 0.5) * 85;
-        particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 85;
+        particlePositions[i * 3] = (Math.random() - 0.5) * 90;
+        particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 90;
         particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 50;
 
-        const mixed = c1.clone().lerp(c2, Math.random());
-        particleColors[i * 3] = mixed.r;
-        particleColors[i * 3 + 1] = mixed.g;
-        particleColors[i * 3 + 2] = mixed.b;
+        let col = cPearl;
+        const rand = Math.random();
+        if (rand > 0.6) col = cViolet;
+        else if (rand > 0.3) col = cSky;
+
+        particleColors[i * 3] = col.r;
+        particleColors[i * 3 + 1] = col.g;
+        particleColors[i * 3 + 2] = col.b;
     }
 
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
     particleGeometry.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
 
     const particleMaterial = new THREE.PointsMaterial({
-        size: 0.5,
+        size: 0.65,
         vertexColors: true,
         transparent: true,
-        opacity: 0.75
+        opacity: 0.7
     });
 
     const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
     scene.add(particleSystem);
 
-    // Mouse Parallax Lerping
+    // Mouse Parallax Lerp
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -740,59 +963,58 @@ document.querySelectorAll('.animate').forEach(el => observer.observe(el));
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    let clock = new THREE.Clock();
-    function animate() {
-        requestAnimationFrame(animate);
+    const clock = new THREE.Clock();
 
+    function renderLoop() {
+        requestAnimationFrame(renderLoop);
         const elapsedTime = clock.getElapsedTime();
 
-        targetX += (mouseX * 4 - targetX) * 0.05;
-        targetY += (-mouseY * 4 - targetY) * 0.05;
+        // Parallax damping
+        targetX += (mouseX * 3 - targetX) * 0.05;
+        targetY += (-mouseY * 3 - targetY) * 0.05;
         camera.position.x = targetX;
         camera.position.y = targetY;
         camera.lookAt(0, 0, 0);
 
-        meshes.forEach((mesh) => {
-            mesh.rotation.x += mesh.userData.rotSpeedX;
-            mesh.rotation.y += mesh.userData.rotSpeedY;
-            mesh.position.y = mesh.userData.baseY + Math.sin(elapsedTime * 1.6 + mesh.position.x) * 0.9;
+        // Animate shards
+        shards.forEach(s => {
+            s.rotation.x += s.userData.rotSpeedX;
+            s.rotation.y += s.userData.rotSpeedY;
+            s.position.y = s.userData.baseY + Math.sin(elapsedTime * 1.2 + s.position.x) * 0.8;
         });
 
-        particleSystem.rotation.y = elapsedTime * 0.025;
-        particleSystem.rotation.x = elapsedTime * 0.015;
+        // Rotate constellation
+        particleSystem.rotation.y = elapsedTime * 0.02;
+        particleSystem.rotation.x = elapsedTime * 0.012;
 
         renderer.render(scene, camera);
     }
-    animate();
+    renderLoop();
 })();
 
 // =========================================================
-// INTERACTIVE 3D CARD TILT WITH GLOSS SHEEN
+// 2. DYNAMIC 3D CARD TILT WITH IRIDESCENT SHEEN
 // =========================================================
-(function init3DCardTilt() {
-    const selector = '.order-card-3d, .order-detail-glass, .checkout-card, .product-card, .offer-card, .category-box, [data-tilt-3d]';
+(function init3DCardPhysics() {
+    const selector = '[data-tilt-3d], .product-card-3d, .category-card-3d, .order-card-3d, .checkout-card';
 
-    function attachTilt(el) {
-        if (el.dataset.tiltAttached) return;
-        el.dataset.tiltAttached = 'true';
+    function attachCardTilt(el) {
+        if (el.dataset.tiltInitialized) return;
+        el.dataset.tiltInitialized = 'true';
 
         el.style.transformStyle = 'preserve-3d';
-        el.style.transition = 'transform 0.15s ease-out, box-shadow 0.25s ease';
 
-        let sheen = el.querySelector('.tilt-sheen');
+        let sheen = el.querySelector('.card-prism-sheen');
         if (!sheen) {
             sheen = document.createElement('div');
-            sheen.className = 'tilt-sheen';
+            sheen.className = 'card-prism-sheen';
             sheen.style.position = 'absolute';
-            sheen.style.top = '0';
-            sheen.style.left = '0';
-            sheen.style.right = '0';
-            sheen.style.bottom = '0';
+            sheen.style.inset = '0';
             sheen.style.borderRadius = 'inherit';
             sheen.style.pointerEvents = 'none';
             sheen.style.opacity = '0';
-            sheen.style.transition = 'opacity 0.3s ease';
-            sheen.style.zIndex = '5';
+            sheen.style.transition = 'opacity 0.25s ease';
+            sheen.style.zIndex = '4';
             el.appendChild(sheen);
         }
 
@@ -804,17 +1026,16 @@ document.querySelectorAll('.animate').forEach(el => observer.observe(el));
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            const rotateX = ((y - centerY) / centerY) * -8;
-            const rotateY = ((x - centerX) / centerX) * 8;
+            const rotateX = ((y - centerY) / centerY) * -7;
+            const rotateY = ((x - centerX) / centerX) * 7;
 
             el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.015, 1.015, 1.015)`;
-
             sheen.style.opacity = '1';
-            sheen.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.18), transparent 60%)`;
+            sheen.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.18), rgba(165,180,252,0.1) 40%, transparent 70%)`;
         });
 
         el.addEventListener('mouseleave', () => {
-            el.style.transition = 'transform 0.5s ease-out, box-shadow 0.3s ease';
+            el.style.transition = 'transform 0.45s ease-out, box-shadow 0.3s ease';
             el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
             sheen.style.opacity = '0';
         });
@@ -824,17 +1045,17 @@ document.querySelectorAll('.animate').forEach(el => observer.observe(el));
         });
     }
 
-    function scan() {
-        document.querySelectorAll(selector).forEach(attachTilt);
+    function scanElements() {
+        document.querySelectorAll(selector).forEach(attachCardTilt);
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', scan);
+        document.addEventListener('DOMContentLoaded', scanElements);
     } else {
-        scan();
+        scanElements();
     }
 
-    const observer = new MutationObserver(scan);
+    const observer = new MutationObserver(scanElements);
     if (document.body) {
         observer.observe(document.body, { childList: true, subtree: true });
     }

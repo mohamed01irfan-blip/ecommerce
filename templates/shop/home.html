@@ -1,145 +1,301 @@
 {% extends 'base.html' %}
 
-{% block title %}ShopEase - Next-Gen 3D E-Commerce Experience{% endblock %}
+{% block title %}ShopEase — Futuristic 3D E-Commerce Experience{% endblock %}
 
 {% block extra_css %}
 <style>
 /* =========================================================
-   HOMEPAGE - 3D GLASSMORPHIC CYBER STOREFRONT
+   FUTURISTIC CLEAN MINIMAL STOREFRONT STYLES
    ========================================================= */
 
-/* Hero Banner */
-.hero-glass {
+/* Hero Banner Container */
+.hero-minimal-glass {
     position: relative;
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.12) 0%, rgba(43, 88, 118, 0.22) 50%, rgba(13, 202, 240, 0.08) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 28px;
-    padding: 3.5rem 3rem;
-    margin-bottom: 3.5rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-radius: 32px;
+    padding: clamp(2rem, 5vw, 3.8rem);
+    margin-bottom: 4rem;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-.hero-glass::before {
+.hero-minimal-glass::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 450px;
-    height: 450px;
-    background: radial-gradient(circle, rgba(255, 107, 53, 0.25), transparent 70%);
+    top: -30%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
     pointer-events: none;
     border-radius: 50%;
-    filter: blur(30px);
+    filter: blur(50px);
 }
 
-.hero-badge {
+.hero-minimal-glass::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: 5%;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(217, 70, 239, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(60px);
+}
+
+/* Hero Badge */
+.hero-prism-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 16px;
-    background: rgba(255, 107, 53, 0.18);
-    border: 1px solid rgba(255, 107, 53, 0.4);
+    padding: 6px 18px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(165, 180, 252, 0.35);
     border-radius: 50px;
-    color: #ffaa6b;
-    font-size: 0.85rem;
+    color: #e2e8f0;
+    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
-    margin-bottom: 1.2rem;
-    box-shadow: 0 0 15px rgba(255, 107, 53, 0.25);
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
 }
 
-.hero-title {
-    font-size: clamp(2.2rem, 5vw, 3.6rem);
+.hero-badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow: 0 0 10px #38bdf8;
+    animation: radarPulse 2s infinite;
+}
+
+@keyframes radarPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.hero-headline {
+    font-size: clamp(2.3rem, 4.6vw, 3.8rem);
     font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -1px;
-    margin-bottom: 1.2rem;
-    background: linear-gradient(135deg, #ffffff 30%, #ffaa6b 100%);
+    line-height: 1.12;
+    letter-spacing: -1.2px;
+    margin-bottom: 1.4rem;
+    background: linear-gradient(135deg, #ffffff 15%, #cbd5e1 55%, #a5b4fc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.hero-subtitle {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: rgba(255, 255, 255, 0.75);
-    max-width: 650px;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+.hero-description {
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    margin-bottom: 2.2rem;
+    max-width: 580px;
+    font-weight: 400;
 }
 
-.hero-stats-row {
+.hero-actions-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.hero-trust-bar {
     display: flex;
     flex-wrap: wrap;
     gap: 1.2rem;
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.hero-stat-pill {
+.trust-item-pill {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 8px 18px;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 7px 16px;
     border-radius: 50px;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.8);
     font-weight: 500;
     backdrop-filter: blur(10px);
 }
 
-.hero-stat-pill i {
-    color: #ff8c42;
-    font-size: 1.1rem;
+.trust-item-pill i {
+    color: #818cf8;
+    font-size: 0.95rem;
 }
 
-/* Offers Cinematic Carousel */
-.offer-slider-frame {
+/* =========================================================
+   3D HERO INTERACTIVE CANVAS & HOLOGRAPHIC TAGS
+   ========================================================= */
+.hero-3d-stage-wrapper {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#hero-3d-model-canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    cursor: grab;
+    outline: none;
+    z-index: 2;
+}
+
+#hero-3d-model-canvas:active {
+    cursor: grabbing;
+}
+
+/* Floating 3D Tags */
+.floating-3d-tag {
+    position: absolute;
+    background: rgba(10, 15, 28, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 7px 15px;
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(99, 102, 241, 0.25);
+    pointer-events: none;
+    z-index: 5;
+    transition: transform 0.3s ease;
+}
+
+.tag-pos-1 {
+    top: 25px;
+    left: 20px;
+    animation: floatTagA 4.5s ease-in-out infinite;
+}
+
+.tag-pos-2 {
+    bottom: 50px;
+    right: 20px;
+    animation: floatTagB 5s ease-in-out infinite;
+}
+
+.tag-pos-3 {
+    top: 35px;
+    right: 25px;
+    animation: floatTagC 4.2s ease-in-out infinite;
+}
+
+@keyframes floatTagA {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(-1.5deg); }
+}
+
+@keyframes floatTagB {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(8px) rotate(1.5deg); }
+}
+
+@keyframes floatTagC {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+}
+
+/* 3D HUD Quick Controls */
+.hero-3d-hud {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(8, 12, 22, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(16px);
+    padding: 6px 12px;
+    border-radius: 50px;
+    z-index: 10;
+}
+
+.hud-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hud-btn:hover, .hud-btn.active {
+    background: var(--gradient-prism);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+}
+
+/* =========================================================
+   OFFERS CINEMATIC CAROUSEL
+   ========================================================= */
+.offer-carousel-wrap {
     position: relative;
     border-radius: 28px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), 0 0 35px rgba(255, 107, 53, 0.15);
-    margin-bottom: 4.5rem;
-    background: #0d131f;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    margin-bottom: 5rem;
+    background: #080c16;
 }
 
-.offer-slide {
+.offer-slide-item {
     display: none;
     position: relative;
-    height: 520px;
+    height: 480px;
     overflow: hidden;
 }
 
-.offer-slide.active {
+.offer-slide-item.active {
     display: block;
-    animation: fadeSlide 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fadeOfferSlide 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes fadeSlide {
+@keyframes fadeOfferSlide {
     from { opacity: 0; transform: scale(1.02); }
     to { opacity: 1; transform: scale(1); }
 }
 
-/* Ambient glow background using the offer image */
-.offer-slide-bg {
+.offer-ambient-bg {
     position: absolute;
     inset: -30px;
     background-size: cover;
     background-position: center;
-    filter: blur(35px) brightness(0.35) saturate(1.4);
-    transform: scale(1.12);
+    filter: blur(40px) brightness(0.28) saturate(1.5);
+    transform: scale(1.15);
     z-index: 1;
     pointer-events: none;
 }
 
-.offer-main-img {
+.offer-foreground-img {
     position: relative;
     z-index: 2;
     width: 100%;
@@ -149,27 +305,27 @@
     transition: transform 6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.offer-slide.active .offer-main-img {
-    transform: scale(1.04);
+.offer-slide-item.active .offer-foreground-img {
+    transform: scale(1.03);
 }
 
-.offer-slide-overlay {
+.offer-scrim-layer {
     position: absolute;
     inset: 0;
     z-index: 3;
-    background: linear-gradient(180deg, rgba(11, 15, 25, 0.15) 0%, rgba(11, 15, 25, 0.35) 45%, rgba(11, 15, 25, 0.92) 100%);
+    background: linear-gradient(180deg, rgba(6, 9, 15, 0.2) 0%, rgba(6, 9, 15, 0.5) 45%, rgba(6, 9, 15, 0.95) 100%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: clamp(2rem, 5vw, 3.8rem);
+    padding: clamp(2rem, 5vw, 3.5rem);
 }
 
-.offer-badge {
-    background: linear-gradient(135deg, #ff3366, #ff6b35);
+.offer-flash-tag {
+    background: var(--gradient-prism);
     color: white;
-    padding: 6px 16px;
+    padding: 5px 14px;
     border-radius: 50px;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
@@ -177,81 +333,52 @@
     align-items: center;
     gap: 6px;
     margin-bottom: 0.8rem;
-    box-shadow: 0 0 20px rgba(255, 51, 102, 0.55);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
     width: fit-content;
 }
 
-.offer-slide-title {
-    font-size: clamp(2rem, 4.2vw, 3.2rem);
+.offer-title-text {
+    font-size: clamp(1.8rem, 3.8vw, 3rem);
     font-weight: 800;
     color: #ffffff;
     line-height: 1.15;
     margin-bottom: 1.2rem;
-    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.85);
-    max-width: 800px;
-}
-
-.offer-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 12px 28px;
-    border-radius: 50px;
-    text-decoration: none;
-    box-shadow: 0 6px 22px rgba(255, 107, 53, 0.45);
-    transition: all 0.3s ease;
-    width: fit-content;
-}
-
-.offer-cta-btn:hover {
-    color: #ffffff;
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.65);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    max-width: 750px;
 }
 
 /* Nav Controls */
-.slider-controls {
+.carousel-arrow-btn {
     position: absolute;
     top: 50%;
-    left: 20px;
-    right: 20px;
     transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-    z-index: 10;
-}
-
-.slider-btn {
-    pointer-events: auto;
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(11, 15, 25, 0.65);
+    background: rgba(8, 12, 22, 0.7);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.25s ease;
+    z-index: 10;
 }
 
-.slider-btn:hover {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.6);
-    transform: scale(1.12);
+.carousel-arrow-btn:hover {
+    background: var(--gradient-prism);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+    transform: translateY(-50%) scale(1.1);
 }
 
-/* Dots Indicator */
-.slider-dots-container {
+.carousel-arrow-btn.prev-btn { left: 24px; }
+.carousel-arrow-btn.next-btn { right: 24px; }
+
+.carousel-dots-bar {
     position: absolute;
     bottom: 24px;
     left: 50%;
@@ -262,9 +389,9 @@
     z-index: 10;
 }
 
-.slider-dot {
-    width: 10px;
-    height: 10px;
+.carousel-dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.35);
     border: none;
@@ -273,66 +400,51 @@
     transition: all 0.3s ease;
 }
 
-.slider-dot.active {
-    width: 28px;
+.carousel-dot.active {
+    width: 26px;
     border-radius: 20px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    box-shadow: 0 0 12px rgba(255, 107, 53, 0.8);
+    background: var(--gradient-prism);
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.8);
 }
 
-@media(max-width: 991px) {
-    .offer-slide {
-        height: 440px;
-    }
-}
-
-@media(max-width: 576px) {
-    .offer-slide {
-        height: 360px;
-    }
-    .slider-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 1rem;
-    }
-}
-
-/* Section Headers */
-.section-header-row {
+/* =========================================================
+   CURATED COLLECTIONS (CATEGORIES)
+   ========================================================= */
+.section-headline-group {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.2rem;
 }
 
-.section-title-wrap h2 {
+.section-title {
     font-size: 1.85rem;
     font-weight: 800;
-    letter-spacing: -0.5px;
-    margin: 0;
+    letter-spacing: -0.6px;
     color: #ffffff;
+    margin: 0;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-.section-title-wrap p {
-    color: rgba(255, 255, 255, 0.6);
-    margin: 4px 0 0;
+.section-subtitle {
+    color: var(--pearl-muted);
+    margin: 6px 0 0;
     font-size: 0.95rem;
 }
 
-/* Category 3D Cards */
 .category-card-3d {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(14px);
-    border-radius: 20px;
-    padding: 1.8rem 1.4rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 2.2rem 1.6rem;
     text-align: center;
-    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     text-decoration: none;
     display: block;
     height: 100%;
@@ -342,151 +454,194 @@
 
 .category-card-3d:hover {
     transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 107, 53, 0.4);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 107, 53, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(165, 180, 252, 0.35);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 25px rgba(99, 102, 241, 0.2);
 }
 
-.category-icon-sphere {
-    width: 72px;
-    height: 72px;
+.category-orb {
+    width: 76px;
+    height: 76px;
     border-radius: 50%;
-    margin: 0 auto 1.2rem;
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(13, 202, 240, 0.15));
-    border: 1px solid rgba(255, 107, 53, 0.35);
+    margin: 0 auto 1.4rem;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(217, 70, 239, 0.2));
+    border: 1px solid rgba(165, 180, 252, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ff8c42;
-    font-size: 1.8rem;
-    transition: all 0.35s ease;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    color: #a5b4fc;
+    font-size: 1.9rem;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.category-card-3d:hover .category-icon-sphere {
-    transform: scale(1.12) rotate(6deg);
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
-}
-
-.category-card-name {
-    font-weight: 700;
-    font-size: 1.05rem;
+.category-card-3d:hover .category-orb {
+    transform: scale(1.14) rotate(8deg);
+    background: var(--gradient-prism);
     color: #ffffff;
-    margin-bottom: 4px;
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
 }
 
-.category-card-sub {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
+.category-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.category-action-link {
+    font-size: 0.82rem;
+    color: #94a3b8;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    transition: color 0.25s ease;
 }
 
-/* 3D Product Cards */
+.category-card-3d:hover .category-action-link {
+    color: #cbd5e1;
+}
+
+/* =========================================================
+   FEATURED PRODUCTS 3D CARDS
+   ========================================================= */
 .product-card-3d {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.045);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
     overflow: hidden;
-    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     height: 100%;
     display: flex;
     flex-direction: column;
     position: relative;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .product-card-3d:hover {
     transform: translateY(-8px);
-    border-color: rgba(255, 107, 53, 0.4);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 107, 53, 0.18);
+    border-color: rgba(165, 180, 252, 0.4);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.22);
 }
 
-.product-thumb-container {
+.product-image-box {
     position: relative;
     width: 100%;
-    height: 220px;
-    background: rgba(0, 0, 0, 0.25);
+    height: 230px;
+    background: rgba(0, 0, 0, 0.3);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.product-thumb-img {
+.product-image-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.product-card-3d:hover .product-thumb-img {
+.product-card-3d:hover .product-image-img {
     transform: scale(1.08);
 }
 
-.product-badge-float {
+.product-status-pill {
     position: absolute;
     top: 14px;
     left: 14px;
-    z-index: 2;
+    z-index: 3;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 10px;
+    padding: 4px 11px;
     border-radius: 50px;
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     font-weight: 700;
     letter-spacing: 0.3px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
 }
 
-.badge-instock {
-    background: rgba(0, 210, 106, 0.2);
-    border: 1px solid rgba(0, 210, 106, 0.4);
-    color: #00d26a;
+.pill-instock {
+    background: rgba(16, 185, 129, 0.18);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #34d399;
 }
 
-.badge-instock::before {
+.pill-instock::before {
     content: '';
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #00d26a;
-    box-shadow: 0 0 8px #00d26a;
+    background: #34d399;
+    box-shadow: 0 0 8px #34d399;
 }
 
-.badge-outstock {
-    background: rgba(255, 51, 102, 0.2);
-    border: 1px solid rgba(255, 51, 102, 0.4);
-    color: #ff3366;
+.pill-outstock {
+    background: rgba(244, 63, 94, 0.18);
+    border: 1px solid rgba(244, 63, 94, 0.4);
+    color: #fb7185;
 }
 
-.product-category-tag {
+.product-cat-badge {
     position: absolute;
     bottom: 12px;
     right: 14px;
-    background: rgba(11, 15, 25, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
+    background: rgba(8, 12, 22, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
     color: rgba(255, 255, 255, 0.85);
     font-size: 0.72rem;
     font-weight: 600;
     padding: 3px 10px;
     border-radius: 50px;
-    z-index: 2;
+    z-index: 3;
 }
 
-.product-info-wrap {
+/* Quick 3D View Hover Trigger */
+.product-3d-inspect-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 4;
+    background: rgba(10, 15, 28, 0.85);
+    border: 1px solid rgba(165, 180, 252, 0.35);
+    color: #e2e8f0;
+    border-radius: 50px;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+}
+
+.product-card-3d:hover .product-3d-inspect-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-3d-inspect-btn:hover {
+    background: var(--gradient-prism);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+}
+
+.product-body-content {
     padding: 1.4rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
-.product-title-text {
+.product-name-heading {
     font-size: 1.05rem;
     font-weight: 700;
     color: #ffffff;
@@ -498,18 +653,18 @@
     overflow: hidden;
 }
 
-.product-desc-text {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.85rem;
-    line-height: 1.45;
-    margin-bottom: 1rem;
+.product-summary-text {
+    color: var(--pearl-muted);
+    font-size: 0.84rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.product-price-row {
+.product-pricing-bar {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -517,26 +672,26 @@
     margin-bottom: 1.2rem;
 }
 
-.product-price-val {
+.product-price-amount {
     font-size: 1.35rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #ffffff 40%, #ffaa6b 100%);
+    background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #a5b4fc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.product-actions-grid {
+.product-grid-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
 }
 
-.btn-card-cart {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+.btn-card-add {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     color: #ffffff;
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     padding: 9px 12px;
     border-radius: 12px;
     display: inline-flex;
@@ -547,19 +702,19 @@
     transition: all 0.25s ease;
 }
 
-.btn-card-cart:hover {
-    background: rgba(255, 255, 255, 0.16);
-    border-color: rgba(255, 255, 255, 0.3);
+.btn-card-add:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(165, 180, 252, 0.4);
     color: #ffffff;
     transform: translateY(-2px);
 }
 
-.btn-card-buy {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
+.btn-card-instant {
+    background: var(--gradient-prism);
     border: none;
     color: #ffffff;
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     padding: 9px 12px;
     border-radius: 12px;
     display: inline-flex;
@@ -567,58 +722,77 @@
     justify-content: center;
     gap: 6px;
     text-decoration: none;
-    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
     transition: all 0.25s ease;
 }
 
-.btn-card-buy:hover {
-    background: linear-gradient(135deg, var(--primary-hover), var(--accent-hover));
-    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
-    color: #ffffff;
+.btn-card-instant:hover {
     transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(139, 92, 246, 0.55);
+    color: #ffffff;
 }
 
-/* Feature Pillars */
-.pillars-section {
-    margin-top: 5rem;
-    padding-top: 3.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+/* =========================================================
+   3D PRODUCT INSPECTOR MODAL
+   ========================================================= */
+.modal-3d-backdrop .modal-content {
+    background: rgba(8, 12, 22, 0.94);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(165, 180, 252, 0.25);
+    border-radius: 28px;
+    color: #ffffff;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(99, 102, 241, 0.2);
 }
 
-.pillar-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+#inspector-3d-canvas {
+    width: 100%;
+    height: 380px;
     border-radius: 20px;
-    padding: 1.8rem;
-    height: 100%;
-    transition: all 0.3s ease;
+    background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, rgba(6, 9, 15, 0.4) 100%);
+    cursor: grab;
 }
 
-.pillar-card:hover {
+#inspector-3d-canvas:active {
+    cursor: grabbing;
+}
+
+/* Value Pillars Section */
+.pillar-card-minimal {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 22px;
+    padding: 2rem 1.6rem;
+    backdrop-filter: blur(14px);
+    height: 100%;
+    transition: all 0.35s ease;
+}
+
+.pillar-card-minimal:hover {
     transform: translateY(-6px);
     background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 107, 53, 0.3);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(165, 180, 252, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
 }
 
-.pillar-icon {
+.pillar-icon-wrap {
     font-size: 2.2rem;
-    color: #ff8c42;
-    margin-bottom: 1rem;
+    color: #a5b4fc;
+    margin-bottom: 1.2rem;
     display: inline-block;
 }
 
-.pillar-title {
+.pillar-heading {
     font-size: 1.1rem;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
-.pillar-desc {
+.pillar-text {
     font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.5;
+    color: var(--pearl-muted);
+    line-height: 1.6;
     margin: 0;
 }
 </style>
@@ -626,98 +800,110 @@
 
 {% block content %}
 
-<!-- 3D HERO SECTION -->
-<div class="hero-glass" data-tilt-3d>
-    <div class="row align-items-center">
-        <div class="col-lg-8">
-            <div class="hero-badge">
-                <i class="bi bi-stars"></i> Next-Gen 3D Shopping Experience
+<!-- =========================================================
+     1. FUTURISTIC CLEAN MINIMAL HERO SECTION WITH 3D MODEL
+     ========================================================= -->
+<div class="hero-minimal-glass reveal-on-scroll">
+    <div class="row align-items-center g-5">
+        <!-- Hero Text Content -->
+        <div class="col-lg-6">
+            <div class="hero-prism-badge">
+                <span class="hero-badge-dot"></span>
+                <span>Next-Gen 3D WebGL Storefront</span>
             </div>
-            <h1 class="hero-title">Elevate Your Lifestyle with Future-Ready Gear.</h1>
-            <p class="hero-subtitle">
-                Explore a curated universe of premium tech, wearable accessories, and next-level essentials. Built with real-time 3D depth, instant express checkout, and bank-grade security.
+            
+            <h1 class="hero-headline">
+                Curated Innovation. Engineered for Tomorrow.
+            </h1>
+            
+            <p class="hero-description">
+                Immerse yourself in precision-crafted technology and luxury essentials. Inspect hardware in real-time 3D, enjoy instant manual verification, and receive express dispatch to your door.
             </p>
-            <div class="d-flex flex-wrap gap-3">
-                <a href="#featured-products" class="btn btn-primary px-4 py-3">
-                    <i class="bi bi-grid-fill me-2"></i> Explore Products
+
+            <div class="hero-actions-wrap">
+                <a href="#featured-showcase" class="btn-prism px-4 py-3">
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Explore Catalog</span>
                 </a>
                 {% if offers %}
-                <a href="#special-offers" class="btn btn-outline-light px-4 py-3 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
-                    <i class="bi bi-tag-fill me-2 text-warning"></i> View Hot Deals
+                <a href="#special-offers" class="btn-glass px-4 py-3">
+                    <i class="bi bi-tag-fill text-warning"></i>
+                    <span>View Hot Deals</span>
                 </a>
                 {% endif %}
             </div>
 
-            <div class="hero-stats-row">
-                <div class="hero-stat-pill">
+            <!-- Trust Metrics -->
+            <div class="hero-trust-bar">
+                <div class="trust-item-pill">
                     <i class="bi bi-lightning-charge-fill"></i>
                     <span>Same-Day Dispatch</span>
                 </div>
-                <div class="hero-stat-pill">
+                <div class="trust-item-pill">
                     <i class="bi bi-shield-check"></i>
-                    <span>Verified Proof of Payment</span>
+                    <span>Verified Payment Proof</span>
                 </div>
-                <div class="hero-stat-pill">
-                    <i class="bi bi-arrow-repeat"></i>
-                    <span>Hassle-Free Returns</span>
+                <div class="trust-item-pill">
+                    <i class="bi bi-patch-check-fill"></i>
+                    <span>100% Genuine Guaranteed</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero 3D Interactive Model Showcase -->
+        <div class="col-lg-6">
+            <div class="hero-3d-stage-wrapper">
+                <!-- Three.js Canvas -->
+                <canvas id="hero-3d-model-canvas" title="Click & Drag to rotate 3D model"></canvas>
+
+                <!-- Floating 3D Holographic Tags -->
+                <div class="floating-3d-tag tag-pos-1">
+                    <i class="bi bi-arrows-move text-info"></i>
+                    <span>360° Drag & Rotate</span>
+                </div>
+                <div class="floating-3d-tag tag-pos-2">
+                    <i class="bi bi-gem text-warning"></i>
+                    <span>Iridescent Crystal Core</span>
+                </div>
+                <div class="floating-3d-tag tag-pos-3">
+                    <span class="hero-badge-dot"></span>
+                    <span>Real-Time WebGL 3D</span>
+                </div>
+
+                <!-- 3D HUD Controls -->
+                <div class="hero-3d-hud">
+                    <button class="hud-btn active" id="btnToggleSpin" title="Toggle Auto-Spin">
+                        <i class="bi bi-arrow-repeat"></i> Auto-Spin
+                    </button>
+                    <button class="hud-btn" id="btnToggleWireframe" title="Toggle Hologram Wireframe">
+                        <i class="bi bi-bounding-box-circles"></i> Wireframe
+                    </button>
+                    <button class="hud-btn" id="btnCycleLighting" title="Cycle Studio Lighting">
+                        <i class="bi bi-lightbulb-fill"></i> Pearl Light
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- SPECIAL OFFERS SLIDER -->
-{% if offers %}
-<div id="special-offers" class="offer-slider-frame" data-tilt-3d>
-    {% for offer in offers %}
-    <div class="offer-slide {% if forloop.first %}active{% endif %}" data-slide-index="{{ forloop.counter0 }}">
-        {% if offer.image %}
-        <!-- Ambient blurred backdrop for rich atmosphere -->
-        <div class="offer-slide-bg" style="background-image: url('{{ offer.image.url }}');"></div>
-        <!-- Main high-res offer image -->
-        <img src="{{ offer.image.url }}" alt="{{ offer.title }}" class="offer-main-img">
-        {% else %}
-        <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark text-white-50">
-            <i class="bi bi-tag fs-1"></i>
-        </div>
-        {% endif %}
+<!-- =========================================================
+     2. SPECIAL OFFERS CINEMATIC CAROUSEL
+     ========================================================= -->
 
-        <div class="offer-slide-overlay">
-            <div>
-                <span class="offer-badge"><i class="bi bi-fire"></i> Special Limited-Time Offer</span>
-                <h2 class="offer-slide-title">{{ offer.title }}</h2>
-                <a href="#featured-products" class="offer-cta-btn">
-                    <i class="bi bi-bag-check-fill"></i> Shop This Deal <i class="bi bi-arrow-right ms-1"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
 
-    <!-- Controls -->
-    {% if offers|length > 1 %}
-    <div class="slider-controls">
-        <button class="slider-btn" id="prevSlide" aria-label="Previous Offer"><i class="bi bi-chevron-left"></i></button>
-        <button class="slider-btn" id="nextSlide" aria-label="Next Offer"><i class="bi bi-chevron-right"></i></button>
-    </div>
-
-    <!-- Dots -->
-    <div class="slider-dots-container">
-        {% for offer in offers %}
-        <button class="slider-dot {% if forloop.first %}active{% endif %}" data-target-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
-        {% endfor %}
-    </div>
-    {% endif %}
-</div>
-{% endif %} 
-
-<!-- SHOP BY CATEGORY -->
+<!-- =========================================================
+     3. CURATED COLLECTIONS (CATEGORIES)
+     ========================================================= -->
 {% if categories %}
-<div class="mb-5" id="categories">
-    <div class="section-header-row">
-        <div class="section-title-wrap">
-            <h2><i class="bi bi-collection-fill text-warning"></i> Curated Collections</h2>
-            <p>Browse by tailored department categories</p>
+<div class="mb-5 reveal-on-scroll" id="categories">
+    <div class="section-headline-group">
+        <div>
+            <h2 class="section-title">
+                <i class="bi bi-collection text-info"></i>
+                <span>Curated Collections</span>
+            </h2>
+            <p class="section-subtitle">Precision organized departments for effortless browsing</p>
         </div>
     </div>
 
@@ -725,11 +911,13 @@
         {% for category in categories %}
         <div class="col-6 col-md-4 col-lg-3">
             <a href="{% url 'shop:category_products' category.id %}" class="category-card-3d" data-tilt-3d>
-                <div class="category-icon-sphere">
+                <div class="category-orb">
                     <i class="bi bi-boxes"></i>
                 </div>
-                <div class="category-card-name">{{ category.name }}</div>
-                <div class="category-card-sub">Browse Catalog <i class="bi bi-arrow-right ms-1"></i></div>
+                <div class="category-name">{{ category.name }}</div>
+                <div class="category-action-link">
+                    Explore Catalog <i class="bi bi-arrow-right ms-1"></i>
+                </div>
             </a>
         </div>
         {% endfor %}
@@ -737,12 +925,17 @@
 </div>
 {% endif %}
 
-<!-- FEATURED PRODUCTS -->
-<div class="mb-5" id="featured-products">
-    <div class="section-header-row">
-        <div class="section-title-wrap">
-            <h2><i class="bi bi-stars text-primary"></i> Featured Showcase</h2>
-            <p>Handpicked best-sellers and newly released hardware</p>
+<!-- =========================================================
+     4. FEATURED PRODUCTS SHOWCASE
+     ========================================================= -->
+<div class="mb-5 reveal-on-scroll" id="featured-showcase">
+    <div class="section-headline-group">
+        <div>
+            <h2 class="section-title">
+                <i class="bi bi-stars text-primary"></i>
+                <span>Featured Showcase</span>
+            </h2>
+            <p class="section-subtitle">Flagship technology and hardware ready for instant purchase</p>
         </div>
     </div>
 
@@ -750,48 +943,56 @@
         {% for product in products %}
         <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="product-card-3d" data-tilt-3d>
-                <div class="product-thumb-container">
+                <div class="product-image-box">
                     {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-thumb-img">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image-img" loading="lazy">
                     {% else %}
                     <div class="text-white-50 d-flex flex-column align-items-center">
                         <i class="bi bi-image fs-1 mb-1"></i>
-                        <span class="small">No image available</span>
+                        <span class="small">Awaiting Image</span>
                     </div>
                     {% endif %}
 
                     {% if product.stock > 0 %}
-                    <span class="product-badge-float badge-instock">In Stock</span>
+                    <span class="product-status-pill pill-instock">In Stock</span>
                     {% else %}
-                    <span class="product-badge-float badge-outstock">Sold Out</span>
+                    <span class="product-status-pill pill-outstock">Sold Out</span>
                     {% endif %}
 
                     {% if product.category %}
-                    <span class="product-category-tag">{{ product.category.name }}</span>
+                    <span class="product-cat-badge">{{ product.category.name }}</span>
                     {% endif %}
+
+                    <!-- 3D Inspect Trigger -->
+                    <button type="button" class="product-3d-inspect-btn" 
+                            data-product-name="{{ product.name }}"
+                            data-product-price="{{ product.price }}"
+                            data-product-img="{% if product.image %}{{ product.image.url }}{% endif %}">
+                        <i class="bi bi-box"></i> 3D View
+                    </button>
                 </div>
 
-                <div class="product-info-wrap">
-                    <div class="product-title-text" title="{{ product.name }}">{{ product.name }}</div>
-                    <div class="product-desc-text">{{ product.description }}</div>
+                <div class="product-body-content">
+                    <div class="product-name-heading" title="{{ product.name }}">{{ product.name }}</div>
+                    <div class="product-summary-text">{{ product.description }}</div>
 
-                    <div class="product-price-row">
-                        <div class="product-price-val">₹{{ product.price }}</div>
-                        <span class="text-white-50 extra-small" style="font-size: 0.75rem;">Verified Deal</span>
+                    <div class="product-pricing-bar">
+                        <div class="product-price-amount">₹{{ product.price }}</div>
+                        <span class="text-pearl-muted small">Verified Deal</span>
                     </div>
 
                     {% if product.stock > 0 %}
-                    <div class="product-actions-grid">
-                        <a href="{% url 'shop:add_to_cart' product.id %}" class="btn-card-cart">
+                    <div class="product-grid-actions">
+                        <a href="{% url 'shop:add_to_cart' product.id %}" class="btn-card-add">
                             <i class="bi bi-bag-plus"></i> Cart
                         </a>
-                        <a href="{% url 'shop:buy_now' product.id %}" class="btn-card-buy">
+                        <a href="{% url 'shop:buy_now' product.id %}" class="btn-card-instant">
                             <i class="bi bi-lightning-fill"></i> Buy Now
                         </a>
                     </div>
                     {% else %}
-                    <button class="btn btn-secondary w-100 rounded-3 py-2 disabled" style="opacity: 0.6;">
-                        <i class="bi bi-x-circle me-1"></i> Currently Unavailable
+                    <button class="btn btn-secondary w-100 rounded-3 py-2 disabled" style="opacity: 0.5;">
+                        <i class="bi bi-x-circle me-1"></i> Unavailable
                     </button>
                     {% endif %}
                 </div>
@@ -799,45 +1000,95 @@
         </div>
         {% empty %}
         <div class="col-12 text-center py-5">
-            <div class="p-5 rounded-4" style="background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2);">
+            <div class="glass-card p-5">
                 <i class="bi bi-box2 text-white-50" style="font-size: 3rem;"></i>
                 <h4 class="mt-3 text-white">No products found</h4>
-                <p class="text-white-50">Products will appear here once added in the dashboard.</p>
+                <p class="text-pearl-muted">Products will appear here once added in the dashboard.</p>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
 
-<!-- VALUE PILLARS -->
-<div class="pillars-section">
+<!-- =========================================================
+     5. INTERACTIVE 3D PRODUCT INSPECTOR MODAL
+     ========================================================= -->
+<div class="modal fade modal-3d-backdrop" id="inspect3DModal" tabindex="-1" aria-labelledby="inspect3DLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header border-bottom border-white border-opacity-10 py-3">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-primary bg-opacity-25 text-primary p-2 rounded-circle">
+                        <i class="bi bi-box fs-5"></i>
+                    </span>
+                    <div>
+                        <h5 class="modal-title fw-bold text-white mb-0" id="inspectModalTitle">Product 3D Hologram</h5>
+                        <small class="text-pearl-muted" id="inspectModalSub">Interactive WebGL 360° Studio View</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <!-- Inspector 3D Canvas -->
+                <canvas id="inspector-3d-canvas" title="Click & Drag to rotate in 360°"></canvas>
+                
+                <div class="d-flex justify-content-between align-items-center mt-3 px-2 flex-wrap gap-2">
+                    <div class="d-flex gap-2">
+                        <button class="hud-btn" id="modalToggleWireframe"><i class="bi bi-bounding-box-circles"></i> Wireframe</button>
+                        <button class="hud-btn" id="modalResetView"><i class="bi bi-arrow-counterclockwise"></i> Reset View</button>
+                    </div>
+                    <div class="text-pearl-muted small">
+                        <i class="bi bi-mouse me-1"></i> Left Click + Drag to rotate freely
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-top border-white border-opacity-10 d-flex justify-content-between py-3">
+                <div class="fs-5 fw-bold text-white" id="inspectModalPrice"></div>
+                <button type="button" class="btn btn-outline-light rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     6. VALUE PILLARS
+     ========================================================= -->
+<div class="my-5 reveal-on-scroll">
     <div class="row g-4">
         <div class="col-md-6 col-lg-3">
-            <div class="pillar-card" data-tilt-3d>
-                <i class="bi bi-rocket-takeoff-fill pillar-icon"></i>
-                <div class="pillar-title">Express Dispatch</div>
-                <p class="pillar-desc">Ultra-fast order processing with real-time tracking updates delivered straight to your account.</p>
+            <div class="pillar-card-minimal" data-tilt-3d>
+                <div class="pillar-icon-wrap">
+                    <i class="bi bi-rocket-takeoff-fill"></i>
+                </div>
+                <div class="pillar-heading">Express Dispatch</div>
+                <p class="pillar-text">Precision order routing with live milestone tracking updates straight to your dashboard.</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <div class="pillar-card" data-tilt-3d>
-                <i class="bi bi-shield-lock-fill pillar-icon"></i>
-                <div class="pillar-title">Bank-Grade Security</div>
-                <p class="pillar-desc">Manual payment proof verification and encrypted checkout protection for total peace of mind.</p>
+            <div class="pillar-card-minimal" data-tilt-3d>
+                <div class="pillar-icon-wrap">
+                    <i class="bi bi-shield-lock-fill"></i>
+                </div>
+                <div class="pillar-heading">Bank-Grade Protection</div>
+                <p class="pillar-text">Manual payment proof verification and encrypted checkout defense for total peace of mind.</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <div class="pillar-card" data-tilt-3d>
-                <i class="bi bi-patch-check-fill pillar-icon"></i>
-                <div class="pillar-title">100% Genuine Items</div>
-                <p class="pillar-desc">Direct-from-manufacturer authorized stock backed with full product warranty coverage.</p>
+            <div class="pillar-card-minimal" data-tilt-3d>
+                <div class="pillar-icon-wrap">
+                    <i class="bi bi-patch-check-fill"></i>
+                </div>
+                <div class="pillar-heading">100% Genuine Items</div>
+                <p class="pillar-text">Directly sourced authorized hardware stock backed with full manufacturer warranty coverage.</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <div class="pillar-card" data-tilt-3d>
-                <i class="bi bi-headset pillar-icon"></i>
-                <div class="pillar-title">24/7 Dedicated Care</div>
-                <p class="pillar-desc">Have a question? Our support team is standing by around the clock to assist your shopping journey.</p>
+            <div class="pillar-card-minimal" data-tilt-3d>
+                <div class="pillar-icon-wrap">
+                    <i class="bi bi-headset"></i>
+                </div>
+                <div class="pillar-heading">24/7 Dedicated Care</div>
+                <p class="pillar-text">Expert assistance around the clock to support your technical questions and fulfillment.</p>
             </div>
         </div>
     </div>
@@ -847,75 +1098,460 @@
 
 {% block extra_js %}
 <script>
-// Interactive Slider Controller with Dots & Controls
-(function initSlider() {
-    const slides = document.querySelectorAll(".offer-slide");
-    const dots = document.querySelectorAll(".slider-dot");
+// =========================================================
+// 1. HERO REAL-TIME INTERACTIVE 3D MODEL WITH THREE.JS
+// =========================================================
+(function initHero3D() {
+    const canvas = document.getElementById('hero-3d-model-canvas');
+    if (!canvas || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 9);
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
+    // Studio Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.PointLight(0xa5b4fc, 2.8, 50);
+    keyLight.position.set(8, 8, 8);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.PointLight(0xd946ef, 2.2, 50);
+    fillLight.position.set(-8, -6, 6);
+    scene.add(fillLight);
+
+    const rimLight = new THREE.PointLight(0x38bdf8, 2.0, 50);
+    rimLight.position.set(0, 8, -6);
+    scene.add(rimLight);
+
+    // Master 3D Group
+    const modelGroup = new THREE.Group();
+    scene.add(modelGroup);
+
+    // Central Multi-faceted Crystal Core (Icosahedron)
+    const coreGeom = new THREE.IcosahedronGeometry(2.1, 0);
+    const coreMat = new THREE.MeshPhysicalMaterial({
+        color: 0x818cf8,
+        emissive: 0x2e1065,
+        roughness: 0.15,
+        metalness: 0.35,
+        transmission: 0.6,
+        reflectivity: 0.9,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        wireframe: false
+    });
+    const coreMesh = new THREE.Mesh(coreGeom, coreMat);
+    modelGroup.add(coreMesh);
+
+    // Inner Glowing Wireframe Energy Nucleus
+    const innerGeom = new THREE.OctahedronGeometry(1.3, 0);
+    const innerMat = new THREE.MeshBasicMaterial({
+        color: 0x38bdf8,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.75
+    });
+    const innerMesh = new THREE.Mesh(innerGeom, innerMat);
+    modelGroup.add(innerMesh);
+
+    // Orbital Gyroscope Ring 1
+    const ring1Geom = new THREE.TorusGeometry(3.1, 0.05, 16, 100);
+    const ring1Mat = new THREE.MeshStandardMaterial({
+        color: 0xa5b4fc,
+        roughness: 0.2,
+        metalness: 0.9
+    });
+    const ring1 = new THREE.Mesh(ring1Geom, ring1Mat);
+    ring1.rotation.x = Math.PI / 3;
+    modelGroup.add(ring1);
+
+    // Orbital Gyroscope Ring 2
+    const ring2Geom = new THREE.TorusGeometry(3.5, 0.04, 16, 100);
+    const ring2Mat = new THREE.MeshStandardMaterial({
+        color: 0xf472b6,
+        roughness: 0.2,
+        metalness: 0.8
+    });
+    const ring2 = new THREE.Mesh(ring2Geom, ring2Mat);
+    ring2.rotation.y = Math.PI / 4;
+    ring2.rotation.x = Math.PI / 6;
+    modelGroup.add(ring2);
+
+    // Orbital Micro-Nodes on Rings
+    const nodeGeom = new THREE.SphereGeometry(0.12, 16, 16);
+    const nodeMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    for (let i = 0; i < 4; i++) {
+        const node = new THREE.Mesh(nodeGeom, nodeMat);
+        const angle = (i * Math.PI) / 2;
+        node.position.set(Math.cos(angle) * 3.1, Math.sin(angle) * 3.1, 0);
+        ring1.add(node);
+    }
+
+    // Floating Sparkles
+    const sparkleCount = 60;
+    const sparkleGeom = new THREE.BufferGeometry();
+    const sparklePositions = new Float32Array(sparkleCount * 3);
+    for (let i = 0; i < sparkleCount; i++) {
+        const radius = 3.6 + Math.random() * 1.8;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(Math.random() * 2 - 1);
+        sparklePositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+        sparklePositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+        sparklePositions[i * 3 + 2] = radius * Math.cos(phi);
+    }
+    sparkleGeom.setAttribute('position', new THREE.BufferAttribute(sparklePositions, 3));
+    const sparkleMat = new THREE.PointsMaterial({
+        color: 0xe2e8f0,
+        size: 0.09,
+        transparent: true,
+        opacity: 0.85
+    });
+    const sparklePoints = new THREE.Points(sparkleGeom, sparkleMat);
+    modelGroup.add(sparklePoints);
+
+    // Mouse Drag Interaction with Momentum Physics
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+    let rotationVelocity = { x: 0, y: 0 };
+    let autoSpin = true;
+
+    canvas.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - previousMousePosition.x;
+        const deltaY = e.clientY - previousMousePosition.y;
+
+        rotationVelocity.y = deltaX * 0.006;
+        rotationVelocity.x = deltaY * 0.006;
+
+        modelGroup.rotation.y += rotationVelocity.y;
+        modelGroup.rotation.x += rotationVelocity.x;
+
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    // Touch support for mobile devices
+    canvas.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+            isDragging = true;
+            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+
+    window.addEventListener('touchmove', (e) => {
+        if (!isDragging || e.touches.length !== 1) return;
+        const deltaX = e.touches[0].clientX - previousMousePosition.x;
+        const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+        rotationVelocity.y = deltaX * 0.006;
+        rotationVelocity.x = deltaY * 0.006;
+
+        modelGroup.rotation.y += rotationVelocity.y;
+        modelGroup.rotation.x += rotationVelocity.x;
+
+        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }, { passive: true });
+
+    // HUD Button Controls
+    const btnToggleSpin = document.getElementById('btnToggleSpin');
+    if (btnToggleSpin) {
+        btnToggleSpin.addEventListener('click', (e) => {
+            e.preventDefault();
+            autoSpin = !autoSpin;
+            btnToggleSpin.classList.toggle('active', autoSpin);
+        });
+    }
+
+    let isWireframe = false;
+    const btnToggleWireframe = document.getElementById('btnToggleWireframe');
+    if (btnToggleWireframe) {
+        btnToggleWireframe.addEventListener('click', (e) => {
+            e.preventDefault();
+            isWireframe = !isWireframe;
+            coreMat.wireframe = isWireframe;
+            btnToggleWireframe.classList.toggle('active', isWireframe);
+        });
+    }
+
+    let lightMode = 0;
+    const lightThemes = [
+        { name: 'Pearl Light', c1: 0xa5b4fc, c2: 0xd946ef, c3: 0x38bdf8 },
+        { name: 'Cyber Neon', c1: 0x00f2fe, c2: 0x4facfe, c3: 0x00f0aa },
+        { name: 'Sunset Aura', c1: 0xff6b35, c2: 0xff3366, c3: 0xffb800 }
+    ];
+    const btnCycleLighting = document.getElementById('btnCycleLighting');
+    if (btnCycleLighting) {
+        btnCycleLighting.addEventListener('click', (e) => {
+            e.preventDefault();
+            lightMode = (lightMode + 1) % lightThemes.length;
+            const t = lightThemes[lightMode];
+            keyLight.color.setHex(t.c1);
+            fillLight.color.setHex(t.c2);
+            rimLight.color.setHex(t.c3);
+            btnCycleLighting.innerHTML = `<i class="bi bi-lightbulb-fill"></i> ${t.name}`;
+        });
+    }
+
+    // Resize Handler
+    function onResize() {
+        if (!canvas.parentElement) return;
+        const width = canvas.parentElement.clientWidth;
+        const height = canvas.parentElement.clientHeight || 480;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+    }
+    window.addEventListener('resize', onResize);
+    onResize();
+
+    // Render Animation Loop
+    const clock = new THREE.Clock();
+    function animateHero() {
+        requestAnimationFrame(animateHero);
+        const elapsed = clock.getElapsedTime();
+
+        if (!isDragging) {
+            rotationVelocity.x *= 0.94;
+            rotationVelocity.y *= 0.94;
+            modelGroup.rotation.x += rotationVelocity.x;
+            modelGroup.rotation.y += rotationVelocity.y;
+
+            if (autoSpin) {
+                modelGroup.rotation.y += 0.007;
+                modelGroup.rotation.x += 0.003;
+            }
+        }
+
+        innerMesh.rotation.y -= 0.012;
+        innerMesh.rotation.x -= 0.008;
+
+        ring1.rotation.z += 0.008;
+        ring2.rotation.z -= 0.01;
+
+        sparklePoints.rotation.y += 0.003;
+        modelGroup.position.y = Math.sin(elapsed * 1.5) * 0.15;
+
+        renderer.render(scene, camera);
+    }
+    animateHero();
+})();
+
+// =========================================================
+// 2. OFFERS CAROUSEL CONTROLLER
+// =========================================================
+(function initOfferCarousel() {
+    const slides = document.querySelectorAll(".offer-slide-item");
+    const dots = document.querySelectorAll(".carousel-dot");
     if (!slides || slides.length <= 1) return;
 
     let current = 0;
-    let timer = null;
+    let autoTimer = null;
 
-    function showSlide(index) {
+    function activateSlide(idx) {
         slides.forEach(s => s.classList.remove('active'));
         dots.forEach(d => d.classList.remove('active'));
 
-        slides[index].classList.add('active');
-        if (dots[index]) dots[index].classList.add('active');
-        current = index;
+        slides[idx].classList.add('active');
+        if (dots[idx]) dots[idx].classList.add('active');
+        current = idx;
     }
 
-    function next() {
-        showSlide((current + 1) % slides.length);
+    function advanceNext() {
+        activateSlide((current + 1) % slides.length);
     }
 
-    function prev() {
-        showSlide((current - 1 + slides.length) % slides.length);
+    function advancePrev() {
+        activateSlide((current - 1 + slides.length) % slides.length);
     }
 
-    function startTimer() {
-        stopTimer();
-        timer = setInterval(next, 5000);
+    function restartTimer() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(advanceNext, 5500);
     }
 
-    function stopTimer() {
-        if (timer) clearInterval(timer);
-    }
-
-    const prevBtn = document.getElementById('prevSlide');
-    const nextBtn = document.getElementById('nextSlide');
-
-    if (prevBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            prev();
-            startTimer();
-        });
-    }
+    const nextBtn = document.getElementById('offerNextBtn');
+    const prevBtn = document.getElementById('offerPrevBtn');
 
     if (nextBtn) {
         nextBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            next();
-            startTimer();
+            advanceNext();
+            restartTimer();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            advancePrev();
+            restartTimer();
         });
     }
 
     dots.forEach((dot, idx) => {
         dot.addEventListener('click', (e) => {
             e.preventDefault();
-            showSlide(idx);
-            startTimer();
+            activateSlide(idx);
+            restartTimer();
         });
     });
 
-    const frame = document.querySelector('.offer-slider-frame');
+    const frame = document.querySelector('.offer-carousel-wrap');
     if (frame) {
-        frame.addEventListener('mouseenter', stopTimer);
-        frame.addEventListener('mouseleave', startTimer);
+        frame.addEventListener('mouseenter', () => clearInterval(autoTimer));
+        frame.addEventListener('mouseleave', restartTimer);
     }
 
-    startTimer();
+    restartTimer();
+})();
+
+// =========================================================
+// 3. PRODUCT 3D INSPECTOR MODAL
+// =========================================================
+(function initModal3DInspector() {
+    const modalEl = document.getElementById('inspect3DModal');
+    const canvas = document.getElementById('inspector-3d-canvas');
+    if (!modalEl || !canvas || typeof THREE === 'undefined') return;
+
+    let renderer, scene, camera, mesh, wireframeMesh, animFrameId;
+    let isDragging = false;
+    let prevMouse = { x: 0, y: 0 };
+    let isWireframe = false;
+    let modalInstance = null;
+
+    function initScene() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+        camera.position.set(0, 0, 7);
+
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const light1 = new THREE.DirectionalLight(0xffffff, 2.2);
+        light1.position.set(5, 5, 5);
+        scene.add(light1);
+
+        const light2 = new THREE.DirectionalLight(0xa5b4fc, 1.8);
+        light2.position.set(-5, -5, -5);
+        scene.add(light2);
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.85));
+
+        const geom = new THREE.DodecahedronGeometry(2.2, 0);
+        const mat = new THREE.MeshPhysicalMaterial({
+            color: 0x818cf8,
+            roughness: 0.2,
+            metalness: 0.6,
+            clearcoat: 0.8
+        });
+        mesh = new THREE.Mesh(geom, mat);
+        scene.add(mesh);
+
+        const wireMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true });
+        wireframeMesh = new THREE.Mesh(geom, wireMat);
+        wireframeMesh.visible = false;
+        scene.add(wireframeMesh);
+    }
+
+    function renderLoop() {
+        animFrameId = requestAnimationFrame(renderLoop);
+        if (!isDragging && mesh) {
+            mesh.rotation.y += 0.008;
+            mesh.rotation.x += 0.004;
+            if (wireframeMesh) {
+                wireframeMesh.rotation.y = mesh.rotation.y;
+                wireframeMesh.rotation.x = mesh.rotation.x;
+            }
+        }
+        if (renderer && scene && camera) {
+            renderer.render(scene, camera);
+        }
+    }
+
+    // Direct inspect button listeners
+    document.querySelectorAll('.product-3d-inspect-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const name = btn.getAttribute('data-product-name') || 'Product Hologram';
+            const price = btn.getAttribute('data-product-price') || '';
+            document.getElementById('inspectModalTitle').innerText = name;
+            document.getElementById('inspectModalPrice').innerText = price ? 'Price: ₹' + price : '';
+            
+            if (!modalInstance && typeof bootstrap !== 'undefined') {
+                modalInstance = new bootstrap.Modal(modalEl);
+            }
+            if (modalInstance) {
+                modalInstance.show();
+            }
+        });
+    });
+
+    modalEl.addEventListener('shown.bs.modal', () => {
+        if (!renderer) initScene();
+        const width = canvas.parentElement.clientWidth;
+        camera.aspect = width / 380;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, 380);
+        renderLoop();
+    });
+
+    modalEl.addEventListener('hidden.bs.modal', () => {
+        cancelAnimationFrame(animFrameId);
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        prevMouse = { x: e.clientX, y: e.clientY };
+    });
+
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging || !mesh) return;
+        const dx = e.clientX - prevMouse.x;
+        const dy = e.clientY - prevMouse.y;
+        mesh.rotation.y += dx * 0.01;
+        mesh.rotation.x += dy * 0.01;
+        if (wireframeMesh) {
+            wireframeMesh.rotation.y = mesh.rotation.y;
+            wireframeMesh.rotation.x = mesh.rotation.x;
+        }
+        prevMouse = { x: e.clientX, y: e.clientY };
+    });
+
+    document.getElementById('modalToggleWireframe')?.addEventListener('click', () => {
+        isWireframe = !isWireframe;
+        if (mesh && wireframeMesh) {
+            mesh.visible = !isWireframe;
+            wireframeMesh.visible = isWireframe;
+        }
+    });
+
+    document.getElementById('modalResetView')?.addEventListener('click', () => {
+        if (mesh) {
+            mesh.rotation.set(0, 0, 0);
+            if (wireframeMesh) wireframeMesh.rotation.set(0, 0, 0);
+        }
+    });
 })();
 </script>
 {% endblock %}

@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Secure Checkout - ShopEase 3D{% endblock %}
+{% block title %}Secure Checkout — ShopEase 3D{% endblock %}
 
 {% block extra_css %}
 <style>
-/* =========================================================
-   CHECKOUT - 3D GLASSMORPHIC PURCHASE EXPERIENCE
-   ========================================================= */
-
 .checkout-wrapper {
     max-width: 1140px;
     margin: 1.5rem auto 4.5rem;
@@ -21,7 +17,7 @@
     gap: 1rem;
     margin-bottom: 2rem;
     padding-bottom: 1.2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .checkout-title {
@@ -35,15 +31,15 @@
 }
 
 .checkout-glass-card {
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 24px;
-    padding: 2.2rem;
+    background: rgba(255, 255, 255, 0.045);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 26px;
+    padding: 2.4rem;
     margin-bottom: 2rem;
     color: #ffffff;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
 }
 
 .checkout-section-title {
@@ -55,13 +51,12 @@
     align-items: center;
     gap: 10px;
     padding-bottom: 0.8rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Form Controls */
 .form-label-custom {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: rgba(255, 255, 255, 0.85);
     margin-bottom: 6px;
     display: flex;
@@ -70,8 +65,8 @@
 }
 
 .input-glass {
-    background: rgba(0, 0, 0, 0.25) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    background: rgba(0, 0, 0, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
     border-radius: 14px !important;
     padding: 12px 18px !important;
     color: #ffffff !important;
@@ -80,23 +75,22 @@
 }
 
 .input-glass:focus {
-    background: rgba(0, 0, 0, 0.35) !important;
-    border-color: var(--primary) !important;
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.35) !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(165, 180, 252, 0.5) !important;
+    box-shadow: 0 0 20px rgba(165, 180, 252, 0.25) !important;
     color: #ffffff !important;
 }
 
 .input-glass::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.35);
 }
 
-/* Upload Dropzone */
 .dropzone-glass {
-    border: 2px dashed rgba(255, 107, 53, 0.45);
-    border-radius: 18px;
-    padding: 2rem 1.5rem;
+    border: 2px dashed rgba(165, 180, 252, 0.4);
+    border-radius: 20px;
+    padding: 2.2rem 1.6rem;
     text-align: center;
-    background: rgba(255, 107, 53, 0.04);
+    background: rgba(99, 102, 241, 0.04);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
@@ -104,14 +98,14 @@
 }
 
 .dropzone-glass:hover, .dropzone-glass.dragover {
-    border-color: #ff8c42;
-    background: rgba(255, 107, 53, 0.09);
-    box-shadow: 0 0 25px rgba(255, 107, 53, 0.2);
+    border-color: #a5b4fc;
+    background: rgba(99, 102, 241, 0.08);
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
 }
 
 .dropzone-icon {
     font-size: 2.8rem;
-    color: #ff8c42;
+    color: #a5b4fc;
     margin-bottom: 0.8rem;
     display: inline-block;
 }
@@ -138,26 +132,26 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
-/* QR Code & Payment Card */
 .qr-payment-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(13, 202, 240, 0.08) 100%);
-    border: 1px solid rgba(13, 202, 240, 0.3);
-    border-radius: 20px;
-    padding: 1.8rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(99, 102, 241, 0.08) 100%);
+    border: 1px solid rgba(165, 180, 252, 0.25);
+    border-radius: 24px;
+    padding: 2rem;
     text-align: center;
     margin-bottom: 1.8rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .qr-box {
     background: #ffffff;
-    border-radius: 16px;
+    border-radius: 18px;
     padding: 14px;
     display: inline-block;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     margin-bottom: 1rem;
 }
 
-.qr-box svg, .qr-box img {
+.qr-box svg {
     display: block;
     width: 160px;
     height: 160px;
@@ -167,16 +161,15 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 6px 14px;
+    padding: 6px 16px;
     border-radius: 50px;
     font-size: 0.9rem;
     font-family: monospace;
-    color: #ffaa6b;
+    color: #a5b4fc;
 }
 
-/* Summary Details */
 .summary-item-row {
     display: flex;
     justify-content: space-between;
@@ -193,7 +186,7 @@
 
 .summary-item-price {
     font-weight: 700;
-    color: #ffaa6b;
+    color: #a5b4fc;
 }
 
 .total-summary-row {
@@ -204,6 +197,14 @@
     padding-top: 1.2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
+
+.amount-due-val {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 </style>
 {% endblock %}
 
@@ -212,16 +213,16 @@
 
     <div class="checkout-header">
         <h1 class="checkout-title">
-            <i class="bi bi-shield-lock-fill text-primary"></i>
+            <i class="bi bi-shield-lock-fill text-info"></i>
             {% if direct_buy %}Instant Buy Checkout{% else %}Secure Order Checkout{% endif %}
         </h1>
-        <div class="text-white-50 small d-flex align-items-center gap-2">
+        <div class="text-pearl-muted small d-flex align-items-center gap-2">
             <i class="bi bi-patch-check-fill text-success"></i> 256-Bit SSL Encrypted
         </div>
     </div>
 
     {% if error %}
-    <div class="alert alert-danger border-0 text-white shadow-lg mb-4" style="background: rgba(255, 51, 102, 0.85); backdrop-filter: blur(10px); border-radius: 14px;">
+    <div class="alert alert-danger border-0 text-white shadow-lg mb-4" style="background: rgba(244, 63, 94, 0.85); backdrop-filter: blur(10px); border-radius: 14px;">
         <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
     </div>
     {% endif %}
@@ -234,7 +235,7 @@
             <div class="col-lg-7">
                 <div class="checkout-glass-card" data-tilt-3d>
                     <div class="checkout-section-title">
-                        <i class="bi bi-person-lines-fill text-warning"></i> 1. Shipping & Customer Details
+                        <i class="bi bi-person-lines-fill text-info"></i> 1. Shipping & Customer Details
                     </div>
 
                     <div class="mb-3">
@@ -259,10 +260,10 @@
                     </div>
 
                     <div class="checkout-section-title mt-4">
-                        <i class="bi bi-cloud-arrow-up-fill text-info"></i> 2. Upload Payment Proof *
+                        <i class="bi bi-cloud-arrow-up-fill text-primary"></i> 2. Upload Payment Proof *
                     </div>
 
-                    <p class="text-white-50 small mb-3">
+                    <p class="text-pearl-muted small mb-3">
                         Scan the UPI QR code on the right, complete payment for the exact order total, and attach your transaction screenshot below.
                     </p>
 
@@ -270,7 +271,7 @@
                         <input type="file" name="payment_screenshot" id="paymentScreenshotInput" class="dropzone-input-file" accept="image/*" required>
                         <i class="bi bi-file-earmark-arrow-up dropzone-icon"></i>
                         <h6 class="text-white fw-bold mb-1" id="dropzonePrompt">Click or Drag & Drop Payment Screenshot</h6>
-                        <p class="text-white-50 extra-small mb-0" id="dropzoneSub">Supports JPG, PNG, WEBP (Max 10MB)</p>
+                        <p class="text-pearl-muted small mb-0" id="dropzoneSub">Supports JPG, PNG, WEBP (Max 10MB)</p>
 
                         <div class="preview-container" id="previewContainer">
                             <img src="" alt="Screenshot Preview" class="preview-img" id="screenshotPreview">
@@ -278,7 +279,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 py-3 mt-4 fs-5 fw-bold d-flex align-items-center justify-content-center gap-2">
+                    <button type="submit" class="btn-prism w-100 py-3 mt-4 fs-5 fw-bold">
                         <i class="bi bi-check-circle-fill"></i> Submit & Place Order
                     </button>
                 </div>
@@ -288,16 +289,15 @@
             <div class="col-lg-5">
                 <!-- QR Payment Card -->
                 <div class="qr-payment-card" data-tilt-3d>
-                    <span class="badge bg-info bg-opacity-25 text-info border border-info border-opacity-25 px-3 py-1 rounded-pill small mb-2">
+                    <span class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-25 px-3 py-1 rounded-pill small mb-2">
                         <i class="bi bi-upc-scan me-1"></i> Scan & Pay
                     </span>
                     <h5 class="fw-bold text-white mb-2">UPI Direct Payment</h5>
-                    <p class="text-white-50 extra-small mb-3">
+                    <p class="text-pearl-muted small mb-3">
                         Scan with Google Pay, PhonePe, Paytm, or any UPI banking app
                     </p>
 
                     <div class="qr-box">
-                        <!-- Standard UPI QR Code Representation -->
                         <svg viewBox="0 0 100 100" fill="#111827">
                             <path d="M0,0 h30 v30 h-30 z M6,6 h18 v18 h-18 z M10,10 h10 v10 h-10 z" />
                             <path d="M70,0 h30 v30 h-30 z M76,6 h18 v18 h-18 z M80,10 h10 v10 h-10 z" />
@@ -308,7 +308,7 @@
                             <rect x="8" y="40" width="14" height="6" />
                             <rect x="24" y="40" width="6" height="20" />
                             <rect x="8" y="52" width="6" height="8" />
-                            <rect x="38" y="38" width="24" height="24" fill="#ff6b35" />
+                            <rect x="38" y="38" width="24" height="24" fill="#6366f1" />
                             <rect x="70" y="40" width="10" height="6" />
                             <rect x="84" y="40" width="10" height="12" />
                             <rect x="70" y="52" width="12" height="8" />
@@ -341,7 +341,7 @@
                         <div class="summary-item-row">
                             <div>
                                 <div class="summary-item-name">{{ item.product.name }}</div>
-                                <div class="text-white-50 extra-small">Qty: {{ item.quantity }} × ₹{{ item.price }}</div>
+                                <div class="text-pearl-muted small">Qty: {{ item.quantity }} × ₹{{ item.price }}</div>
                             </div>
                             <div class="summary-item-price">₹{{ item.get_total }}</div>
                         </div>
@@ -351,7 +351,7 @@
                         <div class="summary-item-row">
                             <div>
                                 <div class="summary-item-name">{{ item.product.name }}</div>
-                                <div class="text-white-50 extra-small">Qty: {{ item.quantity }} × ₹{{ item.product.price }}</div>
+                                <div class="text-pearl-muted small">Qty: {{ item.quantity }} × ₹{{ item.product.price }}</div>
                             </div>
                             <div class="summary-item-price">₹{{ item.get_total }}</div>
                         </div>
@@ -360,15 +360,15 @@
 
                     <!-- Pricing Math -->
                     <div class="mt-3">
-                        <div class="d-flex justify-content-between text-white-50 small mb-2">
+                        <div class="d-flex justify-content-between text-pearl-muted small mb-2">
                             <span>Subtotal</span>
                             <span class="text-white fw-bold">₹{% if direct_buy and order %}{{ order.total_amount }}{% else %}{{ total }}{% endif %}</span>
                         </div>
-                        <div class="d-flex justify-content-between text-white-50 small mb-2">
-                            <span>Shipping</span>
+                        <div class="d-flex justify-content-between text-pearl-muted small mb-2">
+                            <span>Express Shipping</span>
                             <span class="text-success fw-bold">FREE</span>
                         </div>
-                        <div class="d-flex justify-content-between text-white-50 small">
+                        <div class="d-flex justify-content-between text-pearl-muted small">
                             <span>Estimated Tax</span>
                             <span class="text-white fw-bold">₹0.00</span>
                         </div>
@@ -376,7 +376,7 @@
 
                     <div class="total-summary-row">
                         <span class="fw-bold fs-5 text-white">Amount Due:</span>
-                        <span class="fw-bold fs-3 text-warning">
+                        <span class="amount-due-val">
                             ₹{% if direct_buy and order %}{{ order.total_amount }}{% else %}{{ total }}{% endif %}
                         </span>
                     </div>

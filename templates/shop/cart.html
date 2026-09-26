@@ -1,19 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Shopping Cart - ShopEase 3D{% endblock %}
+{% block title %}Shopping Cart — ShopEase 3D{% endblock %}
 
 {% block extra_css %}
 <style>
-/* =========================================================
-   CART - 3D GLASSMORPHIC SHOPPING CART
-   ========================================================= */
-
 .cart-page-wrapper {
     max-width: 1100px;
     margin: 1.5rem auto 4rem;
 }
 
-/* Page Header */
 .cart-header-banner {
     display: flex;
     justify-content: space-between;
@@ -22,7 +17,7 @@
     gap: 1rem;
     margin-bottom: 2rem;
     padding-bottom: 1.2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .cart-title {
@@ -35,43 +30,42 @@
     gap: 12px;
 }
 
-/* Free Shipping Pill */
 .free-shipping-card {
-    background: linear-gradient(135deg, rgba(0, 210, 106, 0.12), rgba(13, 202, 240, 0.1));
-    border: 1px solid rgba(0, 210, 106, 0.3);
-    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(56, 189, 248, 0.08));
+    border: 1px solid rgba(16, 185, 129, 0.28);
+    border-radius: 18px;
     padding: 1rem 1.4rem;
-    margin-bottom: 1.8rem;
+    margin-bottom: 2rem;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    backdrop-filter: blur(12px);
 }
 
 .free-shipping-card i {
     font-size: 1.6rem;
-    color: #00d26a;
+    color: #34d399;
 }
 
-/* Cart Item Card */
 .cart-item-glass {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.045);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
     padding: 1.4rem 1.6rem;
     margin-bottom: 1.2rem;
     color: #ffffff;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
 }
 
 .cart-item-glass:hover {
     transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 107, 53, 0.35);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(165, 180, 252, 0.35);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
 .cart-thumb {
@@ -79,7 +73,7 @@
     height: 90px;
     object-fit: cover;
     border-radius: 16px;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -91,15 +85,14 @@
 }
 
 .cart-prod-unit {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--pearl-muted);
     font-size: 0.9rem;
 }
 
-/* Quantity Controls */
 .qty-stepper-wrap {
     display: inline-flex;
     align-items: center;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.35);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50px;
     padding: 4px 8px;
@@ -111,7 +104,7 @@
     height: 28px;
     border-radius: 50%;
     border: none;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
     display: flex;
     align-items: center;
@@ -122,7 +115,7 @@
 }
 
 .qty-step-btn:hover {
-    background: var(--primary);
+    background: var(--gradient-prism);
     color: white;
 }
 
@@ -150,9 +143,9 @@
     width: 38px;
     height: 38px;
     border-radius: 12px;
-    background: rgba(255, 51, 102, 0.12);
-    border: 1px solid rgba(255, 51, 102, 0.3);
-    color: #ff3366;
+    background: rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(244, 63, 94, 0.3);
+    color: #fb7185;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -161,31 +154,30 @@
 }
 
 .btn-trash-action:hover {
-    background: #ff3366;
+    background: #f43f5e;
     color: white;
-    box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.5);
     transform: scale(1.08);
 }
 
-/* Summary Card */
 .summary-glass-card {
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 24px;
-    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 26px;
+    padding: 2.2rem;
     color: #ffffff;
     position: sticky;
     top: 100px;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
 }
 
 .summary-heading {
     font-size: 1.3rem;
     font-weight: 800;
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     margin-bottom: 1.5rem;
 }
 
@@ -194,7 +186,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--pearl-muted);
     font-size: 0.95rem;
 }
 
@@ -210,33 +202,33 @@
 .summary-total-val {
     font-size: 1.7rem;
     font-weight: 800;
-    color: #ffaa6b;
-    text-shadow: 0 0 15px rgba(255, 107, 53, 0.35);
+    background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Empty State */
 .empty-cart-glass {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px dashed rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(14px);
-    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(18px);
+    border-radius: 28px;
     padding: 4.5rem 2rem;
     text-align: center;
 }
 
 .empty-icon-orb {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     margin: 0 auto 1.5rem;
     border-radius: 50%;
-    background: rgba(255, 107, 53, 0.12);
-    border: 1px solid rgba(255, 107, 53, 0.3);
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(165, 180, 252, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ff8c42;
-    font-size: 3rem;
-    box-shadow: 0 0 25px rgba(255, 107, 53, 0.2);
+    color: #a5b4fc;
+    font-size: 2.8rem;
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
 }
 </style>
 {% endblock %}
@@ -246,10 +238,10 @@
 
     <div class="cart-header-banner">
         <h1 class="cart-title">
-            <i class="bi bi-bag-check-fill text-primary"></i> Shopping Cart
+            <i class="bi bi-bag-check-fill text-info"></i> Shopping Cart
         </h1>
         {% if cart_items %}
-        <span class="badge bg-primary bg-opacity-25 text-white border border-primary border-opacity-25 px-3 py-2 rounded-pill">
+        <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-10 px-3 py-2 rounded-pill">
             {{ cart_items|length }} Unique Item{% if cart_items|length != 1 %}s{% endif %}
         </span>
         {% endif %}
@@ -261,7 +253,7 @@
         <i class="bi bi-truck"></i>
         <div>
             <div class="fw-bold text-white">Eligible for FREE Express Delivery</div>
-            <div class="text-white-50 small">All orders in your cart qualify for free insured doorstep shipping.</div>
+            <div class="text-pearl-muted small">All items in your bag qualify for insured express doorstep shipping.</div>
         </div>
     </div>
 
@@ -271,7 +263,6 @@
             {% for item in cart_items %}
             <div class="cart-item-glass" data-tilt-3d>
                 <div class="row align-items-center g-3">
-                    <!-- Thumbnail -->
                     <div class="col-auto">
                         {% if item.product.image %}
                         <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-thumb">
@@ -282,13 +273,11 @@
                         {% endif %}
                     </div>
 
-                    <!-- Info -->
                     <div class="col">
                         <div class="cart-prod-name">{{ item.product.name }}</div>
                         <div class="cart-prod-unit">₹{{ item.product.price }} / unit</div>
                     </div>
 
-                    <!-- Quantity Stepper Form -->
                     <div class="col-sm-auto">
                         <form method="post" action="{% url 'shop:update_cart' item.id %}" class="m-0" id="form-qty-{{ item.id }}">
                             {% csrf_token %}
@@ -300,12 +289,10 @@
                         </form>
                     </div>
 
-                    <!-- Line Total -->
                     <div class="col-sm-auto text-sm-end">
                         <div class="cart-item-total">₹{{ item.get_total }}</div>
                     </div>
 
-                    <!-- Remove -->
                     <div class="col-auto">
                         <a href="{% url 'shop:remove_from_cart' item.id %}" class="btn-trash-action" title="Remove Item" onclick="return confirm('Remove {{ item.product.name }} from your cart?')">
                             <i class="bi bi-trash3"></i>
@@ -320,7 +307,7 @@
         <div class="col-lg-4">
             <div class="summary-glass-card" data-tilt-3d>
                 <div class="summary-heading">
-                    <i class="bi bi-receipt me-2 text-warning"></i> Order Summary
+                    <i class="bi bi-receipt me-2 text-info"></i> Order Summary
                 </div>
 
                 <div class="summary-line">
@@ -344,16 +331,16 @@
                 </div>
 
                 <div class="mt-4">
-                    <a href="{% url 'shop:checkout' %}" class="btn btn-primary w-100 py-3 d-flex align-items-center justify-content-center gap-2 mb-3">
+                    <a href="{% url 'shop:checkout' %}" class="btn-prism w-100 py-3 mb-3">
                         <i class="bi bi-lock-fill"></i> Proceed to Checkout
                     </a>
-                    <a href="{% url 'shop:home' %}" class="btn btn-outline-light w-100 py-2 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
+                    <a href="{% url 'shop:home' %}" class="btn-glass w-100 py-2">
                         <i class="bi bi-arrow-left me-1"></i> Continue Shopping
                     </a>
                 </div>
 
-                <div class="text-center text-white-50 extra-small mt-3" style="font-size: 0.78rem;">
-                    <i class="bi bi-shield-lock me-1 text-success"></i> 256-bit encrypted checkout
+                <div class="text-center text-pearl-muted small mt-3" style="font-size: 0.78rem;">
+                    <i class="bi bi-shield-lock me-1 text-success"></i> 256-bit SSL encrypted checkout
                 </div>
             </div>
         </div>
@@ -366,10 +353,10 @@
             <i class="bi bi-bag-x"></i>
         </div>
         <h2 class="text-white fw-bold mb-2">Your Shopping Cart is Empty</h2>
-        <p class="text-white-50 mb-4" style="max-width: 480px; margin-left: auto; margin-right: auto;">
+        <p class="text-pearl-muted mb-4" style="max-width: 480px; margin-left: auto; margin-right: auto;">
             Looks like you haven't added anything to your cart yet. Explore our curated catalog of tech and gear to find your next favorite item!
         </p>
-        <a href="{% url 'shop:home' %}" class="btn btn-primary px-5 py-3">
+        <a href="{% url 'shop:home' %}" class="btn-prism px-5 py-3">
             <i class="bi bi-grid-fill me-2"></i> Browse Featured Catalog
         </a>
     </div>

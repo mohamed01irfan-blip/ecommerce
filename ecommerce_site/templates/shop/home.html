@@ -4,623 +4,631 @@
 
 {% block extra_css %}
 <style>
-/* =========================================================
+    /* =========================================================
    HOMEPAGE - 3D GLASSMORPHIC CYBER STOREFRONT
    ========================================================= */
 
-/* Hero Banner */
-.hero-glass {
-    position: relative;
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.12) 0%, rgba(43, 88, 118, 0.22) 50%, rgba(13, 202, 240, 0.08) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 28px;
-    padding: 3.5rem 3rem;
-    margin-bottom: 3.5rem;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-}
-
-.hero-glass::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 450px;
-    height: 450px;
-    background: radial-gradient(circle, rgba(255, 107, 53, 0.25), transparent 70%);
-    pointer-events: none;
-    border-radius: 50%;
-    filter: blur(30px);
-}
-
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 16px;
-    background: rgba(255, 107, 53, 0.18);
-    border: 1px solid rgba(255, 107, 53, 0.4);
-    border-radius: 50px;
-    color: #ffaa6b;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-    box-shadow: 0 0 15px rgba(255, 107, 53, 0.25);
-}
-
-.hero-title {
-    font-size: clamp(2.2rem, 5vw, 3.6rem);
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -1px;
-    margin-bottom: 1.2rem;
-    background: linear-gradient(135deg, #ffffff 30%, #ffaa6b 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-subtitle {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: rgba(255, 255, 255, 0.75);
-    max-width: 650px;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-}
-
-.hero-stats-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.hero-stat-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 8px 18px;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.85);
-    font-weight: 500;
-    backdrop-filter: blur(10px);
-}
-
-.hero-stat-pill i {
-    color: #ff8c42;
-    font-size: 1.1rem;
-}
-
-/* Offers Cinematic Carousel */
-.offer-slider-frame {
-    position: relative;
-    border-radius: 28px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), 0 0 35px rgba(255, 107, 53, 0.15);
-    margin-bottom: 4.5rem;
-    background: #0d131f;
-}
-
-.offer-slide {
-    display: none;
-    position: relative;
-    height: 520px;
-    overflow: hidden;
-}
-
-.offer-slide.active {
-    display: block;
-    animation: fadeSlide 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes fadeSlide {
-    from { opacity: 0; transform: scale(1.02); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* Ambient glow background using the offer image */
-.offer-slide-bg {
-    position: absolute;
-    inset: -30px;
-    background-size: cover;
-    background-position: center;
-    filter: blur(35px) brightness(0.35) saturate(1.4);
-    transform: scale(1.12);
-    z-index: 1;
-    pointer-events: none;
-}
-
-.offer-main-img {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: transform 6s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.offer-slide.active .offer-main-img {
-    transform: scale(1.04);
-}
-
-.offer-slide-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    background: linear-gradient(180deg, rgba(11, 15, 25, 0.15) 0%, rgba(11, 15, 25, 0.35) 45%, rgba(11, 15, 25, 0.92) 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: clamp(2rem, 5vw, 3.8rem);
-}
-
-.offer-badge {
-    background: linear-gradient(135deg, #ff3366, #ff6b35);
-    color: white;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 0.8rem;
-    box-shadow: 0 0 20px rgba(255, 51, 102, 0.55);
-    width: fit-content;
-}
-
-.offer-slide-title {
-    font-size: clamp(2rem, 4.2vw, 3.2rem);
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.15;
-    margin-bottom: 1.2rem;
-    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.85);
-    max-width: 800px;
-}
-
-.offer-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 12px 28px;
-    border-radius: 50px;
-    text-decoration: none;
-    box-shadow: 0 6px 22px rgba(255, 107, 53, 0.45);
-    transition: all 0.3s ease;
-    width: fit-content;
-}
-
-.offer-cta-btn:hover {
-    color: #ffffff;
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.65);
-}
-
-/* Nav Controls */
-.slider-controls {
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    right: 20px;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-    z-index: 10;
-}
-
-.slider-btn {
-    pointer-events: auto;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(11, 15, 25, 0.65);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.slider-btn:hover {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.6);
-    transform: scale(1.12);
-}
-
-/* Dots Indicator */
-.slider-dots-container {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    z-index: 10;
-}
-
-.slider-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.35);
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.slider-dot.active {
-    width: 28px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    box-shadow: 0 0 12px rgba(255, 107, 53, 0.8);
-}
-
-@media(max-width: 991px) {
-    .offer-slide {
-        height: 440px;
+    /* Hero Banner */
+    .hero-glass {
+        position: relative;
+        background: linear-gradient(135deg, rgba(255, 107, 53, 0.12) 0%, rgba(43, 88, 118, 0.22) 50%, rgba(13, 202, 240, 0.08) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 28px;
+        padding: 3.5rem 3rem;
+        margin-bottom: 3.5rem;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
     }
-}
 
-@media(max-width: 576px) {
-    .offer-slide {
-        height: 360px;
+    .hero-glass::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 450px;
+        height: 450px;
+        background: radial-gradient(circle, rgba(255, 107, 53, 0.25), transparent 70%);
+        pointer-events: none;
+        border-radius: 50%;
+        filter: blur(30px);
     }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        background: rgba(255, 107, 53, 0.18);
+        border: 1px solid rgba(255, 107, 53, 0.4);
+        border-radius: 50px;
+        color: #ffaa6b;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 0 15px rgba(255, 107, 53, 0.25);
+    }
+
+    .hero-title {
+        font-size: clamp(2.2rem, 5vw, 3.6rem);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -1px;
+        margin-bottom: 1.2rem;
+        background: linear-gradient(135deg, #ffffff 30%, #ffaa6b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: rgba(255, 255, 255, 0.75);
+        max-width: 650px;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .hero-stats-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-stat-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 8px 18px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+    }
+
+    .hero-stat-pill i {
+        color: #ff8c42;
+        font-size: 1.1rem;
+    }
+
+    /* Offers Cinematic Carousel */
+    .offer-slider-frame {
+        position: relative;
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), 0 0 35px rgba(255, 107, 53, 0.15);
+        margin-bottom: 4.5rem;
+        background: #0d131f;
+    }
+
+    .offer-slide {
+        display: none;
+        position: relative;
+        height: 520px;
+        overflow: hidden;
+    }
+
+    .offer-slide.active {
+        display: block;
+        animation: fadeSlide 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeSlide {
+        from {
+            opacity: 0;
+            transform: scale(1.02);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Ambient glow background using the offer image */
+    .offer-slide-bg {
+        position: absolute;
+        inset: -30px;
+        background-size: cover;
+        background-position: center;
+        filter: blur(35px) brightness(0.35) saturate(1.4);
+        transform: scale(1.12);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .offer-main-img {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .offer-slide.active .offer-main-img {
+        transform: scale(1.04);
+    }
+
+    .offer-slide-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        background: linear-gradient(180deg, rgba(11, 15, 25, 0.15) 0%, rgba(11, 15, 25, 0.35) 45%, rgba(11, 15, 25, 0.92) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: clamp(2rem, 5vw, 3.8rem);
+    }
+
+    .offer-badge {
+        background: linear-gradient(135deg, #ff3366, #ff6b35);
+        color: white;
+        padding: 6px 16px;
+        border-radius: 50px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 0.8rem;
+        box-shadow: 0 0 20px rgba(255, 51, 102, 0.55);
+        width: fit-content;
+    }
+
+    .offer-slide-title {
+        font-size: clamp(2rem, 4.2vw, 3.2rem);
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.15;
+        margin-bottom: 1.2rem;
+        text-shadow: 0 4px 18px rgba(0, 0, 0, 0.85);
+        max-width: 800px;
+    }
+
+    .offer-cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 0.95rem;
+        padding: 12px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 6px 22px rgba(255, 107, 53, 0.45);
+        transition: all 0.3s ease;
+        width: fit-content;
+    }
+
+    .offer-cta-btn:hover {
+        color: #ffffff;
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 10px 30px rgba(255, 107, 53, 0.65);
+    }
+
+    /* Nav Controls */
+    .slider-controls {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        right: 20px;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+        z-index: 10;
+    }
+
     .slider-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 1rem;
+        pointer-events: auto;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(11, 15, 25, 0.65);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.25s ease;
     }
-}
 
-/* Section Headers */
-.section-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
+    .slider-btn:hover {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        box-shadow: 0 0 20px rgba(255, 107, 53, 0.6);
+        transform: scale(1.12);
+    }
 
-.section-title-wrap h2 {
-    font-size: 1.85rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin: 0;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+    /* Dots Indicator */
+    .slider-dots-container {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 10;
+    }
 
-.section-title-wrap p {
-    color: rgba(255, 255, 255, 0.6);
-    margin: 4px 0 0;
-    font-size: 0.95rem;
-}
+    .slider-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.35);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
 
-/* Category 3D Cards */
-.category-card-3d {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(14px);
-    border-radius: 20px;
-    padding: 1.8rem 1.4rem;
-    text-align: center;
-    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-    text-decoration: none;
-    display: block;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
+    .slider-dot.active {
+        width: 28px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        box-shadow: 0 0 12px rgba(255, 107, 53, 0.8);
+    }
 
-.category-card-3d:hover {
-    transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 107, 53, 0.4);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 107, 53, 0.2);
-}
+    @media(max-width: 991px) {
+        .offer-slide {
+            height: 440px;
+        }
+    }
 
-.category-icon-sphere {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    margin: 0 auto 1.2rem;
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(13, 202, 240, 0.15));
-    border: 1px solid rgba(255, 107, 53, 0.35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ff8c42;
-    font-size: 1.8rem;
-    transition: all 0.35s ease;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
+    @media(max-width: 576px) {
+        .offer-slide {
+            height: 360px;
+        }
 
-.category-card-3d:hover .category-icon-sphere {
-    transform: scale(1.12) rotate(6deg);
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
-}
+        .slider-btn {
+            width: 38px;
+            height: 38px;
+            font-size: 1rem;
+        }
+    }
 
-.category-card-name {
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: #ffffff;
-    margin-bottom: 4px;
-}
+    /* Section Headers */
+    .section-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
 
-.category-card-sub {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+    .section-title-wrap h2 {
+        font-size: 1.85rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin: 0;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-/* 3D Product Cards */
-.product-card-3d {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 22px;
-    overflow: hidden;
-    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
+    .section-title-wrap p {
+        color: rgba(255, 255, 255, 0.6);
+        margin: 4px 0 0;
+        font-size: 0.95rem;
+    }
 
-.product-card-3d:hover {
-    transform: translateY(-8px);
-    border-color: rgba(255, 107, 53, 0.4);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 107, 53, 0.18);
-}
+    /* Category 3D Cards */
+    .category-card-3d {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(14px);
+        border-radius: 20px;
+        padding: 1.8rem 1.4rem;
+        text-align: center;
+        transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+        text-decoration: none;
+        display: block;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
 
-.product-thumb-container {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    background: rgba(0, 0, 0, 0.25);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .category-card-3d:hover {
+        transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.09);
+        border-color: rgba(255, 107, 53, 0.4);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 107, 53, 0.2);
+    }
 
-.product-thumb-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
+    .category-icon-sphere {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        margin: 0 auto 1.2rem;
+        background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(13, 202, 240, 0.15));
+        border: 1px solid rgba(255, 107, 53, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff8c42;
+        font-size: 1.8rem;
+        transition: all 0.35s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
 
-.product-card-3d:hover .product-thumb-img {
-    transform: scale(1.08);
-}
+    .category-card-3d:hover .category-icon-sphere {
+        transform: scale(1.12) rotate(6deg);
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+    }
 
-.product-badge-float {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    backdrop-filter: blur(10px);
-}
+    .category-card-name {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #ffffff;
+        margin-bottom: 4px;
+    }
 
-.badge-instock {
-    background: rgba(0, 210, 106, 0.2);
-    border: 1px solid rgba(0, 210, 106, 0.4);
-    color: #00d26a;
-}
+    .category-card-sub {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
 
-.badge-instock::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #00d26a;
-    box-shadow: 0 0 8px #00d26a;
-}
+    /* 3D Product Cards */
+    .product-card-3d {
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        overflow: hidden;
+        transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
 
-.badge-outstock {
-    background: rgba(255, 51, 102, 0.2);
-    border: 1px solid rgba(255, 51, 102, 0.4);
-    color: #ff3366;
-}
+    .product-card-3d:hover {
+        transform: translateY(-8px);
+        border-color: rgba(255, 107, 53, 0.4);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 107, 53, 0.18);
+    }
 
-.product-category-tag {
-    position: absolute;
-    bottom: 12px;
-    right: 14px;
-    background: rgba(11, 15, 25, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 50px;
-    z-index: 2;
-}
+    .product-thumb-container {
+        position: relative;
+        width: 100%;
+        height: 220px;
+        background: rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.product-info-wrap {
-    padding: 1.4rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
+    .product-thumb-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
 
-.product-title-text {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 6px;
-    line-height: 1.35;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
+    .product-card-3d:hover .product-thumb-img {
+        transform: scale(1.08);
+    }
 
-.product-desc-text {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.85rem;
-    line-height: 1.45;
-    margin-bottom: 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
+    .product-badge-float {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        backdrop-filter: blur(10px);
+    }
 
-.product-price-row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-top: auto;
-    margin-bottom: 1.2rem;
-}
+    .badge-instock {
+        background: rgba(0, 210, 106, 0.2);
+        border: 1px solid rgba(0, 210, 106, 0.4);
+        color: #00d26a;
+    }
 
-.product-price-val {
-    font-size: 1.35rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #ffffff 40%, #ffaa6b 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+    .badge-instock::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #00d26a;
+        box-shadow: 0 0 8px #00d26a;
+    }
 
-.product-actions-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-}
+    .badge-outstock {
+        background: rgba(255, 51, 102, 0.2);
+        border: 1px solid rgba(255, 51, 102, 0.4);
+        color: #ff3366;
+    }
 
-.btn-card-cart {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 0.88rem;
-    padding: 9px 12px;
-    border-radius: 12px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    text-decoration: none;
-    transition: all 0.25s ease;
-}
+    .product-category-tag {
+        position: absolute;
+        bottom: 12px;
+        right: 14px;
+        background: rgba(11, 15, 25, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 50px;
+        z-index: 2;
+    }
 
-.btn-card-cart:hover {
-    background: rgba(255, 255, 255, 0.16);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: #ffffff;
-    transform: translateY(-2px);
-}
+    .product-info-wrap {
+        padding: 1.4rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
 
-.btn-card-buy {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    border: none;
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 0.88rem;
-    padding: 9px 12px;
-    border-radius: 12px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    text-decoration: none;
-    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-    transition: all 0.25s ease;
-}
+    .product-title-text {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 6px;
+        line-height: 1.35;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 
-.btn-card-buy:hover {
-    background: linear-gradient(135deg, var(--primary-hover), var(--accent-hover));
-    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
-    color: #ffffff;
-    transform: translateY(-2px);
-}
+    .product-desc-text {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.85rem;
+        line-height: 1.45;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 
-/* Feature Pillars */
-.pillars-section {
-    margin-top: 5rem;
-    padding-top: 3.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
+    .product-price-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-top: auto;
+        margin-bottom: 1.2rem;
+    }
 
-.pillar-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 1.8rem;
-    height: 100%;
-    transition: all 0.3s ease;
-}
+    .product-price-val {
+        font-size: 1.35rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ffffff 40%, #ffaa6b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 
-.pillar-card:hover {
-    transform: translateY(-6px);
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 107, 53, 0.3);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-}
+    .product-actions-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
 
-.pillar-icon {
-    font-size: 2.2rem;
-    color: #ff8c42;
-    margin-bottom: 1rem;
-    display: inline-block;
-}
+    .btn-card-cart {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.88rem;
+        padding: 9px 12px;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-decoration: none;
+        transition: all 0.25s ease;
+    }
 
-.pillar-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 6px;
-}
+    .btn-card-cart:hover {
+        background: rgba(255, 255, 255, 0.16);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
 
-.pillar-desc {
-    font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.5;
-    margin: 0;
-}
+    .btn-card-buy {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        border: none;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.88rem;
+        padding: 9px 12px;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        transition: all 0.25s ease;
+    }
+
+    .btn-card-buy:hover {
+        background: linear-gradient(135deg, var(--primary-hover), var(--accent-hover));
+        box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
+
+    /* Feature Pillars */
+    .pillars-section {
+        margin-top: 5rem;
+        padding-top: 3.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .pillar-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 1.8rem;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .pillar-card:hover {
+        transform: translateY(-6px);
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 107, 53, 0.3);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .pillar-icon {
+        font-size: 2.2rem;
+        color: #ff8c42;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+
+    .pillar-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 6px;
+    }
+
+    .pillar-desc {
+        font-size: 0.88rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.5;
+        margin: 0;
+    }
 </style>
 {% endblock %}
 
@@ -635,14 +643,17 @@
             </div>
             <h1 class="hero-title">Elevate Your Lifestyle with Future-Ready Gear.</h1>
             <p class="hero-subtitle">
-                Explore a curated universe of premium tech, wearable accessories, and next-level essentials. Built with real-time 3D depth, instant express checkout, and bank-grade security.
+                Explore a curated universe of premium tech, wearable accessories, and next-level essentials. Built with
+                real-time 3D depth, instant express checkout, and bank-grade security.
             </p>
             <div class="d-flex flex-wrap gap-3">
                 <a href="#featured-products" class="btn btn-primary px-4 py-3">
                     <i class="bi bi-grid-fill me-2"></i> Explore Products
                 </a>
                 {% if offers %}
-                <a href="#special-offers" class="btn btn-outline-light px-4 py-3 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
+                <a href="#special-offers"
+                    class="btn btn-outline-light px-4 py-3 rounded-pill fw-semibold border-opacity-25"
+                    style="backdrop-filter: blur(10px);">
                     <i class="bi bi-tag-fill me-2 text-warning"></i> View Hot Deals
                 </a>
                 {% endif %}
@@ -666,15 +677,15 @@
     </div>
 </div>
 
-<!-- SPECIAL OFFERS SLIDER -->
+<!-- SPECIAL OFFERS SLIDER 
 {% if offers %}
 <div id="special-offers" class="offer-slider-frame" data-tilt-3d>
     {% for offer in offers %}
     <div class="offer-slide {% if forloop.first %}active{% endif %}" data-slide-index="{{ forloop.counter0 }}">
         {% if offer.image %}
-        <!-- Ambient blurred backdrop for rich atmosphere -->
+         Ambient blurred backdrop for rich atmosphere
         <div class="offer-slide-bg" style="background-image: url('{{ offer.image.url }}');"></div>
-        <!-- Main high-res offer image -->
+         Main high-res offer image 
         <img src="{{ offer.image.url }}" alt="{{ offer.title }}" class="offer-main-img">
         {% else %}
         <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark text-white-50">
@@ -693,15 +704,15 @@
         </div>
     </div>
     {% endfor %}
-
-    <!-- Controls -->
+-
+    Controls 
     {% if offers|length > 1 %}
     <div class="slider-controls">
         <button class="slider-btn" id="prevSlide" aria-label="Previous Offer"><i class="bi bi-chevron-left"></i></button>
         <button class="slider-btn" id="nextSlide" aria-label="Next Offer"><i class="bi bi-chevron-right"></i></button>
-    </div>
+    </div>-->
 
-    <!-- Dots -->
+<!-- Dots 
     <div class="slider-dots-container">
         {% for offer in offers %}
         <button class="slider-dot {% if forloop.first %}active{% endif %}" data-target-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
@@ -710,7 +721,7 @@
     {% endif %}
 </div>
 {% endif %} 
-
+-->
 <!-- SHOP BY CATEGORY -->
 {% if categories %}
 <div class="mb-5" id="categories">
@@ -799,7 +810,8 @@
         </div>
         {% empty %}
         <div class="col-12 text-center py-5">
-            <div class="p-5 rounded-4" style="background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2);">
+            <div class="p-5 rounded-4"
+                style="background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2);">
                 <i class="bi bi-box2 text-white-50" style="font-size: 3rem;"></i>
                 <h4 class="mt-3 text-white">No products found</h4>
                 <p class="text-white-50">Products will appear here once added in the dashboard.</p>
@@ -816,28 +828,32 @@
             <div class="pillar-card" data-tilt-3d>
                 <i class="bi bi-rocket-takeoff-fill pillar-icon"></i>
                 <div class="pillar-title">Express Dispatch</div>
-                <p class="pillar-desc">Ultra-fast order processing with real-time tracking updates delivered straight to your account.</p>
+                <p class="pillar-desc">Ultra-fast order processing with real-time tracking updates delivered straight to
+                    your account.</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="pillar-card" data-tilt-3d>
                 <i class="bi bi-shield-lock-fill pillar-icon"></i>
                 <div class="pillar-title">Bank-Grade Security</div>
-                <p class="pillar-desc">Manual payment proof verification and encrypted checkout protection for total peace of mind.</p>
+                <p class="pillar-desc">Manual payment proof verification and encrypted checkout protection for total
+                    peace of mind.</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="pillar-card" data-tilt-3d>
                 <i class="bi bi-patch-check-fill pillar-icon"></i>
                 <div class="pillar-title">100% Genuine Items</div>
-                <p class="pillar-desc">Direct-from-manufacturer authorized stock backed with full product warranty coverage.</p>
+                <p class="pillar-desc">Direct-from-manufacturer authorized stock backed with full product warranty
+                    coverage.</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="pillar-card" data-tilt-3d>
                 <i class="bi bi-headset pillar-icon"></i>
                 <div class="pillar-title">24/7 Dedicated Care</div>
-                <p class="pillar-desc">Have a question? Our support team is standing by around the clock to assist your shopping journey.</p>
+                <p class="pillar-desc">Have a question? Our support team is standing by around the clock to assist your
+                    shopping journey.</p>
             </div>
         </div>
     </div>
@@ -847,75 +863,75 @@
 
 {% block extra_js %}
 <script>
-// Interactive Slider Controller with Dots & Controls
-(function initSlider() {
-    const slides = document.querySelectorAll(".offer-slide");
-    const dots = document.querySelectorAll(".slider-dot");
-    if (!slides || slides.length <= 1) return;
+    // Interactive Slider Controller with Dots & Controls
+    (function initSlider() {
+        const slides = document.querySelectorAll(".offer-slide");
+        const dots = document.querySelectorAll(".slider-dot");
+        if (!slides || slides.length <= 1) return;
 
-    let current = 0;
-    let timer = null;
+        let current = 0;
+        let timer = null;
 
-    function showSlide(index) {
-        slides.forEach(s => s.classList.remove('active'));
-        dots.forEach(d => d.classList.remove('active'));
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
 
-        slides[index].classList.add('active');
-        if (dots[index]) dots[index].classList.add('active');
-        current = index;
-    }
+            slides[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+            current = index;
+        }
 
-    function next() {
-        showSlide((current + 1) % slides.length);
-    }
+        function next() {
+            showSlide((current + 1) % slides.length);
+        }
 
-    function prev() {
-        showSlide((current - 1 + slides.length) % slides.length);
-    }
+        function prev() {
+            showSlide((current - 1 + slides.length) % slides.length);
+        }
 
-    function startTimer() {
-        stopTimer();
-        timer = setInterval(next, 5000);
-    }
+        function startTimer() {
+            stopTimer();
+            timer = setInterval(next, 5000);
+        }
 
-    function stopTimer() {
-        if (timer) clearInterval(timer);
-    }
+        function stopTimer() {
+            if (timer) clearInterval(timer);
+        }
 
-    const prevBtn = document.getElementById('prevSlide');
-    const nextBtn = document.getElementById('nextSlide');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
 
-    if (prevBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            prev();
-            startTimer();
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                prev();
+                startTimer();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                next();
+                startTimer();
+            });
+        }
+
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSlide(idx);
+                startTimer();
+            });
         });
-    }
 
-    if (nextBtn) {
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            next();
-            startTimer();
-        });
-    }
+        const frame = document.querySelector('.offer-slider-frame');
+        if (frame) {
+            frame.addEventListener('mouseenter', stopTimer);
+            frame.addEventListener('mouseleave', startTimer);
+        }
 
-    dots.forEach((dot, idx) => {
-        dot.addEventListener('click', (e) => {
-            e.preventDefault();
-            showSlide(idx);
-            startTimer();
-        });
-    });
-
-    const frame = document.querySelector('.offer-slider-frame');
-    if (frame) {
-        frame.addEventListener('mouseenter', stopTimer);
-        frame.addEventListener('mouseleave', startTimer);
-    }
-
-    startTimer();
-})();
+        startTimer();
+    })();
 </script>
 {% endblock %}

@@ -1,40 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %}Order #{{ order.id }} Details - ShopEase{% endblock %}
+{% block title %}Order #{{ order.id }} Details — ShopEase 3D{% endblock %}
 
 {% block extra_css %}
 <style>
-/* =========================================================
-   ORDER DETAIL PAGE - PREMIUM 3D & GLASSMORPHIC STYLING
-   ========================================================= */
-
 .order-detail-wrapper {
     max-width: 960px;
-    margin: 2rem auto;
+    margin: 2rem auto 4.5rem;
     perspective: 1200px;
 }
 
 .order-detail-glass {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 24px;
-    padding: 2.5rem;
-    box-shadow:
-        0 25px 50px rgba(0, 0, 0, 0.35),
-        0 0 30px rgba(255, 107, 53, 0.12);
-    transform-style: preserve-3d;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    background: rgba(255, 255, 255, 0.045);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    padding: 2.8rem;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    color: #ffffff;
+    position: relative;
 }
 
-.order-detail-glass:hover {
-    box-shadow:
-        0 30px 60px rgba(0, 0, 0, 0.45),
-        0 0 45px rgba(255, 107, 53, 0.2);
-}
-
-/* Header */
 .order-detail-header {
     display: flex;
     justify-content: space-between;
@@ -42,51 +29,46 @@
     flex-wrap: wrap;
     gap: 1rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     margin-bottom: 2rem;
 }
 
 .order-title {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 800;
     margin: 0;
-    background: linear-gradient(135deg, #ffffff, #d5dce5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #ffffff;
 }
 
 .order-date {
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--pearl-muted);
     font-size: 0.95rem;
     margin-top: 4px;
 }
 
-/* Status Badges */
 .status-pill {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: 8px 18px;
     border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 700;
+    font-size: 0.82rem;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
-.status-pending { background: linear-gradient(135deg, #ffc107, #ff9800); color: #111; }
-.status-confirmed { background: linear-gradient(135deg, #0dcaf0, #0088cc); color: #fff; }
-.status-shipped { background: linear-gradient(135deg, #0d6efd, #004dc7); color: #fff; }
-.status-delivered { background: linear-gradient(135deg, #198754, #0f5132); color: #fff; }
-.status-cancelled { background: linear-gradient(135deg, #dc3545, #a71d2a); color: #fff; }
+.status-pending { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+.status-confirmed { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+.status-shipped { background: rgba(99, 102, 241, 0.2); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.4); }
+.status-delivered { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+.status-cancelled { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
 
-/* 3D Visual Stepper */
 .stepper-container {
     margin: 2rem 0 2.5rem;
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 18px;
-    padding: 1.8rem 1.2rem;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 20px;
+    padding: 2rem 1.4rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -103,7 +85,7 @@
     left: 40px;
     right: 40px;
     height: 4px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
     z-index: 1;
 }
 
@@ -112,7 +94,7 @@
     top: 20px;
     left: 40px;
     height: 4px;
-    background: linear-gradient(90deg, #ff6b35, #2ecc71);
+    background: var(--gradient-prism);
     z-index: 2;
     transition: width 0.8s ease;
 }
@@ -128,7 +110,7 @@
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: #1e1e2f;
+    background: #0f172a;
     border: 3px solid rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
@@ -140,23 +122,23 @@
 }
 
 .step-node.completed .step-circle {
-    background: #2ecc71;
-    border-color: #2ecc71;
+    background: #10b981;
+    border-color: #34d399;
     color: #fff;
-    box-shadow: 0 0 18px rgba(46, 204, 113, 0.6);
+    box-shadow: 0 0 18px rgba(16, 185, 129, 0.6);
 }
 
 .step-node.active .step-circle {
-    background: #ff6b35;
-    border-color: #ff8c42;
+    background: #6366f1;
+    border-color: #a5b4fc;
     color: #fff;
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.7);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.7);
     transform: scale(1.15);
 }
 
 .step-label {
     font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--pearl-muted);
     font-weight: 600;
 }
 
@@ -165,12 +147,11 @@
     color: #fff;
 }
 
-/* Items Card */
 .items-card {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.035);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 1.5rem;
+    border-radius: 20px;
+    padding: 1.6rem;
     margin-bottom: 2rem;
 }
 
@@ -179,7 +160,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     gap: 1rem;
 }
 
@@ -197,8 +178,8 @@
     height: 60px;
     border-radius: 12px;
     object-fit: cover;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .item-info {
@@ -214,17 +195,16 @@
 
 .item-meta {
     font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--pearl-muted);
 }
 
 .item-total {
     font-weight: 700;
     font-size: 1.15rem;
-    color: #ff8c42;
+    color: #a5b4fc;
     white-space: nowrap;
 }
 
-/* Info Grid */
 .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -233,17 +213,17 @@
 }
 
 .info-block {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.035);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 1.4rem;
+    border-radius: 18px;
+    padding: 1.5rem;
 }
 
 .info-block h6 {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     text-transform: uppercase;
     letter-spacing: 0.8px;
-    color: #ff8c42;
+    color: #a5b4fc;
     margin-bottom: 1rem;
     font-weight: 700;
     display: flex;
@@ -270,12 +250,11 @@
     transform: scale(1.05);
 }
 
-/* Summary Card */
 .total-box {
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(255, 140, 66, 0.08));
-    border: 1px solid rgba(255, 107, 53, 0.3);
-    border-radius: 16px;
-    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(99, 102, 241, 0.08));
+    border: 1px solid rgba(165, 180, 252, 0.25);
+    border-radius: 20px;
+    padding: 1.6rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -290,11 +269,11 @@
 .total-value {
     font-size: 1.8rem;
     font-weight: 800;
-    color: #ff8c42;
-    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 70%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Actions */
 .action-bar {
     display: flex;
     gap: 1rem;
@@ -304,23 +283,16 @@
 
 @media print {
     body { background: white !important; color: black !important; }
-    .navbar, .footer, .action-bar, #three-canvas-bg { display: none !important; }
+    .navbar, .footer, .action-bar, #webgl-ambient-canvas { display: none !important; }
     .order-detail-glass { background: white !important; color: black !important; border: none !important; box-shadow: none !important; }
     .order-title, .item-name, .info-block p { color: black !important; -webkit-text-fill-color: black !important; }
-}
-
-@media (max-width: 600px) {
-    .order-detail-glass { padding: 1.5rem; }
-    .stepper-track::before { left: 20px; right: 20px; }
-    .step-node { width: 70px; }
-    .step-label { font-size: 0.72rem; }
 }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="order-detail-wrapper">
-    <div class="order-detail-glass">
+    <div class="order-detail-glass" data-tilt-3d>
 
         <!-- HEADER -->
         <div class="order-detail-header">
@@ -358,7 +330,7 @@
                 {% elif order.status == 'delivered' %}
                     <div class="stepper-progress" style="width: 100%;"></div>
                 {% else %}
-                    <div class="stepper-progress" style="width: 15%; background: #dc3545;"></div>
+                    <div class="stepper-progress" style="width: 15%; background: #f43f5e;"></div>
                 {% endif %}
 
                 <!-- Node 1: Placed -->
@@ -390,7 +362,7 @@
         <!-- ORDER ITEMS -->
         <div class="items-card">
             <h5 class="fw-bold mb-3 text-white">
-                <i class="bi bi-bag-check me-2" style="color: #ff8c42;"></i> Purchased Items
+                <i class="bi bi-bag-check me-2 text-info"></i> Purchased Items
             </h5>
 
             {% for item in order.items.all %}
@@ -398,7 +370,7 @@
                     {% if item.product.image %}
                         <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="item-thumb">
                     {% else %}
-                        <div class="item-thumb d-flex align-items-center justify-content-center text-muted">
+                        <div class="item-thumb d-flex align-items-center justify-content-center text-white-50">
                             <i class="bi bi-box fs-3"></i>
                         </div>
                     {% endif %}
@@ -415,7 +387,7 @@
                     </div>
                 </div>
             {% empty %}
-                <p class="text-muted mb-0">No items found for this order.</p>
+                <p class="text-pearl-muted mb-0">No items found for this order.</p>
             {% endfor %}
         </div>
 
@@ -439,7 +411,7 @@
                 <a href="{{ order.payment_screenshot.url }}" target="_blank">
                     <img src="{{ order.payment_screenshot.url }}" alt="Payment Screenshot" class="proof-preview">
                 </a>
-                <p class="small text-muted mt-2">Click to view full receipt</p>
+                <p class="small text-pearl-muted mt-2">Click to inspect full receipt</p>
             </div>
             {% endif %}
         </div>
@@ -448,7 +420,7 @@
         <div class="total-box">
             <div>
                 <div class="total-label">Total Amount Paid</div>
-                <small class="text-muted">Includes free shipping and applicable taxes</small>
+                <small class="text-pearl-muted">Includes free insured shipping and verified taxes</small>
             </div>
             <div class="total-value">
                 ₹{{ order.total_amount }}
@@ -457,15 +429,15 @@
 
         <!-- ACTION BAR -->
         <div class="action-bar">
-            <a href="{% url 'shop:my_orders' %}" class="btn btn-outline-light px-4 py-2" style="border-radius: 50px;">
+            <a href="{% url 'shop:my_orders' %}" class="btn-glass px-4 py-2">
                 <i class="bi bi-arrow-left me-1"></i> Back to Orders
             </a>
 
             <div>
-                <button onclick="window.print()" class="btn btn-secondary px-4 py-2 me-2" style="border-radius: 50px;">
+                <button onclick="window.print()" class="btn-glass px-4 py-2 me-2">
                     <i class="bi bi-printer me-1"></i> Print Invoice
                 </button>
-                <a href="{% url 'shop:home' %}" class="btn btn-primary px-4 py-2" style="border-radius: 50px;">
+                <a href="{% url 'shop:home' %}" class="btn-prism px-4 py-2">
                     <i class="bi bi-bag-plus me-1"></i> Continue Shopping
                 </a>
             </div>

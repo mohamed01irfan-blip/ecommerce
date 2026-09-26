@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Order #{{ order.id }} Confirmed - ShopEase 3D{% endblock %}
+{% block title %}Order #{{ order.id }} Confirmed — ShopEase 3D{% endblock %}
 
 {% block extra_css %}
 <style>
-/* =========================================================
-   ORDER SUCCESS - 3D CELEBRATORY CONFIRMATION EXPERIENCE
-   ========================================================= */
-
 .success-canvas-confetti {
     position: fixed;
     top: 0;
@@ -25,7 +21,6 @@
     perspective: 1200px;
 }
 
-/* 3D Checkmark Orb */
 .celebrate-orb-container {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -33,20 +28,20 @@
 }
 
 .celebrate-orb {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     margin: 0 auto 1.5rem;
     border-radius: 50%;
-    background: linear-gradient(135deg, #00d26a, #00a854);
+    background: linear-gradient(135deg, #10b981, #059669);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     box-shadow:
-        0 0 0 12px rgba(0, 210, 106, 0.15),
-        0 0 0 24px rgba(0, 210, 106, 0.08),
-        0 15px 35px rgba(0, 210, 106, 0.4);
+        0 0 0 10px rgba(16, 185, 129, 0.15),
+        0 0 0 20px rgba(16, 185, 129, 0.08),
+        0 15px 35px rgba(16, 185, 129, 0.4);
     animation: orbPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
 }
@@ -66,21 +61,20 @@
 }
 
 .success-sub {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.05rem;
+    color: var(--pearl-muted);
     max-width: 580px;
     margin: 0 auto;
 }
 
-/* 3D Glass Receipt */
 .receipt-glass-card {
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 26px;
-    padding: 2.5rem;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35), 0 0 35px rgba(0, 210, 106, 0.12);
+    background: rgba(255, 255, 255, 0.045);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    padding: 2.8rem;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
     color: #ffffff;
     position: relative;
     overflow: hidden;
@@ -93,7 +87,7 @@
     flex-wrap: wrap;
     gap: 1rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     margin-bottom: 2rem;
 }
 
@@ -101,13 +95,13 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 6px 16px;
     border-radius: 50px;
     font-size: 0.95rem;
     font-weight: 700;
-    color: #ffaa6b;
+    color: #a5b4fc;
 }
 
 .btn-copy-id {
@@ -124,13 +118,8 @@
     color: #ffffff;
 }
 
-/* Status Timeline */
 .timeline-stepper {
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-    padding: 1.6rem 1.2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .stepper-steps {
@@ -142,11 +131,11 @@
 .stepper-steps::before {
     content: '';
     position: absolute;
-    top: 18px;
-    left: 10%;
-    right: 10%;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.12);
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
     z-index: 1;
 }
 
@@ -154,45 +143,45 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    flex: 1;
+    width: 80px;
 }
 
 .step-circle {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: #1e293b;
+    background: #0f172a;
     border: 2px solid rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 8px;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.95rem;
 }
 
 .step-node.active .step-circle {
-    background: #00d26a;
-    border-color: #00d26a;
+    background: #6366f1;
+    border-color: #a5b4fc;
     color: #ffffff;
-    box-shadow: 0 0 15px rgba(0, 210, 106, 0.6);
+    box-shadow: 0 0 18px rgba(99, 102, 241, 0.6);
 }
 
 .step-label {
     font-size: 0.78rem;
+    color: var(--pearl-muted);
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .step-node.active .step-label {
-    color: #00d26a;
+    color: #ffffff;
 }
 
-/* Itemized Table */
 .items-list-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 18px;
+    padding: 1.4rem;
     margin-bottom: 2rem;
 }
 
@@ -201,7 +190,12 @@
     align-items: center;
     gap: 1rem;
     padding: 1rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.item-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .item-thumb {
@@ -209,7 +203,7 @@
     height: 56px;
     border-radius: 12px;
     object-fit: cover;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -225,7 +219,7 @@
 
 .item-meta {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--pearl-muted);
 }
 
 .item-price {
@@ -234,7 +228,6 @@
     color: #ffffff;
 }
 
-/* Info Grid */
 .info-glass-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -243,10 +236,10 @@
 }
 
 .info-card {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.035);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 1.2rem;
+    border-radius: 18px;
+    padding: 1.4rem;
 }
 
 .info-label {
@@ -254,7 +247,7 @@
     color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .info-val {
@@ -263,12 +256,11 @@
     font-weight: 600;
 }
 
-/* Total Bar */
 .total-highlight-bar {
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(0, 210, 106, 0.15));
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 18px;
-    padding: 1.4rem 1.8rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(99, 102, 241, 0.08));
+    border: 1px solid rgba(165, 180, 252, 0.25);
+    border-radius: 20px;
+    padding: 1.4rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -284,11 +276,10 @@
 .total-amount {
     font-size: 1.8rem;
     font-weight: 800;
-    color: #00d26a;
-    text-shadow: 0 0 15px rgba(0, 210, 106, 0.4);
+    color: #34d399;
+    text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
 }
 
-/* Actions */
 .success-actions-row {
     display: flex;
     flex-wrap: wrap;
@@ -297,18 +288,11 @@
 }
 
 @media print {
-    #webgl-3d-bg, .navbar, .footer, .success-actions-row, .success-canvas-confetti {
+    #webgl-ambient-canvas, .navbar, .footer, .success-actions-row, .success-canvas-confetti {
         display: none !important;
     }
-    body {
-        background: white !important;
-        color: black !important;
-    }
-    .receipt-glass-card {
-        border: 1px solid #ccc !important;
-        box-shadow: none !important;
-        color: black !important;
-    }
+    body { background: white !important; color: black !important; }
+    .receipt-glass-card { border: 1px solid #ccc !important; box-shadow: none !important; color: black !important; }
 }
 </style>
 {% endblock %}
@@ -340,7 +324,7 @@
                     <i class="bi bi-clipboard"></i> Copy
                 </button>
             </div>
-            <div class="text-white-50 small">
+            <div class="text-pearl-muted small">
                 <i class="bi bi-calendar3 me-1"></i> {{ order.created_at|date:"M d, Y - h:i A" }}
             </div>
         </div>
@@ -370,7 +354,7 @@
         <!-- ITEMS ORDERED -->
         {% if order.items.all %}
         <div class="items-list-box">
-            <h5 class="fw-bold mb-3 text-white"><i class="bi bi-boxes text-warning me-2"></i> Items Summary</h5>
+            <h5 class="fw-bold mb-3 text-white"><i class="bi bi-boxes text-info me-2"></i> Items Summary</h5>
             {% for item in order.items.all %}
             <div class="item-row">
                 {% if item.product.image %}
@@ -399,14 +383,14 @@
             <div class="info-card">
                 <div class="info-label"><i class="bi bi-person me-1"></i> Contact</div>
                 <div class="info-val">{{ order.phone }}</div>
-                <div class="text-white-50 small mt-1">{{ order.email }}</div>
+                <div class="text-pearl-muted small mt-1">{{ order.email }}</div>
             </div>
             <div class="info-card">
                 <div class="info-label"><i class="bi bi-shield-check me-1"></i> Payment Proof</div>
                 <div class="info-val text-success">
                     <i class="bi bi-check-circle-fill me-1"></i> Screenshot Uploaded
                 </div>
-                <div class="text-white-50 small mt-1">Status: {{ order.get_status_display }}</div>
+                <div class="text-pearl-muted small mt-1">Status: {{ order.get_status_display }}</div>
             </div>
         </div>
 
@@ -414,24 +398,24 @@
         <div class="total-highlight-bar">
             <div>
                 <div class="total-label">Total Paid</div>
-                <div class="text-white-50 small">Includes all applicable taxes & shipping</div>
+                <div class="text-pearl-muted small">Includes all applicable taxes & shipping</div>
             </div>
             <div class="total-amount">₹{{ order.total_amount }}</div>
         </div>
 
         <!-- ACTIONS -->
         <div class="success-actions-row">
-            <a href="{% url 'shop:order_detail' order.id %}" class="btn btn-primary px-4 py-2">
-                <i class="bi bi-geo-fill me-2"></i> Track Order Live
+            <a href="{% url 'shop:order_detail' order.id %}" class="btn-prism px-4 py-2">
+                <i class="bi bi-geo-fill me-1"></i> Track Order Live
             </a>
-            <a href="{% url 'shop:my_orders' %}" class="btn btn-outline-light px-4 py-2 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
-                <i class="bi bi-clock-history me-2"></i> My Orders
+            <a href="{% url 'shop:my_orders' %}" class="btn-glass px-4 py-2">
+                <i class="bi bi-clock-history me-1"></i> My Orders
             </a>
-            <button onclick="window.print()" class="btn btn-outline-light px-4 py-2 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
-                <i class="bi bi-printer me-2"></i> Print Receipt
+            <button onclick="window.print()" class="btn-glass px-4 py-2">
+                <i class="bi bi-printer me-1"></i> Print Receipt
             </button>
-            <a href="{% url 'shop:home' %}" class="btn btn-outline-light px-4 py-2 rounded-pill fw-semibold border-opacity-25" style="backdrop-filter: blur(10px);">
-                <i class="bi bi-arrow-left me-2"></i> Continue Shopping
+            <a href="{% url 'shop:home' %}" class="btn-glass px-4 py-2">
+                <i class="bi bi-arrow-left me-1"></i> Continue Shopping
             </a>
         </div>
     </div>
@@ -440,7 +424,6 @@
 
 {% block extra_js %}
 <script>
-// Copy Order ID Toast
 function copyOrderId(id) {
     navigator.clipboard.writeText(id).then(() => {
         alert("Order #" + id + " copied to clipboard!");
@@ -449,71 +432,67 @@ function copyOrderId(id) {
     });
 }
 
-// 3D Canvas Confetti Burst
+// Particle Confetti Cannon
 (function initConfetti() {
     const canvas = document.getElementById('confettiCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const pieces = [];
-    const numberOfPieces = 90;
-    const colors = ['#ff6b35', '#00d26a', '#0dcaf0', '#ffb800', '#ffffff', '#ff3366'];
+    const confettiPieces = [];
+    const colors = ['#6366f1', '#a855f7', '#ec4899', '#38bdf8', '#10b981', '#f59e0b', '#ffffff'];
 
-    for (let i = 0; i < numberOfPieces; i++) {
-        pieces.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height - canvas.height,
-            size: Math.random() * 8 + 4,
-            speedY: Math.random() * 3 + 2,
-            speedX: (Math.random() - 0.5) * 3,
+    for (let i = 0; i < 90; i++) {
+        confettiPieces.push({
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2 - 80,
+            r: Math.random() * 6 + 4,
+            d: Math.random() * 80,
             color: colors[Math.floor(Math.random() * colors.length)],
-            rotation: Math.random() * 360,
-            rotationSpeed: (Math.random() - 0.5) * 8
+            tilt: Math.floor(Math.random() * 10) - 10,
+            tiltAngleIncremental: (Math.random() * 0.07) + .05,
+            tiltAngle: 0,
+            vx: (Math.random() - 0.5) * 16,
+            vy: (Math.random() - 0.5) * 14 - 3,
+            gravity: 0.12,
+            opacity: 1
         });
     }
 
-    let animationFrame;
-    let startTime = Date.now();
-
-    function draw() {
+    let frames = 0;
+    function render() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
 
-        // Stop after 6 seconds to preserve resources
-        if (Date.now() - startTime > 6500) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            return;
-        }
+        confettiPieces.forEach((p) => {
+            p.tiltAngle += p.tiltAngleIncremental;
+            p.y += p.vy;
+            p.x += p.vx;
+            p.vy += p.gravity;
+            p.vx *= 0.98;
+            p.opacity -= 0.007;
 
-        pieces.forEach(p => {
-            ctx.save();
-            ctx.translate(p.x, p.y);
-            ctx.rotate((p.rotation * Math.PI) / 180);
-            ctx.fillStyle = p.color;
-            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
-            ctx.restore();
-
-            p.y += p.speedY;
-            p.x += p.speedX;
-            p.rotation += p.rotationSpeed;
-
-            if (p.y > canvas.height) {
-                p.y = -20;
-                p.x = Math.random() * canvas.width;
+            if (p.opacity > 0) {
+                alive = true;
+                ctx.beginPath();
+                ctx.lineWidth = p.r / 2;
+                ctx.strokeStyle = p.color;
+                ctx.globalAlpha = Math.max(0, p.opacity);
+                ctx.moveTo(p.x + p.tilt + (p.r / 4), p.y);
+                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + (p.r / 4));
+                ctx.stroke();
             }
         });
 
-        animationFrame = requestAnimationFrame(draw);
+        frames++;
+        if (alive && frames < 220) {
+            requestAnimationFrame(render);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
     }
-
-    draw();
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
+    render();
 })();
 </script>
 {% endblock %}

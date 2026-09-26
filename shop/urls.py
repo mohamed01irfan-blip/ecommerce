@@ -4,10 +4,10 @@ from . import views
 app_name = 'shop'
 
 urlpatterns = [
-    path('', views.admin_dashboard, name='admin_dashboard'),
-
-    # Home
-    path('home/', views.home, name='home'),
+    # Storefront Landing
+    path('', views.home, name='home'),
+    path('home/', views.home, name='home_alt'),
+    path('dashboard/', views.admin_dashboard, name='admin_dashboard'),
 
     # Offers (user side)
     path('offers/', views.offer_list, name='offer_list'),
